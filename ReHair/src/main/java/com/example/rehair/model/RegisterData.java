@@ -1,4 +1,4 @@
-package com.example.rehair.entity;
+package com.example.rehair.model;
 
 public class RegisterData {
     String userName;

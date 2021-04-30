@@ -1,25 +1,25 @@
-package com.example.rehair;
+package com.example.rehair.controller;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.util.JSONPObject;
-import org.apache.tomcat.util.json.JSONParser;
+import com.example.rehair.service.*;
+import com.example.rehair.model.*;
+
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServletRequest;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
+import javax.annotation.Resource;
 
 
 @RestController
 class controller {
-    private ObjectMapper mapper = new ObjectMapper();
 
-    @RequestMapping(value = "register", method = RequestMethod.POST)
-    public entity.User dealRegister (@RequestBody String list) throws JSONException, JsonProcessingException {
+    @Resource
+    public UserService userService;
+
+
+    @RequestMapping(value = "/register", method = RequestMethod.POST)
+    public User dealRegister (@RequestBody String list) throws JSONException{
         System.out.println(list);
         JSONObject jsonObject = new JSONObject(list);
         String userName = jsonObject.getString("username");
@@ -29,17 +29,11 @@ class controller {
         System.out.println(passWd);
         System.out.println(email);
 
-        entity.User user = new entity.User(userName, passWd, email);
-        queryUserById("sss");
+        User user = new User(userName, passWd, email);
+        int result = userService.insertUser(userName, passWd, email);
+        System.out.println(result);
+        //userService.queryUserById("sss");
         return user;
     }
-    /*
-    @RequestMapping(value="/login", method=RequestMethod.POST)
-    public entity.User dealLogin (@RequestBody String list) throws JSONException {
-        JSONObject jsonObject = new JSONObject(list);
-        String userName = jsonObject.getString("username");
-        String passWd = jsonObject.getString("passwd");
 
-    }
-*/
 }

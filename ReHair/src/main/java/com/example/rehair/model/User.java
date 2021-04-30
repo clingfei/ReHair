@@ -1,4 +1,4 @@
-package entity;
+package com.example.rehair.model;
 
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
