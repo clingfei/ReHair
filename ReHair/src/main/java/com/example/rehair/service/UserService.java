@@ -3,11 +3,8 @@ package com.example.rehair.service;
 
 import com.example.rehair.model.LoginData;
 import com.example.rehair.model.RegisterData;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 
-import java.io.FileNotFoundException;
-import java.io.IOException;
+import javax.servlet.http.HttpServletRequest;
 
 
 public interface UserService {
@@ -15,5 +12,7 @@ public interface UserService {
 
     public RegisterData register(String userName, String passWd, String email);
 
-    public LoginData login(String userName, String passWd);
+    public LoginData login(HttpServletRequest req, String userName, String passWd);
+
 }
+

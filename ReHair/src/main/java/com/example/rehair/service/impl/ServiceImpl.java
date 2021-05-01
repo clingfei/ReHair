@@ -9,6 +9,7 @@ import org.springframework.util.ResourceUtils;
 
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 import java.io.File;
 import java.io.FileNotFoundException;
 
@@ -47,6 +48,7 @@ public class ServiceImpl implements UserService {
         BCryptPasswordEncoder encoder = new BCryptPasswordEncoder(10);
         return encoder.matches(password, encryptedPassword);
     }
+
     private String hashEncode(String passWd) {
         BCryptPasswordEncoder encoder = new BCryptPasswordEncoder(10);
         return encoder.encode(passWd);
@@ -66,7 +68,7 @@ public class ServiceImpl implements UserService {
         return data;
     }
 
-    public LoginData login(String userName, String passWd) {
+    public LoginData login(HttpServletRequest req, String userName, String passWd) {
         String passWord = userDao.queryUserByName(userName);
 
         if (match(passWd, passWord)) {
@@ -74,4 +76,5 @@ public class ServiceImpl implements UserService {
         }
         return new LoginData(false, "UserName or PassWord is Error.");
     }
+
 }

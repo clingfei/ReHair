@@ -8,7 +8,7 @@ import org.json.JSONObject;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
-
+import javax.servlet.http.HttpServletRequest;
 
 @RestController
 class controller {
@@ -34,12 +34,12 @@ class controller {
     }
 
     @RequestMapping(value = "/login", method = RequestMethod.POST)
-    public LoginData dealLogin (@RequestBody String list) throws JSONException{
+    public LoginData dealLogin (HttpServletRequest req, @RequestBody String list) throws JSONException{
         System.out.println(list);
         JSONObject jsonObject = new JSONObject(list);
         String userName = jsonObject.getString("username");
         String passWd = jsonObject.getString("password");
-        LoginData data = userService.login(userName, passWd);
+        LoginData data = userService.login(req, userName, passWd);
         return data;
     }
 }
