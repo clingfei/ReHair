@@ -1,4 +1,17 @@
 # ReHair
+## 环境需求
+java 16 2021-03-16
+
+Java(TM) SE Runtime Environment (build 16+36-2231)
+
+Java HotSpot(TM) 64-Bit Server VM (build 16+36-2231, mixed mode, sharing)
+
+Spring CLI v2.5.0-snap-shot
+
+[Redis 5.0.10 for Windows](https://github.com/tporadowski/redis/releases)
+
+MySQL Ver 8.0.24 for Win64 on x86_64
+
 ## 通信
 HTTPS  8081端口
 HTTP 8080端口
