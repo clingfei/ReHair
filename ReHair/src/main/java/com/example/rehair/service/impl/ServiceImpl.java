@@ -4,7 +4,6 @@ import com.example.rehair.dao.UserDao;
 import com.example.rehair.service.UserService;
 import org.springframework.stereotype.Service;
 
-import java.lang.annotation.Annotation;
 import com.example.rehair.model.*;
 
 import javax.annotation.Resource;
@@ -19,10 +18,17 @@ public class ServiceImpl implements UserService {
         return "Hello";
     }
 
-    public int insertUser(String userName, String passWd, String email) {
+    public RegisterData insertUser(String userName, String passWd, String email) {
         System.out.println(userName);
         User user = new User(userName, passWd, email);
         return userDao.insertUser(user);
     }
 
+    public LoginData queryUserByName(String userName, String passWd) {
+        String passWord = userDao.queryUserByName(userName);
+        if (passWd.equals(passWord)) {
+            return new LoginData(true, "");
+        }
+        return new LoginData(false, "UserName or PassWord is Error.");
+    }
 }

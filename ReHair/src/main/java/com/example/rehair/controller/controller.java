@@ -19,7 +19,7 @@ class controller {
 
 
     @RequestMapping(value = "/register", method = RequestMethod.POST)
-    public User dealRegister (@RequestBody String list) throws JSONException{
+    public RegisterData dealRegister (@RequestBody String list) throws JSONException{
         System.out.println(list);
         JSONObject jsonObject = new JSONObject(list);
         String userName = jsonObject.getString("username");
@@ -29,11 +29,19 @@ class controller {
         System.out.println(passWd);
         System.out.println(email);
 
-        User user = new User(userName, passWd, email);
-        int result = userService.insertUser(userName, passWd, email);
-        System.out.println(result);
-        //userService.queryUserById("sss");
-        return user;
+        RegisterData data = userService.insertUser(userName, passWd, email);
+        System.out.println(data);
+        return data;
     }
 
+    @RequestMapping(value = "/login", method = RequestMethod.POST)
+    public LoginData dealLogin (@RequestBody String list) throws JSONException{
+        System.out.println(list);
+        JSONObject jsonObject = new JSONObject(list);
+        String userName = jsonObject.getString("username");
+        String passWd = jsonObject.getString("passwd");
+        LoginData data = userService.queryUserByName(userName, passWd);
+        return data;
+
+    }
 }
