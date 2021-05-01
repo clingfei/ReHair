@@ -25,9 +25,9 @@ class UserDaoJdbcTemplateImpl implements UserDao {
     public RegisterData insertUser(User user) {
         String sql = "INSERT INTO user (username, password, email) VALUES (:username, :password, :email)";
         Map<String,Object> param = new HashMap<String,Object>();
-        param.put("username", user.userName);
-        param.put("password", user.passWd);
-        param.put("email", user.email);
+        param.put("username", user.getUserName());
+        param.put("password", user.getPassWd());
+        param.put("email", user.getEmail());
 
         try {
             jdbcTemplate.update(sql, param);

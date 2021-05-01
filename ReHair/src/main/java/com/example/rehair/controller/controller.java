@@ -23,13 +23,13 @@ class controller {
         System.out.println(list);
         JSONObject jsonObject = new JSONObject(list);
         String userName = jsonObject.getString("username");
-        String passWd = jsonObject.getString("passwd");
+        String passWd = jsonObject.getString("password");
         String email = jsonObject.getString("email");
         System.out.println(userName);
         System.out.println(passWd);
         System.out.println(email);
 
-        RegisterData data = userService.insertUser(userName, passWd, email);
+        RegisterData data = userService.register(userName, passWd, email);
         System.out.println(data);
         return data;
     }

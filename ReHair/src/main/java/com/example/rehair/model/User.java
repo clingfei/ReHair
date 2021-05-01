@@ -4,9 +4,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 public class User {
-    public String userName;
-    public String passWd;
-    public String email;
+    private String userName;
+    private String passWd;
+    private String email;
+
 
     public User(String userName, String passWd, String email) {
         this.userName = userName;
@@ -26,7 +27,7 @@ public class User {
         return this.passWd;
     }
 
-    public String email() {
+    public Object getEmail() {
         return this.email;
     }
 }
