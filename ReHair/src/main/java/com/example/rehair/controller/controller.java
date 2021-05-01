@@ -5,7 +5,6 @@ import com.example.rehair.model.*;
 
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -42,6 +41,5 @@ class controller {
         String passWd = jsonObject.getString("passwd");
         LoginData data = userService.queryUserByName(userName, passWd);
         return data;
-
     }
 }

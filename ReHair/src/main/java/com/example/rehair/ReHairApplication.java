@@ -11,7 +11,9 @@ import org.springframework.boot.web.servlet.server.ServletWebServerFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 
-@SpringBootApplication
+@SpringBootApplication(exclude = {
+        org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration.class
+})
 @ComponentScan (basePackages = {"com.example.rehair.controller", "com.example.rehair.dao", "com.example.rehair.model", "com.example.rehair.service", "com.example.rehair.service.impl"})
 public class ReHairApplication {
 
@@ -41,10 +43,8 @@ public class ReHairApplication {
     public Connector httpConnector() {
         Connector connector = new Connector("org.apache.coyote.http11.Http11NioProtocol");
         connector.setScheme("http");
-        //Connector监听的http的端口号
         connector.setPort(8080);
         connector.setSecure(true);
-        //监听到http的端口号后转向到的https的端口号
         connector.setRedirectPort(8081);
         return connector;
     }

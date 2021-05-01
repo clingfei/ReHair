@@ -19,7 +19,6 @@ import java.util.regex.Matcher;
 class UserDaoJdbcTemplateImpl implements UserDao {
     @Autowired
     public NamedParameterJdbcTemplate jdbcTemplate;
-    RegisterData registerData;
 
     @Override
     public RegisterData insertUser(User user) {
