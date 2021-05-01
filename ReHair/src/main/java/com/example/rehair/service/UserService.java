@@ -15,5 +15,5 @@ public interface UserService {
 
     public RegisterData register(String userName, String passWd, String email);
 
-    public LoginData queryUserByName(String userName, String passWd);
+    public LoginData login(String userName, String passWd);
 }

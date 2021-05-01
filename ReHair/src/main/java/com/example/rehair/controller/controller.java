@@ -38,8 +38,8 @@ class controller {
         System.out.println(list);
         JSONObject jsonObject = new JSONObject(list);
         String userName = jsonObject.getString("username");
-        String passWd = jsonObject.getString("passwd");
-        LoginData data = userService.queryUserByName(userName, passWd);
+        String passWd = jsonObject.getString("password");
+        LoginData data = userService.login(userName, passWd);
         return data;
     }
 }

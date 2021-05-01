@@ -43,6 +43,10 @@ public class ServiceImpl implements UserService {
         }
     }
 
+    private Boolean match(String password, String encryptedPassword) {
+        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder(10);
+        return encoder.matches(password, encryptedPassword);
+    }
     private String hashEncode(String passWd) {
         BCryptPasswordEncoder encoder = new BCryptPasswordEncoder(10);
         return encoder.encode(passWd);
@@ -50,8 +54,9 @@ public class ServiceImpl implements UserService {
 
     public RegisterData register(String userName, String passWd, String email) {
         System.out.println(passWd);
-        System.out.println(userName);
         passWd = hashEncode(passWd);
+        System.out.println(passWd);
+
         User user = new User(userName, passWd, email);
         RegisterData data = userDao.insertUser(user);
         if (data.getFlag() == true) {
@@ -61,10 +66,10 @@ public class ServiceImpl implements UserService {
         return data;
     }
 
-    public LoginData queryUserByName(String userName, String passWd) {
+    public LoginData login(String userName, String passWd) {
         String passWord = userDao.queryUserByName(userName);
-        passWd = hashEncode(passWd);
-        if (passWd.equals(passWord)) {
+
+        if (match(passWd, passWord)) {
             return new LoginData(true, "");
         }
         return new LoginData(false, "UserName or PassWord is Error.");
