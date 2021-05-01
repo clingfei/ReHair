@@ -1,6 +1,7 @@
 # ReHair
 ## 通信
-HTTPS协议
+HTTPS  8081端口
+HTTP 8080端口
 
 文本格式： JSON
 
