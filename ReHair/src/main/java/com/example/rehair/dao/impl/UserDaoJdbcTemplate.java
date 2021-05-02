@@ -15,6 +15,8 @@ import java.util.Map;
 import java.util.regex.Pattern;
 import java.util.regex.Matcher;
 
+// 定义接口以后，需要实现对应的方法，使用继承的方式实现接口
+// 实现以后，
 @Repository
 class UserDaoJdbcTemplateImpl implements UserDao {
     @Autowired
@@ -59,5 +61,25 @@ class UserDaoJdbcTemplateImpl implements UserDao {
             System.out.println(e.getMessage());
         }
         return (String) result.get("password");
+    }
+
+    @Override
+    public int addFriend(String userName, String futureFriendName) {
+        // 如何向数据库添加一条数据呢？不需要别的数据结构的
+        // INSERT INTO Persons VALUES ('Gates', 'Bill', 'Xuanwumen 10', 'Beijing')
+        // String sql = "INSERT INTO user (username, password, email) VALUES (:username, :password, :email)";
+        String sql = "INSERT INTO friendlist (username, friendname) VALUES (:username, :friendname)";
+        Map<String,Object> m = new HashMap<String, Object>();
+        m.put("username", userName);
+        m.put("friendname", futureFriendName);
+        jdbcTemplate.update(sql, m);
+
+        try {
+            jdbcTemplate.update(sql, m);
+            return 1;
+        } catch(DataAccessException e) {
+            // 异常就暂时不处理了
+            return 0;
+        }
     }
 }

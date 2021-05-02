@@ -6,7 +6,7 @@ import com.example.rehair.model.RegisterData;
 
 import javax.servlet.http.HttpServletRequest;
 
-
+// 接口向下转型，有点让人难以理解emm
 public interface UserService {
     String queryUserById(String q);
 
@@ -14,5 +14,8 @@ public interface UserService {
 
     public LoginData login(HttpServletRequest req, String userName, String passWd);
 
+    public String addFriend(String userName, String futureFriendName);
+
 }
+
 

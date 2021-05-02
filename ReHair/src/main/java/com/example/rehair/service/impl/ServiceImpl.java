@@ -57,6 +57,7 @@ public class ServiceImpl implements UserService {
     public RegisterData register(String userName, String passWd, String email) {
         System.out.println(passWd);
         passWd = hashEncode(passWd);
+        // 仅仅存放hash code，长度超过限制
         System.out.println(passWd);
 
         User user = new User(userName, passWd, email);
@@ -77,4 +78,17 @@ public class ServiceImpl implements UserService {
         return new LoginData(false, "UserName or PassWord is Error.");
     }
 
+
+    @Override
+    public String addFriend(String userName, String futureFriendName) {
+        // 如何判断是否为朋友呢？可以设置在前台，一开始初始化时，需要请求好友列表信息
+        // 同时需要给出每个好友的头像等信息
+        // 还有对应的朋友圈信息？还算是比较高级的哦
+
+        int status = userDao.addFriend(userName, futureFriendName);
+        // 直接调用了数据库而已
+        // 添加朋友是比较简单的
+        if(status == 1) return "succeed";
+        else return "fail";
+    }
 }

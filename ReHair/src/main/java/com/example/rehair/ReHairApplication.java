@@ -24,6 +24,7 @@ public class ReHairApplication {
         SpringApplication.run(ReHairApplication.class, args);
     }
 
+    // 典型的建立tomcat web服务器
     @Bean
     public ServletWebServerFactory servletContainer() {
         TomcatServletWebServerFactory tomcat = new TomcatServletWebServerFactory() {
@@ -41,6 +42,7 @@ public class ReHairApplication {
         return tomcat;
     }
 
+    // http服务器的内容？不清楚这里的具体架构
     @Bean
     public Connector httpConnector() {
         Connector connector = new Connector("org.apache.coyote.http11.Http11NioProtocol");

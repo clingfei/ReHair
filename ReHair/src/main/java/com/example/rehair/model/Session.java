@@ -4,6 +4,7 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.context.annotation.ScopedProxyMode;
 import org.springframework.stereotype.Component;
 
+// 这里的session是为了持续连接而书写的
 @Scope(value = "session", proxyMode = ScopedProxyMode.TARGET_CLASS)
 @Component
 public class Session {

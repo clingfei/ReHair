@@ -16,6 +16,7 @@
     <properties>
         <java.version>11</java.version>
     </properties>
+    <!-- 下面是用到的所有包 -->
     <dependencies>
         <dependency>
             <groupId>org.springframework.boot</groupId>
