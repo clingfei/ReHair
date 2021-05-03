@@ -16,6 +16,12 @@ public interface UserService {
 
     public String addFriend(String userName, String futureFriendName);
 
+    // 创建动态，同时发送到目标角落？
+    // String res = userService.createShare(userName, content, likeCount, time);
+    public String createShare(String userName, String textContent, String likeCount, String time);
+
+    // String res = userService.uploadArticlePhoto(userName, time, b64encodeImg);
+    public String uploadArticlePhoto(String userName, String time, String b64encodeImg, String imgType);
 }
 
 

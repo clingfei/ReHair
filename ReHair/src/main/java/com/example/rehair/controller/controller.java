@@ -61,4 +61,48 @@ class controller {
 
         return res;
     }
+    // 上传图片貌似要和这里的内容分开的，不知道具体应当如何处理呢？
+    // 这里涉及到复杂的图片处理？
+
+    // 本函数time的格式为 2015-10-27-10:00:00  精确到ms，可以用date类实现的
+    // 创建文件夹不能包含:字符，所以规定死time的结构为: 2016-10-27-10-00-00
+    @RequestMapping(value = "/createshare", method = RequestMethod.POST)
+    public String createShare(@RequestBody String list) throws JSONException {
+        JSONObject jsonObject = new JSONObject(list);
+        String userName = jsonObject.getString("username");
+        String content = jsonObject.getString("content");
+        String likeCount = jsonObject.getString("likeCount");
+        String time = jsonObject.getString("time");// time规定为字符串类型
+        // String picCount = jsonObject.getString("time");
+
+        String res = userService.createShare(userName, content, likeCount, time);
+
+        return res;
+    }
+    // 配套的传送图片的服务，和上面的createshare相辅相成
+    // 使用一个定死的时间戳+传送的文件？这个时间戳和用户名应当如何获取呢？暂时是未知的
+    // 对方会直接调用这里的传送功能
+    @RequestMapping(value = "/uploadArticlePhoto", method = RequestMethod.POST)
+    public String uploadArticlePhoto(@RequestBody String list) throws JSONException {
+        JSONObject jsonObject = new JSONObject(list);
+        String userName = jsonObject.getString("username");
+
+        String time = jsonObject.getString("time");// time规定为字符串类型
+        // 获取图片路径 easy
+        String b64encodeImg = jsonObject.getString("b64encodeImg");
+
+        String imgType = jsonObject.getString("imgType");
+        // String picCount = jsonObject.getString("time");
+        // 可以顺着请求发送图片，倘若传输图片，效率就太低了
+        // 可以把文件服务器当做一个ftp服务器，从而进行文件传输的策略
+        // 但这个不是现在需要考虑的事情
+
+        // 返回报文并没有设置规范，等价于自己建立了一个交流规范？
+        // 是显得非常不规范的
+        String res = userService.uploadArticlePhoto(userName, time, b64encodeImg, imgType);
+
+
+        return res;
+    }
+
 }

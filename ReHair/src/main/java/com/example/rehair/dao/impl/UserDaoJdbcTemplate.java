@@ -10,6 +10,7 @@ import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 import org.springframework.stereotype.Repository;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.regex.Pattern;
@@ -72,7 +73,7 @@ class UserDaoJdbcTemplateImpl implements UserDao {
         Map<String,Object> m = new HashMap<String, Object>();
         m.put("username", userName);
         m.put("friendname", futureFriendName);
-        jdbcTemplate.update(sql, m);
+        // jdbcTemplate.update(sql, m);
 
         try {
             jdbcTemplate.update(sql, m);
@@ -81,5 +82,60 @@ class UserDaoJdbcTemplateImpl implements UserDao {
             // 异常就暂时不处理了
             return 0;
         }
+    }
+
+    @Override
+    public int createShare(String userName, String textContent, String likeCount, Date date) {
+        String sql = "INSERT INTO article (username, content, photopath, count, time) VALUES (:username, :content, :photopath, :count, :time)";
+        Map<String,Object> m = new HashMap<String, Object>();
+        m.put("username", userName);
+        m.put("content", textContent);
+        m.put("count", likeCount);
+        m.put("time", date);
+        m.put("photopath", "");
+        try {
+            // 完成基本数据库的插入操作，还是比较合理的
+            jdbcTemplate.update(sql, m);
+            return 1;
+        } catch(DataAccessException e) {
+            // 异常就暂时不处理了
+            System.out.println(e.getMessage());
+            return 0;
+        }
+    }
+
+    @Override
+    public String findArticlePhotoPath(String userName, Date date) {
+        Map<String, Object> result = null;
+        try {
+            String sql = "SELECT * FROM article WHERE username = :username AND date = :date";
+            Map<String,Object> m = new HashMap<String, Object>();
+            m.put("username", userName);
+            m.put("date", date);
+
+            result = jdbcTemplate.queryForMap(sql,m);
+        }catch (EmptyResultDataAccessException e) {
+            System.out.println(e.getMessage());
+        }
+        return (String) result.get("photopath");
+
+    }
+    @Override
+    public void reloadArticlePhotoPath(String userName, Date date, String pathToPic) {
+        // update account set balance = balance - 200,cowpea = cowpea - 300 where account_id = 333 and balance >= 200 and cowpea >= 300
+        Map<String, Object> result = null;
+        try {
+            String sql = "UPDATE  article SET photopath = :photopath WHERE username = :username AND date = :date";
+            Map<String,Object> m = new HashMap<String, Object>();
+            m.put("username", userName);
+            m.put("date", date);
+            m.put("photopath", pathToPic);
+            // 这里也用到了异常处理
+            result = jdbcTemplate.queryForMap(sql,m);
+        }catch (EmptyResultDataAccessException e) {
+            System.out.println(e.getMessage());
+        }
+        return;
+
     }
 }
