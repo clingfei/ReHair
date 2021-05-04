@@ -17,8 +17,10 @@ import java.io.*;
 // base64编码处理类
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Base64;
 import java.util.Date;
+import java.util.Map;
 
 @Service
 public class ServiceImpl implements UserService {
@@ -77,6 +79,21 @@ public class ServiceImpl implements UserService {
         return true;
     }
 
+    //图片转换为base64编码，参数为图片路径
+    private  String imgToBase64(String path) {
+        System.out.println(path);
+        try{
+            File img = new File(path);
+            FileInputStream fos = new FileInputStream(img);
+            return new String(Base64.getEncoder().encode(fos.readAllBytes()));
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return "error.";
+    }
+
     public ReturnData register(String userName, String passWd, String email) {
         System.out.println(passWd);
         passWd = hashEncode(passWd);
@@ -111,6 +128,40 @@ public class ServiceImpl implements UserService {
         // 添加朋友是比较简单的
         if(status == 1) return "succeed";
         else return "fail";
+    }
+
+    // 进行base64解码的私有函数
+    private static void base64StrToFile(String b64encodeImg, String fileName, String parentPath) {
+        File file = new File(parentPath, fileName);
+        FileOutputStream out = null;
+
+        try {
+            Base64.Decoder decoder = Base64.getDecoder();
+            byte[] bytes1 = decoder.decode(b64encodeImg);
+
+            ByteArrayInputStream in = new ByteArrayInputStream(bytes1);
+            byte[] buffer = new byte[1024];
+            // 异常就不处理了
+            out = new FileOutputStream(file);
+            int byteSum = 0;
+            int byteRead = 0;
+            while((byteRead = in.read(buffer)) != -1) {
+                byteSum += byteRead;
+                out.write(buffer, 0, byteRead);
+            }
+
+        }catch (Exception ex){
+            throw new RuntimeException("transform base64 String into file 出错",ex);
+        }finally {
+            try {
+                if(out != null)
+                    out.close(); // 就不进行完整的异常处理了
+            } catch( java.io.IOException e) {
+                System.out.println(e.getMessage());
+            }
+        }
+        // return file;
+        return;
     }
 
     public String createShare(String userName, String textContent, String likeCount, String time) {
@@ -201,6 +252,7 @@ public class ServiceImpl implements UserService {
 
         // 2020.5.4 完成了基本文件路径的更新了
         pathToPic = pathToPic + path + ";";
+        System.out.println(pathToPic);
         userDao.reloadArticlePhotoPath(userName, date, pathToPic);
         // 文件链表路径更新即可
 
@@ -218,39 +270,6 @@ public class ServiceImpl implements UserService {
         // 成功完成了上传图片，并且更新路径的服务
         return pathToPic;
 
-    }
-    // 进行base64解码的私有函数
-    private static void base64StrToFile(String b64encodeImg, String fileName, String parentPath) {
-        File file = new File(parentPath, fileName);
-        FileOutputStream out = null;
-
-        try {
-            Base64.Decoder decoder = Base64.getDecoder();
-            byte[] bytes1 = decoder.decode(b64encodeImg);
-
-            ByteArrayInputStream in = new ByteArrayInputStream(bytes1);
-            byte[] buffer = new byte[1024];
-            // 异常就不处理了
-            out = new FileOutputStream(file);
-            int byteSum = 0;
-            int byteRead = 0;
-            while((byteRead = in.read(buffer)) != -1) {
-                byteSum += byteRead;
-                out.write(buffer, 0, byteRead);
-            }
-
-        }catch (Exception ex){
-            throw new RuntimeException("transform base64 String into file 出错",ex);
-        }finally {
-            try {
-                if(out != null)
-                    out.close(); // 就不进行完整的异常处理了
-            } catch( java.io.IOException e) {
-                System.out.println(e.getMessage());
-            }
-        }
-        // return file;
-        return;
     }
 
     public ReturnData setHead(String userName, String image) {
@@ -288,18 +307,26 @@ public class ServiceImpl implements UserService {
         }
     }
 
-    //图片转换为base64编码，参数为图片路径
-    private  String imgToBase64(String path) {
-        try{
-            File img = new File(path);
-            FileInputStream fos = new FileInputStream(img);
-            return new String(Base64.getEncoder().encode(fos.readAllBytes()));
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
+    public ArrayList<Article> getArticle(String userName, int start, int bias) {
+        ArrayList<Map<String, Object>> result = userDao.queryArticleByName(userName);
+        if (result == null) {
+            return new ArrayList<Article>();
         }
-        return "error.";
+        ArrayList<Article> res = new ArrayList<Article>();
+        System.out.println(result);
+        for (int i = start; i < start+bias && i < result.size(); ++i) {
+            String path = (String) result.get(i).get("photopath");;
+            ArrayList<String> image = new ArrayList<String>();
+            for (String imgpath : path.split(";")) {
+
+                //System.out.println(imgToBase64(imgpath));
+                image.add(imgToBase64(imgpath));
+            }
+            Article article = new Article((String)result.get(i).get("username"),(String) result.get(i).get("time"), (String) result.get(i).get("content"), image, (int)result.get(i).get("count"));
+            res.add(article);
+        }
+        System.out.println(res.get(0).getUserName());
+        return res;
     }
 
 }

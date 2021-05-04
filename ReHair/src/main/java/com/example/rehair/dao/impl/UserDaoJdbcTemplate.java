@@ -10,11 +10,10 @@ import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 import org.springframework.stereotype.Repository;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.regex.Pattern;
-import java.util.regex.Matcher;
 
 // 定义接口以后，需要实现对应的方法，使用继承的方式实现接口
 // 实现以后，
@@ -137,5 +136,17 @@ class UserDaoJdbcTemplateImpl implements UserDao {
         }
         return;
 
+    }
+
+    public ArrayList<Map<String, Object>> queryArticleByName(String userName) {
+        try {
+            String sql = "SELECT * FROM Article  WHERE username = :username";
+            Map<String, Object> m = new HashMap<String, Object>();
+            m.put("username", userName);
+            return (ArrayList<Map<String, Object>>) jdbcTemplate.queryForList(sql, m);
+        } catch(EmptyResultDataAccessException e) {
+            System.out.println(e.getMessage());
+        }
+        return null;
     }
 }

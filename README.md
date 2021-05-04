@@ -80,7 +80,7 @@ class Algorithm {
 
 |id | username | content | photopath | count | time
 | --- | --- | --- | --- | --- | --- |
-| AUTO_INCREMENT <br> PRIMARY KEY | varchar(15) | TEXT | varchar(100)<br> UNIQUE | int | DATETIME
+| AUTO_INCREMENT <br> PRIMARY KEY | varchar(15) | TEXT | TEXT | int | varchar(100)
 
 ## 图片存储路径
 ```

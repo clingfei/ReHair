@@ -1,9 +1,11 @@
 package com.example.rehair.service;
 
 
+import com.example.rehair.model.Article;
 import com.example.rehair.model.ReturnData;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.ArrayList;
 
 // 接口向下转型，有点让人难以理解emm
 public interface UserService {
@@ -24,6 +26,8 @@ public interface UserService {
 
     // String res = userService.uploadArticlePhoto(userName, time, b64encodeImg);
     public String uploadArticlePhoto(String userName, String time, String b64encodeImg, String imgType);
+
+    public ArrayList<Article> getArticle(String userName, int start, int bias);
 }
 
 

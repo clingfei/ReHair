@@ -3,8 +3,10 @@ package com.example.rehair.controller;
 import com.example.rehair.service.*;
 import com.example.rehair.model.*;
 
+import net.sf.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -123,4 +125,13 @@ class controller {
         return res;
     }
 
+    @RequestMapping(value = "getArticle", method = RequestMethod.GET)
+    public JSONArray getArticle(@RequestParam("username") String userName, @RequestParam("start") int start, @RequestParam("bias") int bias) {
+        System.out.println(userName);
+        System.out.println(start);
+        System.out.println(bias);
+        JSONArray result = JSONArray.fromObject(userService.getArticle(userName, start, bias));
+        System.out.println(result);
+        return result;
+    }
 }
