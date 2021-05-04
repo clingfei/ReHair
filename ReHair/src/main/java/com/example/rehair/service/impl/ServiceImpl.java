@@ -2,6 +2,7 @@ package com.example.rehair.service.impl;
 
 import com.example.rehair.dao.UserDao;
 import com.example.rehair.service.UserService;
+import io.netty.util.internal.StringUtil;
 import org.springframework.stereotype.Service;
 
 import com.example.rehair.model.*;
@@ -10,15 +11,12 @@ import org.springframework.util.ResourceUtils;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
-import java.io.ByteArrayInputStream;
-import java.io.File;
-import java.io.FileNotFoundException;
+import java.io.*;
 
 // import com.fasterxml.jackson.annotation.JsonFormat;
 // 日期处理类
 import org.springframework.format.annotation.DateTimeFormat;
 
-import java.io.FileOutputStream;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -69,6 +67,26 @@ public class ServiceImpl implements UserService {
     private String hashEncode(String passWd) {
         BCryptPasswordEncoder encoder = new BCryptPasswordEncoder(10);
         return encoder.encode(passWd);
+    }
+
+    private Boolean saveImg(String userName, String image) throws IOException {
+        String path = "";
+        try{
+            path = getPath();
+        } catch(FileNotFoundException e) {
+            return false;
+        }
+        path =  path + "\\src\\main\\resources\\ReHairSource\\" + userName + "\\headPhoto\\headPhoto.jpg";
+        if (StringUtil.isNullOrEmpty(image)) {
+            return false;
+        }
+        File img = new File(path);
+        FileOutputStream fos = new FileOutputStream(img);
+        byte[] bytes = Base64.getDecoder().decode(image.replace("\r\n", ""));
+        fos.write(bytes);
+        fos.flush();
+        fos.close();
+        return true;
     }
 
     public RegisterData register(String userName, String passWd, String email) {
@@ -248,5 +266,15 @@ public class ServiceImpl implements UserService {
         return;
     }
 
+    public ReturnData setHead(String userName, String image) {
+        try{
+            boolean flag = saveImg(userName, image);
+            if (flag) return new ReturnData(true, "");
+            else return new ReturnData(false, "setHead Error.");
+        } catch(IOException e) {
+            System.out.println(e.getMessage());
+            return new ReturnData(false, "Error occured!");
+        }
+    }
 
 }

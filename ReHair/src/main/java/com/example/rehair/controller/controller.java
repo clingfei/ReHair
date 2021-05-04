@@ -47,6 +47,18 @@ class controller {
         return data;
     }
 
+    @RequestMapping(value = "setHead", method = RequestMethod.POST)
+    public ReturnData setHead(@RequestBody String list) throws JSONException {
+        JSONObject jsonObject = new JSONObject(list);
+        /*
+         * 这里理论上应该可以通过Session来获取用户名
+         * 但是现在POST方法获取不到Session，先凑合一下
+         */
+        String userName = jsonObject.getString("username");
+        String image = jsonObject.getString("image");
+        ReturnData data = userService.setHead(userName, image);
+        return data;
+    }
     // 添加某个好友，可以直接使用name进行处理的
     @RequestMapping(value = "/addfriend", method = RequestMethod.POST)
     public String addFriend(@RequestBody String list) throws JSONException{

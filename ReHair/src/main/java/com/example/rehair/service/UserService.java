@@ -3,6 +3,7 @@ package com.example.rehair.service;
 
 import com.example.rehair.model.LoginData;
 import com.example.rehair.model.RegisterData;
+import com.example.rehair.model.ReturnData;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -22,6 +23,8 @@ public interface UserService {
 
     // String res = userService.uploadArticlePhoto(userName, time, b64encodeImg);
     public String uploadArticlePhoto(String userName, String time, String b64encodeImg, String imgType);
+
+    ReturnData setHead(String userName, String image);
 }
 
 
