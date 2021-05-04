@@ -10,6 +10,7 @@ import org.springframework.util.ResourceUtils;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.FileNotFoundException;
 
@@ -17,10 +18,13 @@ import java.io.FileNotFoundException;
 // 日期处理类
 import org.springframework.format.annotation.DateTimeFormat;
 
+import java.io.FileOutputStream;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+// base64编码处理类
+import java.util.Base64;
 
 
 import javax.imageio.ImageIO;
@@ -166,9 +170,11 @@ public class ServiceImpl implements UserService {
         String pathToPic = userDao.findArticlePhotoPath(userName, date);
         // 找到了路径，重要的路径
 
+        String prePath = null;
         String path = "";
         try {
             path = getPath();
+            prePath = getPath();
         } catch(FileNotFoundException e) {
             System.out.println(e.getMessage());
         }
@@ -188,6 +194,7 @@ public class ServiceImpl implements UserService {
 
         path = path + docName;
 
+        // 2020.5.4 完成了基本文件路径的更新了
         pathToPic = pathToPic + path + ";";
         userDao.reloadArticlePhotoPath(userName, date, pathToPic);
         // 文件链表路径更新即可
@@ -196,10 +203,50 @@ public class ServiceImpl implements UserService {
         // 生成doc文件？
         // 具体写法就是解码base64编码的图片文件string数组，存储在对应的本地目录下面
         // 最终生成较好的效果哦
+        // String b64encodeImg就是我们需要解码的字符串，这一点是要谨记的
+        // 一看就是static方法，直接从类名调用
 
+        String parentPath = prePath + "\\src\\main\\resources\\ReHairSource\\" + userName + "\\sharePhoto\\" + "time-" + time;
+        base64StrToFile(b64encodeImg, docName, parentPath);
 
+        // 至此完成数据的调用，可以稍微试一下了
+        // 成功完成了上传图片，并且更新路径的服务
         return pathToPic;
 
     }
+    // 进行base64解码的私有函数
+    private static void base64StrToFile(String b64encodeImg, String fileName, String parentPath) {
+        File file = new File(parentPath, fileName);
+        FileOutputStream out = null;
+
+        try {
+            Base64.Decoder decoder = Base64.getDecoder();
+            byte[] bytes1 = decoder.decode(b64encodeImg);
+
+            ByteArrayInputStream in = new ByteArrayInputStream(bytes1);
+            byte[] buffer = new byte[1024];
+            // 异常就不处理了
+            out = new FileOutputStream(file);
+            int byteSum = 0;
+            int byteRead = 0;
+            while((byteRead = in.read(buffer)) != -1) {
+                byteSum += byteRead;
+                out.write(buffer, 0, byteRead);
+            }
+
+        }catch (Exception ex){
+            throw new RuntimeException("transform base64 String into file 出错",ex);
+        }finally {
+            try {
+                if(out != null)
+                    out.close(); // 就不进行完整的异常处理了
+            } catch( java.io.IOException e) {
+                System.out.println(e.getMessage());
+            }
+        }
+        // return file;
+        return;
+    }
+
 
 }

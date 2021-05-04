@@ -108,7 +108,7 @@ class UserDaoJdbcTemplateImpl implements UserDao {
     public String findArticlePhotoPath(String userName, Date date) {
         Map<String, Object> result = null;
         try {
-            String sql = "SELECT * FROM article WHERE username = :username AND date = :date";
+            String sql = "SELECT * FROM article WHERE username = :username AND time = :date";
             Map<String,Object> m = new HashMap<String, Object>();
             m.put("username", userName);
             m.put("date", date);
@@ -125,13 +125,13 @@ class UserDaoJdbcTemplateImpl implements UserDao {
         // update account set balance = balance - 200,cowpea = cowpea - 300 where account_id = 333 and balance >= 200 and cowpea >= 300
         Map<String, Object> result = null;
         try {
-            String sql = "UPDATE  article SET photopath = :photopath WHERE username = :username AND date = :date";
+            String sql = "UPDATE  article SET photopath = :photopath WHERE username = :username AND time = :date";
             Map<String,Object> m = new HashMap<String, Object>();
             m.put("username", userName);
             m.put("date", date);
             m.put("photopath", pathToPic);
             // 这里也用到了异常处理
-            result = jdbcTemplate.queryForMap(sql,m);
+            jdbcTemplate.update(sql,m);
         }catch (EmptyResultDataAccessException e) {
             System.out.println(e.getMessage());
         }
