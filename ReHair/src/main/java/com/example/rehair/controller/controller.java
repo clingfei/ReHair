@@ -47,7 +47,14 @@ class controller {
         return data;
     }
 
-    @RequestMapping(value = "setHead", method = RequestMethod.POST)
+    @RequestMapping(value = "/getHead", method = RequestMethod.GET)
+    public String getHead(HttpServletRequest req) {
+        String userName = req.getSession().getAttribute("username").toString();
+        return userService.getHead(userName);
+    }
+
+
+    @RequestMapping(value = "/setHead", method = RequestMethod.POST)
     public ReturnData setHead(@RequestBody String list) throws JSONException {
         JSONObject jsonObject = new JSONObject(list);
         /*

@@ -3,6 +3,8 @@ package com.example.rehair.service.impl;
 import com.example.rehair.dao.UserDao;
 import com.example.rehair.service.UserService;
 import io.netty.util.internal.StringUtil;
+import org.apache.tomcat.util.http.fileupload.FileUtils;
+import org.apache.tomcat.util.http.fileupload.IOUtils;
 import org.springframework.stereotype.Service;
 
 import com.example.rehair.model.*;
@@ -32,10 +34,6 @@ import javax.imageio.ImageIO;
 public class ServiceImpl implements UserService {
     @Resource
     public UserDao userDao;
-
-    public String queryUserById(String q) {
-        return "Hello";
-    }
 
     private String getPath() throws FileNotFoundException {
         File file = new File(ResourceUtils.getURL("classpath:").getPath());
@@ -113,8 +111,6 @@ public class ServiceImpl implements UserService {
         return new LoginData(false, "UserName or PassWord is Error.");
     }
 
-
-    @Override
     public String addFriend(String userName, String futureFriendName) {
         // 如何判断是否为朋友呢？可以设置在前台，一开始初始化时，需要请求好友列表信息
         // 同时需要给出每个好友的头像等信息
@@ -126,7 +122,7 @@ public class ServiceImpl implements UserService {
         if(status == 1) return "succeed";
         else return "fail";
     }
-    @Override
+
     public String createShare(String userName, String textContent, String likeCount, String time) {
         createShareDir(userName, time);
         // 此时暂时还没有上传动态的照片，可以将数据分开处理？
@@ -173,7 +169,6 @@ public class ServiceImpl implements UserService {
         return;
     }
 
-    @Override
     public String uploadArticlePhoto(String userName, String time, String b64encodeImg, String imgType) {
         // time首先要转义
         Date date = null;
@@ -275,6 +270,44 @@ public class ServiceImpl implements UserService {
             System.out.println(e.getMessage());
             return new ReturnData(false, "Error occured!");
         }
+    }
+
+    /*
+     * 首先去用户名目录下查找头像是否存在
+     * 如果不存在，则返回默认的头像
+     */
+    public String getHead(String userName) {
+        String path;
+        try {
+            path = getPath();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+            return "";
+        }
+        try {
+            path =  path + "\\src\\main\\resources\\ReHairSource\\" + userName + "\\headPhoto\\headPhoto.jpg";
+            File file = new File(path);
+            if (!file.exists())
+                throw  new FileNotFoundException();
+            return imgToBase64(path);
+        } catch (FileNotFoundException e) {
+            path  = path + "\\src\\main\\resources\\ReHairSource\\defaultHeadPhoto.jpg";
+            return imgToBase64(path);
+        }
+    }
+
+    //图片转换为base64编码，参数为图片路径
+    private  String imgToBase64(String path) {
+        try{
+            File img = new File(path);
+            FileInputStream fos = new FileInputStream(img);
+            return new String(Base64.getEncoder().encode(fos.readAllBytes()));
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return "error.";
     }
 
 }

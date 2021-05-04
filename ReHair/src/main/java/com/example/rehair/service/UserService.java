@@ -9,7 +9,6 @@ import javax.servlet.http.HttpServletRequest;
 
 // 接口向下转型，有点让人难以理解emm
 public interface UserService {
-    String queryUserById(String q);
 
     public RegisterData register(String userName, String passWd, String email);
 
@@ -25,6 +24,8 @@ public interface UserService {
     public String uploadArticlePhoto(String userName, String time, String b64encodeImg, String imgType);
 
     ReturnData setHead(String userName, String image);
+
+    String getHead(String userName);
 }
 
 
