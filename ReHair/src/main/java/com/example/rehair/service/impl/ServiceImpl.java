@@ -3,8 +3,6 @@ package com.example.rehair.service.impl;
 import com.example.rehair.dao.UserDao;
 import com.example.rehair.service.UserService;
 import io.netty.util.internal.StringUtil;
-import org.apache.tomcat.util.http.fileupload.FileUtils;
-import org.apache.tomcat.util.http.fileupload.IOUtils;
 import org.springframework.stereotype.Service;
 
 import com.example.rehair.model.*;
@@ -15,20 +13,12 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import java.io.*;
 
-// import com.fasterxml.jackson.annotation.JsonFormat;
-// 日期处理类
-import org.springframework.format.annotation.DateTimeFormat;
-
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 
 // base64编码处理类
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Base64;
-
-
-import javax.imageio.ImageIO;
-
+import java.util.Date;
 
 @Service
 public class ServiceImpl implements UserService {
@@ -87,14 +77,14 @@ public class ServiceImpl implements UserService {
         return true;
     }
 
-    public RegisterData register(String userName, String passWd, String email) {
+    public ReturnData register(String userName, String passWd, String email) {
         System.out.println(passWd);
         passWd = hashEncode(passWd);
         // 仅仅存放hash code，长度超过限制
         System.out.println(passWd);
 
         User user = new User(userName, passWd, email);
-        RegisterData data = userDao.insertUser(user);
+        ReturnData data = userDao.insertUser(user);
         if (data.getFlag() == true) {
             createDir(userName);
         }
@@ -102,13 +92,13 @@ public class ServiceImpl implements UserService {
         return data;
     }
 
-    public LoginData login(HttpServletRequest req, String userName, String passWd) {
+    public ReturnData login(HttpServletRequest req, String userName, String passWd) {
         String passWord = userDao.queryUserByName(userName);
 
         if (match(passWd, passWord)) {
-            return new LoginData(true, "");
+            return new ReturnData(true, "");
         }
-        return new LoginData(false, "UserName or PassWord is Error.");
+        return new ReturnData(false, "UserName or PassWord is Error.");
     }
 
     public String addFriend(String userName, String futureFriendName) {
@@ -136,6 +126,8 @@ public class ServiceImpl implements UserService {
         } catch (ParseException e) {
             e.printStackTrace();
         }
+
+
 
         int status = userDao.createShare(userName, textContent, likeCount, date);
 
@@ -285,14 +277,14 @@ public class ServiceImpl implements UserService {
             return "";
         }
         try {
-            path =  path + "\\src\\main\\resources\\ReHairSource\\" + userName + "\\headPhoto\\headPhoto.jpg";
-            File file = new File(path);
+            String userpath =  path + "\\src\\main\\resources\\ReHairSource\\" + userName + "\\headPhoto\\headPhoto.jpg";
+            File file = new File(userpath);
             if (!file.exists())
                 throw  new FileNotFoundException();
-            return imgToBase64(path);
+            return imgToBase64(userpath);
         } catch (FileNotFoundException e) {
-            path  = path + "\\src\\main\\resources\\ReHairSource\\defaultHeadPhoto.jpg";
-            return imgToBase64(path);
+            String defaultPath  = path + "\\src\\main\\resources\\ReHairSource\\defaultHeadPhoto.jpg";
+            return imgToBase64(defaultPath);
         }
     }
 

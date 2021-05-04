@@ -24,7 +24,7 @@ class UserDaoJdbcTemplateImpl implements UserDao {
     public NamedParameterJdbcTemplate jdbcTemplate;
 
     @Override
-    public RegisterData insertUser(User user) {
+    public ReturnData insertUser(User user) {
         String sql = "INSERT INTO user (username, password, email) VALUES (:username, :password, :email)";
         Map<String,Object> param = new HashMap<String,Object>();
         param.put("username", user.getUserName());
@@ -33,19 +33,19 @@ class UserDaoJdbcTemplateImpl implements UserDao {
 
         try {
             jdbcTemplate.update(sql, param);
-            return new RegisterData(true, "");
+            return new ReturnData(true, "");
         } catch(DataAccessException e) {
             System.out.println(e.getMessage());
             String errMsg = e.getMessage();
             System.out.println(errMsg.substring(errMsg.length()-15));
             if (errMsg.endsWith("'user.username'")) {
-                return new RegisterData(false, "duplicate username");
+                return new ReturnData(false, "duplicate username");
             }
             else if (errMsg.endsWith("'user.email'")) {
-                return new RegisterData(false, "duplicate email");
+                return new ReturnData(false, "duplicate email");
             }
             else {
-                return new RegisterData(false, "other errors");
+                return new ReturnData(false, "other errors");
             }
         }
     }

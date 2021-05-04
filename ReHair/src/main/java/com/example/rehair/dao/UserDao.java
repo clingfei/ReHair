@@ -8,7 +8,7 @@ import java.util.Map;
 // 接口专门用于数据库的各种处理过程的
 
 public interface UserDao {
-    RegisterData insertUser(User user);
+    ReturnData insertUser(User user);
 
     String queryUserByName(String userName);
 
