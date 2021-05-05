@@ -28,6 +28,9 @@ public interface UserService {
     public String uploadArticlePhoto(String userName, String time, String b64encodeImg, String imgType);
 
     public ArrayList<Article> getArticle(String userName, int start, int bias);
+
+    public String modifyPicture(String userName, String sourcePhotoName, String targetPhotoName, String modifyType, String otherOptions);
+
 }
 
 

@@ -134,4 +134,31 @@ class controller {
         System.out.println(result);
         return result;
     }
+
+    // 假设图片已经完全上传了上来，不需要进行图片的处理过程？
+    // 图片的所有信息都来自数据库，最后return一个图片路径，想要加载，再调用别的函数即可
+    // 返回图片的标准字符串？或者返回被编码的图片？
+    // 这里的modifyType为了方便操作，直接规定接口标准：
+    // exchangeFace 换脸 0
+    // recognizeFaceType 识别脸型 1
+    // changeHairColorFace 换头发颜色 2
+    // cutoutFace 抠图 3
+    // scoreFace 打分4
+    @RequestMapping(value = "/modifyPicture", method = RequestMethod.POST)
+    public String modifyPicture(@RequestBody String list) throws JSONException {
+        JSONObject jsonObject = new JSONObject(list);
+        String userName = jsonObject.getString("username");
+        // 源图片文件，希望修改or打分的图片
+        String sourcePhotoName = jsonObject.getString("sourcePhotoName");
+        // 目标图片文件，希望将图片如何处理的目标图片，这个会在后方有所告知
+        String targetPhotoName = jsonObject.getString("targetPhotoName");
+
+        String modifyType = jsonObject.getString("modifyType");
+        String otherOptions = jsonObject.getString("otherOptions");
+
+        String res = userService.modifyPicture(userName, sourcePhotoName, targetPhotoName, modifyType, otherOptions);
+
+        // 返回的应当是文件的名字？还是直接返回图片呢？暂时是未知的
+        return res;
+    }
 }

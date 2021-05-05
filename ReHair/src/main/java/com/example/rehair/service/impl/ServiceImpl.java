@@ -329,4 +329,35 @@ public class ServiceImpl implements UserService {
         return res;
     }
 
+    // 以下就是整个处理图片类的实现，还是可以的
+    // 每一个算法都需要使用网络通信和某个服务器获取下一步的消息
+    // 毕竟，实现的算法是使用python写的，还有很多工作需要继续做
+    public String modifyPicture(String userName, String sourcePhotoName, String targetPhotoName,
+                                String modifyType, String otherOptions) {
+
+        switch (modifyType) {
+            case FaceAlgorithm.exchangeFaceChoose: {
+                FaceAlgorithm.exchangeFace(sourcePhotoName, targetPhotoName);
+                break;
+            }
+            case FaceAlgorithm.recognizeFaceTypeChoose: {
+                FaceAlgorithm.recognizeFaceType(sourcePhotoName);
+                break;
+            }
+            case FaceAlgorithm.changeHairColorFaceChoose: {
+                FaceAlgorithm.changeHairColorFace(sourcePhotoName);
+                break;
+            }
+            case FaceAlgorithm.cutoutFaceChoose: {
+                FaceAlgorithm.cutoutFace(sourcePhotoName);
+                break;
+            }
+            case FaceAlgorithm.scoreFaceChoose: {
+                FaceAlgorithm.scoreFace(sourcePhotoName);
+                break;
+            }
+        }
+        return "yes";
+    }
+
 }
