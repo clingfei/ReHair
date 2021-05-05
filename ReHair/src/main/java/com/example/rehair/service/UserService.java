@@ -1,20 +1,24 @@
 package com.example.rehair.service;
 
 
-import com.example.rehair.model.LoginData;
-import com.example.rehair.model.RegisterData;
+import com.example.rehair.model.Article;
 import com.example.rehair.model.ReturnData;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.ArrayList;
 
 // 接口向下转型，有点让人难以理解emm
 public interface UserService {
 
-    public RegisterData register(String userName, String passWd, String email);
+    public ReturnData register(String userName, String passWd, String email);
 
-    public LoginData login(HttpServletRequest req, String userName, String passWd);
+    public ReturnData login(HttpServletRequest req, String userName, String passWd);
 
     public String addFriend(String userName, String futureFriendName);
+
+    ReturnData setHead(String userName, String image);
+
+    String getHead(String userName);
 
     // 创建动态，同时发送到目标角落？
     // String res = userService.createShare(userName, content, likeCount, time);
@@ -23,9 +27,7 @@ public interface UserService {
     // String res = userService.uploadArticlePhoto(userName, time, b64encodeImg);
     public String uploadArticlePhoto(String userName, String time, String b64encodeImg, String imgType);
 
-    ReturnData setHead(String userName, String image);
-
-    String getHead(String userName);
+    public ArrayList<Article> getArticle(String userName, int start, int bias);
 }
 
 

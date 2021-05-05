@@ -18,7 +18,7 @@ HTTP 8080端口
 
 文本格式： JSON
 
-图片： image?
+图片： base64编码
 ## 接口
 | URL | Method | 格式 | Key 
 | --- | --- | --- | --- |
@@ -62,7 +62,7 @@ class Algorithm {
 
 | username | password | email |
 | ---   | --- |---|
-| varchar(15) <br> PRIMARY KEY  | varchar(15)  | varchar(100) <br> UNIQUE|
+| varchar(15) <br> PRIMARY KEY  | varchar(200)  | varchar(100) <br> UNIQUE|
 
 2. FriendList
 
@@ -80,7 +80,7 @@ class Algorithm {
 
 |id | username | content | photopath | count | time
 | --- | --- | --- | --- | --- | --- |
-| AUTO_INCREMENT <br> PRIMARY KEY | varchar(15) | TEXT | varchar(100)<br> UNIQUE | int | DATETIME
+| AUTO_INCREMENT <br> PRIMARY KEY | varchar(15) | TEXT | TEXT | int | varchar(100)
 
 ## 图片存储路径
 ```

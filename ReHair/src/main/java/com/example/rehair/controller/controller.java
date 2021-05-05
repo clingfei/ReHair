@@ -3,8 +3,10 @@ package com.example.rehair.controller;
 import com.example.rehair.service.*;
 import com.example.rehair.model.*;
 
+import net.sf.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -16,11 +18,9 @@ class controller {
     @Resource
     public UserService userService;
 
-    // 需要存一个全局变量？
-    public String globalUserName;
 
     @RequestMapping(value = "/register", method = RequestMethod.POST)
-    public RegisterData dealRegister (@RequestBody String list) throws JSONException{
+    public ReturnData dealRegister (@RequestBody String list) throws JSONException{
         System.out.println(list);
         JSONObject jsonObject = new JSONObject(list);
         String userName = jsonObject.getString("username");
@@ -30,19 +30,19 @@ class controller {
         System.out.println(passWd);
         System.out.println(email);
 
-        RegisterData data = userService.register(userName, passWd, email);
+        ReturnData data = userService.register(userName, passWd, email);
         System.out.println(data);
         return data;
     }
 
     // 对象的自动序列化，可以直接return进行返回的
     @RequestMapping(value = "/login", method = RequestMethod.POST)
-    public LoginData dealLogin (HttpServletRequest req, @RequestBody String list) throws JSONException{
+    public ReturnData dealLogin (HttpServletRequest req, @RequestBody String list) throws JSONException{
         System.out.println(list);
         JSONObject jsonObject = new JSONObject(list);
         String userName = jsonObject.getString("username");
         String passWd = jsonObject.getString("password");
-        LoginData data = userService.login(req, userName, passWd);
+        ReturnData data = userService.login(req, userName, passWd);
 
         return data;
     }
@@ -50,6 +50,7 @@ class controller {
     @RequestMapping(value = "/getHead", method = RequestMethod.GET)
     public String getHead(HttpServletRequest req) {
         String userName = req.getSession().getAttribute("username").toString();
+        //String userName = "clf";
         return userService.getHead(userName);
     }
 
@@ -124,4 +125,13 @@ class controller {
         return res;
     }
 
+    @RequestMapping(value = "getArticle", method = RequestMethod.GET)
+    public JSONArray getArticle(@RequestParam("username") String userName, @RequestParam("start") int start, @RequestParam("bias") int bias) {
+        System.out.println(userName);
+        System.out.println(start);
+        System.out.println(bias);
+        JSONArray result = JSONArray.fromObject(userService.getArticle(userName, start, bias));
+        System.out.println(result);
+        return result;
+    }
 }

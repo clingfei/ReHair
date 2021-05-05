@@ -10,11 +10,10 @@ import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 import org.springframework.stereotype.Repository;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.regex.Pattern;
-import java.util.regex.Matcher;
 
 // 定义接口以后，需要实现对应的方法，使用继承的方式实现接口
 // 实现以后，
@@ -24,7 +23,7 @@ class UserDaoJdbcTemplateImpl implements UserDao {
     public NamedParameterJdbcTemplate jdbcTemplate;
 
     @Override
-    public RegisterData insertUser(User user) {
+    public ReturnData insertUser(User user) {
         String sql = "INSERT INTO user (username, password, email) VALUES (:username, :password, :email)";
         Map<String,Object> param = new HashMap<String,Object>();
         param.put("username", user.getUserName());
@@ -33,19 +32,19 @@ class UserDaoJdbcTemplateImpl implements UserDao {
 
         try {
             jdbcTemplate.update(sql, param);
-            return new RegisterData(true, "");
+            return new ReturnData(true, "");
         } catch(DataAccessException e) {
             System.out.println(e.getMessage());
             String errMsg = e.getMessage();
             System.out.println(errMsg.substring(errMsg.length()-15));
             if (errMsg.endsWith("'user.username'")) {
-                return new RegisterData(false, "duplicate username");
+                return new ReturnData(false, "duplicate username");
             }
             else if (errMsg.endsWith("'user.email'")) {
-                return new RegisterData(false, "duplicate email");
+                return new ReturnData(false, "duplicate email");
             }
             else {
-                return new RegisterData(false, "other errors");
+                return new ReturnData(false, "other errors");
             }
         }
     }
@@ -137,5 +136,17 @@ class UserDaoJdbcTemplateImpl implements UserDao {
         }
         return;
 
+    }
+
+    public ArrayList<Map<String, Object>> queryArticleByName(String userName) {
+        try {
+            String sql = "SELECT * FROM Article  WHERE username = :username";
+            Map<String, Object> m = new HashMap<String, Object>();
+            m.put("username", userName);
+            return (ArrayList<Map<String, Object>>) jdbcTemplate.queryForList(sql, m);
+        } catch(EmptyResultDataAccessException e) {
+            System.out.println(e.getMessage());
+        }
+        return null;
     }
 }
