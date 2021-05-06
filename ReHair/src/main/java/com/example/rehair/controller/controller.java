@@ -11,8 +11,6 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
-import java.lang.reflect.Array;
-import java.util.ArrayList;
 
 @RestController
 class controller {
@@ -50,10 +48,10 @@ class controller {
     }
 
     @RequestMapping(value = "/getHead", method = RequestMethod.GET)
-    public String getHead(HttpServletRequest req) {
-        String userName = req.getSession().getAttribute("username").toString();
+    public Image getHead(HttpServletRequest req) {
+       // String userName = req.getSession().getAttribute("username").toString();
         //String userName = "clf";
-        return userService.getHead(userName);
+        return userService.getHead("clf");
     }
 
 
@@ -71,26 +69,24 @@ class controller {
         return data;
     }
     // 添加某个好友，可以直接使用name进行处理的
-    @RequestMapping(value = "/addfriend", method = RequestMethod.POST)
-    public String addFriend(@RequestBody String list) throws JSONException{
+    @RequestMapping(value = "/addFriend", method = RequestMethod.POST)
+    public ReturnData addFriend(@RequestBody String list) throws JSONException{
         // 登录状态无法确定，服务器应该是可以处理高并发的
         JSONObject jsonObject = new JSONObject(list);
         String userName = jsonObject.getString("username");
         String futureFriendName = jsonObject.getString("futureFriendName");
 
         // res就是添加是否成功的典型例子
-        String res = userService.addFriend(userName, futureFriendName);
+        return userService.addFriend(userName, futureFriendName);
         // 某处的好友列表需要动态更新的吧
-
-        return res;
     }
     // 上传图片貌似要和这里的内容分开的，不知道具体应当如何处理呢？
     // 这里涉及到复杂的图片处理？
 
     // 本函数time的格式为 2015-10-27-10:00:00  精确到ms，可以用date类实现的
     // 创建文件夹不能包含:字符，所以规定死time的结构为: 2016-10-27-10-00-00
-    @RequestMapping(value = "/createshare", method = RequestMethod.POST)
-    public String createShare(@RequestBody String list) throws JSONException {
+    @RequestMapping(value = "/createShare", method = RequestMethod.POST)
+    public ReturnData createShare(@RequestBody String list) throws JSONException {
         JSONObject jsonObject = new JSONObject(list);
         String userName = jsonObject.getString("username");
         String content = jsonObject.getString("content");
@@ -98,7 +94,7 @@ class controller {
         String time = jsonObject.getString("time");// time规定为字符串类型
         // String picCount = jsonObject.getString("time");
 
-        String res = userService.createShare(userName, content, likeCount, time);
+        ReturnData res = userService.createShare(userName, content, likeCount, time);
 
         return res;
     }
@@ -118,7 +114,7 @@ class controller {
         return userService.uploadArticlePhoto(userName, time, image, imgType);
     }
 
-    @RequestMapping(value = "getArticle", method = RequestMethod.GET)
+    @RequestMapping(value = "/getArticle", method = RequestMethod.GET)
     public JSONArray getArticle(@RequestParam("username") String userName, @RequestParam("start") int start, @RequestParam("bias") int bias) {
         System.out.println(userName);
         System.out.println(start);

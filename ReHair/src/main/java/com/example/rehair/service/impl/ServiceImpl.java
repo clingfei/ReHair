@@ -118,7 +118,7 @@ public class ServiceImpl implements UserService {
         return new ReturnData(false, "UserName or PassWord is Error.");
     }
 
-    public String addFriend(String userName, String futureFriendName) {
+    public ReturnData addFriend(String userName, String futureFriendName) {
         // 如何判断是否为朋友呢？可以设置在前台，一开始初始化时，需要请求好友列表信息
         // 同时需要给出每个好友的头像等信息
         // 还有对应的朋友圈信息？还算是比较高级的哦
@@ -126,8 +126,8 @@ public class ServiceImpl implements UserService {
         int status = userDao.addFriend(userName, futureFriendName);
         // 直接调用了数据库而已
         // 添加朋友是比较简单的
-        if(status == 1) return "succeed";
-        else return "fail";
+        if(status == 1) return new ReturnData(true, "");
+        else return new ReturnData(false, "Error.");
     }
 
     // 进行base64解码的私有函数
@@ -163,7 +163,7 @@ public class ServiceImpl implements UserService {
         return "";
     }
 
-    public String createShare(String userName, String textContent, String likeCount, String time) {
+    public ReturnData createShare(String userName, String textContent, String likeCount, String time) {
         createShareDir(userName, time);
         // 此时暂时还没有上传动态的照片，可以将数据分开处理？
         // 这里面有很多处理格式化序列的内容，开发的稍微有点太混乱了
@@ -181,8 +181,8 @@ public class ServiceImpl implements UserService {
 
         int status = userDao.createShare(userName, textContent, likeCount, date);
 
-        if(status == 1) return "succeed";
-        else return "fail";
+        if(status == 1) return new ReturnData(true, "");
+        else return new ReturnData(false, "Error.");
 
     }
     // 提供给上面的createShare函数使用的
@@ -275,23 +275,23 @@ public class ServiceImpl implements UserService {
      * 首先去用户名目录下查找头像是否存在
      * 如果不存在，则返回默认的头像
      */
-    public String getHead(String userName) {
+    public Image getHead(String userName) {
         String path;
         try {
             path = getPath();
         } catch (FileNotFoundException e) {
             e.printStackTrace();
-            return "";
+            return new Image("");
         }
         try {
             String userpath =  path + "\\src\\main\\resources\\ReHairSource\\" + userName + "\\headPhoto\\headPhoto.jpg";
             File file = new File(userpath);
             if (!file.exists())
                 throw  new FileNotFoundException();
-            return imgToBase64(userpath);
+            return new Image(imgToBase64(userpath));
         } catch (FileNotFoundException e) {
             String defaultPath  = path + "\\src\\main\\resources\\ReHairSource\\defaultHeadPhoto.jpg";
-            return imgToBase64(defaultPath);
+            return new Image(imgToBase64(defaultPath));
         }
     }
 

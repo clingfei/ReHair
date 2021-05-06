@@ -2,6 +2,7 @@ package com.example.rehair.service;
 
 
 import com.example.rehair.model.Article;
+import com.example.rehair.model.Image;
 import com.example.rehair.model.ReturnData;
 
 import javax.servlet.http.HttpServletRequest;
@@ -14,15 +15,15 @@ public interface UserService {
 
     public ReturnData login(HttpServletRequest req, String userName, String passWd);
 
-    public String addFriend(String userName, String futureFriendName);
+    public ReturnData addFriend(String userName, String futureFriendName);
 
     ReturnData setHead(String userName, String image);
 
-    String getHead(String userName);
+    Image getHead(String userName);
 
     // 创建动态，同时发送到目标角落？
     // String res = userService.createShare(userName, content, likeCount, time);
-    public String createShare(String userName, String textContent, String likeCount, String time);
+    public ReturnData createShare(String userName, String textContent, String likeCount, String time);
 
     // String res = userService.uploadArticlePhoto(userName, time, b64encodeImg);
     public ReturnData uploadArticlePhoto(String userName, String time, String image, String imgType);
