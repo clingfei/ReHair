@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 
 @RestController
 class controller {
@@ -64,6 +66,7 @@ class controller {
          */
         String userName = jsonObject.getString("username");
         String image = jsonObject.getString("image");
+        System.out.println(image);
         ReturnData data = userService.setHead(userName, image);
         return data;
     }
@@ -103,26 +106,16 @@ class controller {
     // 使用一个定死的时间戳+传送的文件？这个时间戳和用户名应当如何获取呢？暂时是未知的
     // 对方会直接调用这里的传送功能
     @RequestMapping(value = "/uploadArticlePhoto", method = RequestMethod.POST)
-    public String uploadArticlePhoto(@RequestBody String list) throws JSONException {
+    public ReturnData uploadArticlePhoto(@RequestBody  String list) throws JSONException {
         JSONObject jsonObject = new JSONObject(list);
+
         String userName = jsonObject.getString("username");
-
-        String time = jsonObject.getString("time");// time规定为字符串类型
-        // 获取图片路径 easy
-        String b64encodeImg = jsonObject.getString("b64encodeImg");
-
         String imgType = jsonObject.getString("imgType");
-        // String picCount = jsonObject.getString("time");
-        // 可以顺着请求发送图片，倘若传输图片，效率就太低了
-        // 可以把文件服务器当做一个ftp服务器，从而进行文件传输的策略
-        // 但这个不是现在需要考虑的事情
+        String time = jsonObject.getString("time");
+        String image = jsonObject.getString("image");
+        image = image.substring(1, image.length()-1);
 
-        // 返回报文并没有设置规范，等价于自己建立了一个交流规范？
-        // 是显得非常不规范的
-        String res = userService.uploadArticlePhoto(userName, time, b64encodeImg, imgType);
-
-
-        return res;
+        return userService.uploadArticlePhoto(userName, time, image, imgType);
     }
 
     @RequestMapping(value = "getArticle", method = RequestMethod.GET)

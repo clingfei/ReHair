@@ -25,7 +25,7 @@ public interface UserService {
     public String createShare(String userName, String textContent, String likeCount, String time);
 
     // String res = userService.uploadArticlePhoto(userName, time, b64encodeImg);
-    public String uploadArticlePhoto(String userName, String time, String b64encodeImg, String imgType);
+    public ReturnData uploadArticlePhoto(String userName, String time, String image, String imgType);
 
     public ArrayList<Article> getArticle(String userName, int start, int bias);
 

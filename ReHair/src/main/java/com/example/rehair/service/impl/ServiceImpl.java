@@ -131,7 +131,7 @@ public class ServiceImpl implements UserService {
     }
 
     // 进行base64解码的私有函数
-    private static void base64StrToFile(String b64encodeImg, String fileName, String parentPath) {
+    private static String base64StrToFile(String b64encodeImg, String fileName, String parentPath) {
         File file = new File(parentPath, fileName);
         FileOutputStream out = null;
 
@@ -151,7 +151,7 @@ public class ServiceImpl implements UserService {
             }
 
         }catch (Exception ex){
-            throw new RuntimeException("transform base64 String into file 出错",ex);
+            return ex.getMessage();
         }finally {
             try {
                 if(out != null)
@@ -160,8 +160,7 @@ public class ServiceImpl implements UserService {
                 System.out.println(e.getMessage());
             }
         }
-        // return file;
-        return;
+        return "";
     }
 
     public String createShare(String userName, String textContent, String likeCount, String time) {
@@ -212,19 +211,18 @@ public class ServiceImpl implements UserService {
         return;
     }
 
-    public String uploadArticlePhoto(String userName, String time, String b64encodeImg, String imgType) {
+    public ReturnData uploadArticlePhoto(String userName, String time, String image, String imgType) {
+        image = image.replace("\\", "");
         // time首先要转义
         Date date = null;
         SimpleDateFormat sdf1 = new SimpleDateFormat("yyyy-MM-dd-hh-mm-ss");
         try {
-            // 忘记了异常处理
             date = sdf1.parse(time);
         } catch (ParseException e) {
             e.printStackTrace();
         }
 
         String pathToPic = userDao.findArticlePhotoPath(userName, date);
-        // 找到了路径，重要的路径
 
         String prePath = null;
         String path = "";
@@ -234,42 +232,32 @@ public class ServiceImpl implements UserService {
         } catch(FileNotFoundException e) {
             System.out.println(e.getMessage());
         }
-        path = path + "\\src\\main\\resources\\ReHairSource\\" + userName;
-        path = path + "\\sharePhoto\\";
-        // String[] subPath = new String[] {"\\headPhoto", "\\Photo", "\\sharePhoto", "\\temp"};
-        // 创建最终以time结尾的文件夹
-        path = path + "time-" + time + "\\";
+        path = path + "\\src\\main\\resources\\ReHairSource\\" + userName + "\\sharePhoto\\" + "time-" + time + "\\";
 
+        image = image.substring(1, image.length()-1);
 
-        //创建一个Date类，得到当前系统时间
         Date qq=new Date();
         //日期格式函数
         SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd-hh-mm-ss");
         //将当前时间转换格式，返回String类型
-        String docName=df.format(qq)+"." + imgType;
+        ReturnData res = new ReturnData();
 
-        path = path + docName;
+        int i = 1;
+        for (String img : image.split(",")) {
+            img = img.replace("\"", "");
+            String docName=df.format(qq) + "-" + i + "." + imgType;
+            String newpath = path + docName;
 
-        // 2020.5.4 完成了基本文件路径的更新了
-        pathToPic = pathToPic + path + ";";
-        System.out.println(pathToPic);
-        userDao.reloadArticlePhotoPath(userName, date, pathToPic);
-        // 文件链表路径更新即可
+            // 2020.5.4 完成了基本文件路径的更新了
+            pathToPic = pathToPic + newpath + ";";
+            userDao.reloadArticlePhotoPath(userName, date, pathToPic);
+            String parentPath = prePath + "\\src\\main\\resources\\ReHairSource\\" + userName + "\\sharePhoto\\" + "time-" + time;
 
-        // 解码编码文件，并且存储为某一个文件，下面进行处理
-        // 生成doc文件？
-        // 具体写法就是解码base64编码的图片文件string数组，存储在对应的本地目录下面
-        // 最终生成较好的效果哦
-        // String b64encodeImg就是我们需要解码的字符串，这一点是要谨记的
-        // 一看就是static方法，直接从类名调用
+            res.setErrorMsg(base64StrToFile(img, docName, parentPath));
 
-        String parentPath = prePath + "\\src\\main\\resources\\ReHairSource\\" + userName + "\\sharePhoto\\" + "time-" + time;
-        base64StrToFile(b64encodeImg, docName, parentPath);
-
-        // 至此完成数据的调用，可以稍微试一下了
-        // 成功完成了上传图片，并且更新路径的服务
-        return pathToPic;
-
+            ++i;
+        }
+        return res;
     }
 
     public ReturnData setHead(String userName, String image) {
