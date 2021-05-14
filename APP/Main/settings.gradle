@@ -1,2 +1,0 @@
-include ':app', ':login', ':sidebar'
-rootProject.name='Main'
