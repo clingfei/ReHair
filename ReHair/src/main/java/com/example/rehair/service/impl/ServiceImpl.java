@@ -95,6 +95,12 @@ public class ServiceImpl implements UserService {
     }
 
     public ReturnData register(String userName, String passWd, String email) {
+        if (userName.length() < 1 || userName.length() > 10)
+            return new ReturnData(false, "UserName Length is too short or too long.");
+        if (passWd.length() < 6 || passWd.length() > 15)
+            return new ReturnData(false, "PassWord length is too short or too long.");
+        if (!(email.endsWith("@qq.com") || email.endsWith("@gmail.com") || email.endsWith("@sjtu.edu.cn")))
+            return new ReturnData(false, "Email type error.");
         System.out.println(passWd);
         passWd = hashEncode(passWd);
         // 仅仅存放hash code，长度超过限制
@@ -109,7 +115,7 @@ public class ServiceImpl implements UserService {
         return data;
     }
 
-    public ReturnData login(HttpServletRequest req, String userName, String passWd) {
+    public ReturnData login(String userName, String passWd) {
         String passWord = userDao.queryUserByName(userName);
 
         if (match(passWd, passWord)) {

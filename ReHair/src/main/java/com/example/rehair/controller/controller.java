@@ -35,14 +35,14 @@ class controller {
         return data;
     }
 
-    // 对象的自动序列化，可以直接return进行返回的
     @RequestMapping(value = "/login", method = RequestMethod.POST)
     public ReturnData dealLogin (HttpServletRequest req, @RequestBody String list) throws JSONException{
+        //暂不使用Session
         System.out.println(list);
         JSONObject jsonObject = new JSONObject(list);
         String userName = jsonObject.getString("username");
         String passWd = jsonObject.getString("password");
-        ReturnData data = userService.login(req, userName, passWd);
+        ReturnData data = userService.login(userName, passWd);
 
         return data;
     }
