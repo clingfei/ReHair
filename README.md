@@ -97,7 +97,6 @@ HTTP 8080端口
 {
     "username" : "用户名",
     "content" : 动态内容,
-    "likeCount" : 点赞数,初始置0,
     "time" : 发布时间，字符串类型， 这种格式："yyyy-MM-dd-hh-mm-ss"
 }
 ```
@@ -144,7 +143,8 @@ HTTP 8080端口
         ],
         "text": "ssssss",
         "time": "2016-10-27 10:00:00",
-        "userName": "clf"
+        "userName": "clf",
+        "seqid" : 1           //seqid是用来标识该用户的的动态的序号，用时间定位简直又臭又长
     },
     {
         "count": 1,
@@ -153,7 +153,8 @@ HTTP 8080端口
         ],
         "text": "xxx",
         "time": "2000-10-27 10:00:00",
-        "userName": "clf"
+        "userName": "clf",
+        "seqid" : 2
     }
 ]
 ```
@@ -225,9 +226,9 @@ class Algorithm {
 
 4. Article 
 
-|id | username | content | photopath | count | time
-| --- | --- | --- | --- | --- | --- |
-| AUTO_INCREMENT <br> PRIMARY KEY | varchar(15) | TEXT | TEXT | int | varchar(100)
+|id | username | content | photopath | count | time | seqid
+| --- | --- | --- | --- | --- | --- | --- |
+| AUTO_INCREMENT <br> PRIMARY KEY | varchar(15) | TEXT | TEXT | int | varchar(100) | int
 
 ## 图片存储路径
 ```
