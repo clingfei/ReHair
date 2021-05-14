@@ -8,14 +8,16 @@ public class Article {
     String text;
     ArrayList<String> photos;
     int count;
+    int seqid;
 
 
-    public Article (String userName, String time, String text, ArrayList<String> photos, int count) {
+    public Article(String userName, String time, String text, ArrayList<String> photos, int count, int seqid) {
         this.userName = userName;
         this.time = time;
         this.text = text;
         this.photos = photos;
         this.count = count;
+        this.seqid = seqid;
     }
 
     public String getUserName() {

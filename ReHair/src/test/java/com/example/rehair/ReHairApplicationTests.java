@@ -1,5 +1,6 @@
 package com.example.rehair;
 
+import com.example.rehair.model.Article;
 import com.example.rehair.model.ReturnData;
 import com.example.rehair.service.UserService;
 
@@ -16,6 +17,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Map;
 import java.util.Objects;
 
 
@@ -68,7 +71,6 @@ class ReHairApplicationTests {
         assertThat(returnData.getErrorMsg(), is("UserName or PassWord is Error."));
 
     }
-
 
     @Test
     void contextLoads() {

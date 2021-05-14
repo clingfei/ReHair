@@ -81,15 +81,33 @@ class UserDaoJdbcTemplateImpl implements UserDao {
         }
     }
 
+
+    private int getShareCount(String userName) {
+        String sql = "SELECT COUNT(username) AS sum FROM article WHERE username = :username";
+        Map<String, Object> result = null;
+        try {
+            Map<String, Object> m = new HashMap<String, Object>();
+            m.put("username", userName);
+            result = jdbcTemplate.queryForMap(sql, m);
+        } catch(EmptyResultDataAccessException e) {
+            System.out.println(e.getMessage());
+        }
+        System.out.println(result);
+        return (int) result.get("sum");
+    }
+
+
     @Override
-    public int createShare(String userName, String textContent, String likeCount, Date date) {
-        String sql = "INSERT INTO article (username, content, photopath, count, time) VALUES (:username, :content, :photopath, :count, :time)";
+    public int createShare(String userName, String textContent, Date date) {
+        int seqid = getShareCount("userName");
+        String sql = "INSERT INTO article (username, content, photopath, count, time, seqid) VALUES (:username, :content, :photopath, :count, :time, :seqid)";
         Map<String,Object> m = new HashMap<String, Object>();
         m.put("username", userName);
         m.put("content", textContent);
-        m.put("count", likeCount);
+        m.put("count", 0);
         m.put("time", date);
         m.put("photopath", "");
+        m.put("seqid", seqid);
         try {
             // 完成基本数据库的插入操作，还是比较合理的
             jdbcTemplate.update(sql, m);
@@ -100,6 +118,7 @@ class UserDaoJdbcTemplateImpl implements UserDao {
             return 0;
         }
     }
+
 
     @Override
     public String findArticlePhotoPath(String userName, Date date) {

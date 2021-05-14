@@ -90,11 +90,10 @@ class controller {
         JSONObject jsonObject = new JSONObject(list);
         String userName = jsonObject.getString("username");
         String content = jsonObject.getString("content");
-        String likeCount = jsonObject.getString("likeCount");
         String time = jsonObject.getString("time");// time规定为字符串类型
         // String picCount = jsonObject.getString("time");
 
-        ReturnData res = userService.createShare(userName, content, likeCount, time);
+        ReturnData res = userService.createShare(userName, content, time);
 
         return res;
     }
@@ -123,7 +122,18 @@ class controller {
         System.out.println(result);
         return result;
     }
+/*
+    @RequestMapping(value = "/deleteArticle", method = RequestMethod.POST)
+    public JSONArray deleteArticle(HttpServletRequest req, @RequestBody String list) throws JSONException {
+        JSONObject jsonObject = new JSONObject(list);
 
+        //可以考虑 用session来直接获取用户名
+        //String userName = req.getSession().getAttribute("username");
+        //String userName = jsonObject.getString("username");
+        //String time = jsonObject.getString("time");
+
+    }
+*/
     // 假设图片已经完全上传了上来，不需要进行图片的处理过程？
     // 图片的所有信息都来自数据库，最后return一个图片路径，想要加载，再调用别的函数即可
     // 返回图片的标准字符串？或者返回被编码的图片？

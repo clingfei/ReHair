@@ -185,7 +185,7 @@ public class ServiceImpl implements UserService {
 
 
 
-        int status = userDao.createShare(userName, textContent, likeCount, date);
+        int status = userDao.createShare(userName, textContent, date);
 
         if(status == 1) return new ReturnData(true, "");
         else return new ReturnData(false, "Error.");
@@ -316,7 +316,14 @@ public class ServiceImpl implements UserService {
                 //System.out.println(imgToBase64(imgpath));
                 image.add(imgToBase64(imgpath));
             }
-            Article article = new Article((String)result.get(i).get("username"),(String) result.get(i).get("time"), (String) result.get(i).get("content"), image, (int)result.get(i).get("count"));
+            Article article = new Article(
+                    (String)result.get(i).get("username"),
+                    (String) result.get(i).get("time"),
+                    (String) result.get(i).get("content"),
+                    image,
+                    (int)result.get(i).get("count"),
+                    (int)result.get(i).get("seqid")
+            );
             res.add(article);
         }
         System.out.println(res.get(0).getUserName());

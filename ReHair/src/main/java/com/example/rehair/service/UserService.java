@@ -23,7 +23,7 @@ public interface UserService {
 
     // 创建动态，同时发送到目标角落？
     // String res = userService.createShare(userName, content, likeCount, time);
-    ReturnData createShare(String userName, String textContent, String likeCount, String time);
+    ReturnData createShare(String userName, String textContent, String time);
 
     // String res = userService.uploadArticlePhoto(userName, time, b64encodeImg);
     ReturnData uploadArticlePhoto(String userName, String time, String image, String imgType);

@@ -17,7 +17,7 @@ public interface UserDao {
 
     // int status = userDao.addFriend(userName, textContent, likeCount, date);
     // userDao.createShare(userName, textContent, likeCount, date);
-    int createShare(String userName, String textContent, String likeCount, Date date);
+    int createShare(String userName, String textContent, Date date);
 
     // String pathToPic = userDao.findArticlePhotoPath(userName, time);
     String findArticlePhotoPath(String userName, Date time);
