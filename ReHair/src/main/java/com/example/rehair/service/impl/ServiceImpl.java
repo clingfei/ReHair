@@ -3,6 +3,7 @@ package com.example.rehair.service.impl;
 import com.example.rehair.dao.UserDao;
 import com.example.rehair.service.UserService;
 import io.netty.util.internal.StringUtil;
+import net.bytebuddy.asm.Advice;
 import org.springframework.stereotype.Service;
 
 import com.example.rehair.model.*;
@@ -169,7 +170,7 @@ public class ServiceImpl implements UserService {
         return "";
     }
 
-    public ReturnData createShare(String userName, String textContent, String likeCount, String time) {
+    public ShareReturn createShare(String userName, String textContent, String time) {
         createShareDir(userName, time);
         // 此时暂时还没有上传动态的照片，可以将数据分开处理？
         // 这里面有很多处理格式化序列的内容，开发的稍微有点太混乱了
@@ -183,12 +184,12 @@ public class ServiceImpl implements UserService {
             e.printStackTrace();
         }
 
+        int seqid = userDao.getShareCount(userName) + 1;
 
+        int status = userDao.createShare(userName, textContent, date, seqid);
 
-        int status = userDao.createShare(userName, textContent, date);
-
-        if(status == 1) return new ReturnData(true, "");
-        else return new ReturnData(false, "Error.");
+        if(status != -1) return new ShareReturn(true, status);
+        else return new ShareReturn(false, 0);
 
     }
     // 提供给上面的createShare函数使用的
@@ -316,8 +317,9 @@ public class ServiceImpl implements UserService {
                 //System.out.println(imgToBase64(imgpath));
                 image.add(imgToBase64(imgpath));
             }
+            System.out.println(result.get(i).get("seqid"));
             Article article = new Article(
-                    (String)result.get(i).get("username"),
+                    (String) result.get(i).get("username"),
                     (String) result.get(i).get("time"),
                     (String) result.get(i).get("content"),
                     image,
@@ -328,6 +330,14 @@ public class ServiceImpl implements UserService {
         }
         System.out.println(res.get(0).getUserName());
         return res;
+    }
+
+    public ReturnData deleteArticle(String userName, int id) {
+        int seqid = userDao.getShareCount(userName);
+        if(id > seqid || id <= 0)
+            return new ReturnData(false, "Illegal seqid.");
+
+        return userDao.deleteArticle(userName, id);
     }
 
     // 以下就是整个处理图片类的实现，还是可以的

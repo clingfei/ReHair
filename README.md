@@ -29,7 +29,7 @@ HTTP 8080端口
       "username" : 用户名，
       "password" : 密码
   }
- ```
+```
 * 返回值： 
 ``` 
 {
@@ -225,7 +225,7 @@ class Algorithm {
 
 4. Article 
 
-|id | username | content | photopath | count | time
+|id | username | content | photopath | count | time 
 | --- | --- | --- | --- | --- | --- |
 | AUTO_INCREMENT <br> PRIMARY KEY | varchar(15) | TEXT | TEXT | int | varchar(100)
 

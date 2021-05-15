@@ -86,14 +86,14 @@ class controller {
     // 本函数time的格式为 2015-10-27-10:00:00  精确到ms，可以用date类实现的
     // 创建文件夹不能包含:字符，所以规定死time的结构为: 2016-10-27-10-00-00
     @RequestMapping(value = "/createShare", method = RequestMethod.POST)
-    public ReturnData createShare(@RequestBody String list) throws JSONException {
+    public ShareReturn createShare(@RequestBody String list) throws JSONException {
         JSONObject jsonObject = new JSONObject(list);
         String userName = jsonObject.getString("username");
         String content = jsonObject.getString("content");
         String time = jsonObject.getString("time");// time规定为字符串类型
         // String picCount = jsonObject.getString("time");
 
-        ReturnData res = userService.createShare(userName, content, time);
+        ShareReturn res = userService.createShare(userName, content, time);
 
         return res;
     }
@@ -122,18 +122,19 @@ class controller {
         System.out.println(result);
         return result;
     }
-/*
+
     @RequestMapping(value = "/deleteArticle", method = RequestMethod.POST)
-    public JSONArray deleteArticle(HttpServletRequest req, @RequestBody String list) throws JSONException {
+    public ReturnData deleteArticle(HttpServletRequest req, @RequestBody String list) throws JSONException {
         JSONObject jsonObject = new JSONObject(list);
 
         //可以考虑 用session来直接获取用户名
         //String userName = req.getSession().getAttribute("username");
-        //String userName = jsonObject.getString("username");
-        //String time = jsonObject.getString("time");
-
+        String userName = jsonObject.getString("username");
+        int seqid = jsonObject.getInt("seqid");
+        ReturnData res = userService.deleteArticle(userName, seqid);
+        return res;
     }
-*/
+
     // 假设图片已经完全上传了上来，不需要进行图片的处理过程？
     // 图片的所有信息都来自数据库，最后return一个图片路径，想要加载，再调用别的函数即可
     // 返回图片的标准字符串？或者返回被编码的图片？

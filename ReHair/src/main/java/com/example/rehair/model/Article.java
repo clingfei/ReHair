@@ -40,6 +40,10 @@ public class Article {
         return this.count;
     }
 
+    public int getSeqid() {
+        return this.seqid;
+    }
+
     public void setUserName(String userName) {
         this.userName = userName;
     }
@@ -58,5 +62,9 @@ public class Article {
 
     public void setCount(int count) {
         this.count = count;
+    }
+
+    public void setSeqid(int seqid) {
+        this.seqid = seqid;
     }
 }
