@@ -226,15 +226,9 @@ class Algorithm {
 
 4. Article 
 
-<<<<<<< HEAD
-|id | username | content | photopath | count | time 
-| --- | --- | --- | --- | --- | --- |
-| AUTO_INCREMENT <br> PRIMARY KEY | varchar(15) | TEXT | TEXT | int | varchar(100)
-=======
 |id | username | content | photopath | count | time | seqid
 | --- | --- | --- | --- | --- | --- | --- |
 | AUTO_INCREMENT <br> PRIMARY KEY | varchar(15) | TEXT | TEXT | int | varchar(100) | int
->>>>>>> adcacad1b2d63f042c87fe93eb38b07e5389bbc2
 
 ## 图片存储路径
 ```
