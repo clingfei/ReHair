@@ -1,2 +1,2 @@
-include ':app', ':login', ':sidebar'
-rootProject.name='ReHair'
+include ':app'
+rootProject.name='app'
