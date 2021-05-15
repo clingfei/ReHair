@@ -22,6 +22,11 @@
         </activity>
         <activity android:name=".LoginActivity"></activity>
         <activity android:name=".MainActivity" />
+        <activity
+            android:name=".PersonalActivity"
+            android:label="@string/title_activity_personal">
+        </activity>
+
     </application>
 
 </manifest>

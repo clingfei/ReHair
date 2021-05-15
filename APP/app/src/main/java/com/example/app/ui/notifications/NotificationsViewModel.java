@@ -1,4 +1,4 @@
-package com.example.app.ui.notifications;
+package com.example.myapplication.ui.notifications;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
@@ -10,7 +10,7 @@ public class NotificationsViewModel extends ViewModel {
 
     public NotificationsViewModel() {
         mText = new MutableLiveData<>();
-        mText.setValue("This is notifications fragment");
+        mText.setValue("Click above to login");
     }
 
     public LiveData<String> getText() {

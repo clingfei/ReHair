@@ -1,4 +1,4 @@
-package com.example.app.ui.dashboard;
+package com.example.myapplication.ui.dashboard;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
@@ -10,7 +10,7 @@ public class DashboardViewModel extends ViewModel {
 
     public DashboardViewModel() {
         mText = new MutableLiveData<>();
-        mText.setValue("This is dashboard fragment");
+        mText.setValue("Click above to login");
     }
 
     public LiveData<String> getText() {
