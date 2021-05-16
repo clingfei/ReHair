@@ -1,5 +1,7 @@
 package com.example.rehair.service.impl;
 
+import com.example.rehair.dao.ShareDao;
+import com.example.rehair.utils.Utils;
 import com.example.rehair.dao.UserDao;
 import com.example.rehair.service.UserService;
 import io.netty.util.internal.StringUtil;
@@ -26,29 +28,7 @@ import java.util.Map;
 @Service
 public class ServiceImpl implements UserService {
     @Resource
-    public UserDao userDao;
-
-    private String getPath() throws FileNotFoundException {
-        File file = new File(ResourceUtils.getURL("classpath:").getPath());
-        return file.getParentFile().getParent();
-    }
-
-    private void createDir(String userName) {
-        String path = "";
-        try {
-            path = getPath();
-        } catch(FileNotFoundException e) {
-            System.out.println(e.getMessage());
-        }
-        path = path + "\\src\\main\\resources\\ReHairSource\\" + userName;
-        String[] subPath = new String[] {"\\headPhoto", "\\Photo", "\\sharePhoto", "\\temp"};
-        File file = new File(path);
-        file.mkdir();
-        for(int i=0; i<4; ++i ) {
-            File file1 = new File(path + subPath[i]);
-            file1.mkdir();
-        }
-    }
+    private UserDao userDao;
 
     private Boolean match(String password, String encryptedPassword) {
         BCryptPasswordEncoder encoder = new BCryptPasswordEncoder(10);
@@ -58,41 +38,6 @@ public class ServiceImpl implements UserService {
     private String hashEncode(String passWd) {
         BCryptPasswordEncoder encoder = new BCryptPasswordEncoder(10);
         return encoder.encode(passWd);
-    }
-
-    private Boolean saveImg(String userName, String image) throws IOException {
-        String path = "";
-        try{
-            path = getPath();
-        } catch(FileNotFoundException e) {
-            return false;
-        }
-        path =  path + "\\src\\main\\resources\\ReHairSource\\" + userName + "\\headPhoto\\headPhoto.jpg";
-        if (StringUtil.isNullOrEmpty(image)) {
-            return false;
-        }
-        File img = new File(path);
-        FileOutputStream fos = new FileOutputStream(img);
-        byte[] bytes = Base64.getDecoder().decode(image.replace("\r\n", ""));
-        fos.write(bytes);
-        fos.flush();
-        fos.close();
-        return true;
-    }
-
-    //图片转换为base64编码，参数为图片路径
-    private  String imgToBase64(String path) {
-        System.out.println(path);
-        try{
-            File img = new File(path);
-            FileInputStream fos = new FileInputStream(img);
-            return new String(Base64.getEncoder().encode(fos.readAllBytes()));
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return "error.";
     }
 
     public ReturnData register(String userName, String passWd, String email) {
@@ -110,7 +55,7 @@ public class ServiceImpl implements UserService {
         User user = new User(userName, passWd, email);
         ReturnData data = userDao.insertUser(user);
         if (data.getFlag() == true) {
-            createDir(userName);
+            Utils.createDir(userName);
         }
 
         return data;
@@ -137,139 +82,9 @@ public class ServiceImpl implements UserService {
         else return new ReturnData(false, "Error.");
     }
 
-    // 进行base64解码的私有函数
-    private static String base64StrToFile(String b64encodeImg, String fileName, String parentPath) {
-        File file = new File(parentPath, fileName);
-        FileOutputStream out = null;
-
-        try {
-            Base64.Decoder decoder = Base64.getDecoder();
-            byte[] bytes1 = decoder.decode(b64encodeImg);
-
-            ByteArrayInputStream in = new ByteArrayInputStream(bytes1);
-            byte[] buffer = new byte[1024];
-            // 异常就不处理了
-            out = new FileOutputStream(file);
-            int byteSum = 0;
-            int byteRead = 0;
-            while((byteRead = in.read(buffer)) != -1) {
-                byteSum += byteRead;
-                out.write(buffer, 0, byteRead);
-            }
-
-        }catch (Exception ex){
-            return ex.getMessage();
-        }finally {
-            try {
-                if(out != null)
-                    out.close(); // 就不进行完整的异常处理了
-            } catch( java.io.IOException e) {
-                System.out.println(e.getMessage());
-            }
-        }
-        return "";
-    }
-
-    public ShareReturn createShare(String userName, String textContent, String time) {
-        createShareDir(userName, time);
-        // 此时暂时还没有上传动态的照片，可以将数据分开处理？
-        // 这里面有很多处理格式化序列的内容，开发的稍微有点太混乱了
-        // time需要转义处理
-        Date date = null;
-        SimpleDateFormat sdf1 = new SimpleDateFormat("yyyy-MM-dd-hh-mm-ss");
-        try {
-            // 忘记了异常处理
-            date = sdf1.parse(time);
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-
-        int seqid = userDao.getShareCount(userName) + 1;
-
-        int status = userDao.createShare(userName, textContent, date, seqid);
-
-        if(status != -1) return new ShareReturn(true, status);
-        else return new ShareReturn(false, 0);
-
-    }
-    // 提供给上面的createShare函数使用的
-    // time是规格化好的内容
-    private void createShareDir(String userName, String time) {
-        String path = "";
-        try {
-            path = getPath();
-        } catch(FileNotFoundException e) {
-            System.out.println(e.getMessage());
-        }
-        path = path + "\\src\\main\\resources\\ReHairSource\\" + userName;
-        path = path + "\\sharePhoto\\";
-        // String[] subPath = new String[] {"\\headPhoto", "\\Photo", "\\sharePhoto", "\\temp"};
-        // 创建最终以time结尾的文件夹
-        path = path + "time-" + time;
-        // 最终只需要创建一个文件夹即可
-        File file = new File(path);
-        if(file.mkdir()) {
-            System.out.println("make dir successfully in Servicelmpl.java createShareDir");
-        }
-        else {
-            System.out.println("make dir faily in Servicelmpl.java createShareDir");
-        }
-        // System.out.println(path);
-        return;
-    }
-
-    public ReturnData uploadArticlePhoto(String userName, String time, String image, String imgType) {
-        image = image.replace("\\", "");
-        // time首先要转义
-        Date date = null;
-        SimpleDateFormat sdf1 = new SimpleDateFormat("yyyy-MM-dd-hh-mm-ss");
-        try {
-            date = sdf1.parse(time);
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-
-        String pathToPic = userDao.findArticlePhotoPath(userName, date);
-
-        String prePath = null;
-        String path = "";
-        try {
-            path = getPath();
-            prePath = getPath();
-        } catch(FileNotFoundException e) {
-            System.out.println(e.getMessage());
-        }
-        path = path + "\\src\\main\\resources\\ReHairSource\\" + userName + "\\sharePhoto\\" + "time-" + time + "\\";
-
-        image = image.substring(1, image.length()-1);
-
-        Date qq=new Date();
-        //日期格式函数
-        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd-hh-mm-ss");
-        //将当前时间转换格式，返回String类型
-        ReturnData res = new ReturnData();
-
-        int i = 1;
-        for (String img : image.split(",")) {
-            img = img.replace("\"", "");
-            String docName=df.format(qq) + "-" + i + "." + imgType;
-            String newpath = path + docName;
-
-            // 2020.5.4 完成了基本文件路径的更新了
-            pathToPic = pathToPic + newpath + ";";
-            userDao.reloadArticlePhotoPath(userName, date, pathToPic);
-            String parentPath = prePath + "\\src\\main\\resources\\ReHairSource\\" + userName + "\\sharePhoto\\" + "time-" + time;
-
-            res.setErrorMsg(base64StrToFile(img, docName, parentPath));
-
-            ++i;
-        }
-        return res;
-    }
-
     public ReturnData setHead(String userName, String image) {
         try{
-            boolean flag = saveImg(userName, image);
+            boolean flag = Utils.saveImg(userName, image);
             if (flag) return new ReturnData(true, "");
             else return new ReturnData(false, "setHead Error.");
         } catch(IOException e) {
@@ -285,7 +100,7 @@ public class ServiceImpl implements UserService {
     public Image getHead(String userName) {
         String path;
         try {
-            path = getPath();
+            path = Utils.getPath();
         } catch (FileNotFoundException e) {
             e.printStackTrace();
             return new Image("");
@@ -295,49 +110,11 @@ public class ServiceImpl implements UserService {
             File file = new File(userpath);
             if (!file.exists())
                 throw  new FileNotFoundException();
-            return new Image(imgToBase64(userpath));
+            return new Image(Utils.imgToBase64(userpath));
         } catch (FileNotFoundException e) {
             String defaultPath  = path + "\\src\\main\\resources\\ReHairSource\\defaultHeadPhoto.jpg";
-            return new Image(imgToBase64(defaultPath));
+            return new Image(Utils.imgToBase64(defaultPath));
         }
-    }
-
-    public ArrayList<Article> getArticle(String userName, int start, int bias) {
-        ArrayList<Map<String, Object>> result = userDao.queryArticleByName(userName);
-        if (result == null) {
-            return new ArrayList<Article>();
-        }
-        ArrayList<Article> res = new ArrayList<Article>();
-        System.out.println(result);
-        for (int i = start; i < start+bias && i < result.size(); ++i) {
-            String path = (String) result.get(i).get("photopath");;
-            ArrayList<String> image = new ArrayList<String>();
-            for (String imgpath : path.split(";")) {
-
-                //System.out.println(imgToBase64(imgpath));
-                image.add(imgToBase64(imgpath));
-            }
-            System.out.println(result.get(i).get("seqid"));
-            Article article = new Article(
-                    (String) result.get(i).get("username"),
-                    (String) result.get(i).get("time"),
-                    (String) result.get(i).get("content"),
-                    image,
-                    (int)result.get(i).get("count"),
-                    (int)result.get(i).get("seqid")
-            );
-            res.add(article);
-        }
-        System.out.println(res.get(0).getUserName());
-        return res;
-    }
-
-    public ReturnData deleteArticle(String userName, int id) {
-        int seqid = userDao.getShareCount(userName);
-        if(id > seqid || id <= 0)
-            return new ReturnData(false, "Illegal seqid.");
-
-        return userDao.deleteArticle(userName, id);
     }
 
     // 以下就是整个处理图片类的实现，还是可以的

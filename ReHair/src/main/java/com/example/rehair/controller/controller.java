@@ -1,6 +1,7 @@
 package com.example.rehair.controller;
 
-import com.example.rehair.service.*;
+import com.example.rehair.service.UserService;
+import com.example.rehair.service.ShareService;
 import com.example.rehair.model.*;
 
 import net.sf.json.JSONArray;
@@ -17,7 +18,7 @@ class controller {
 
     @Resource
     public UserService userService;
-
+    public ShareService shareService;
 
     @RequestMapping(value = "/register", method = RequestMethod.POST)
     public ReturnData dealRegister (@RequestBody String list) throws JSONException{
@@ -93,7 +94,7 @@ class controller {
         String time = jsonObject.getString("time");// time规定为字符串类型
         // String picCount = jsonObject.getString("time");
 
-        ShareReturn res = userService.createShare(userName, content, time);
+        ShareReturn res = shareService.createShare(userName, content, time);
 
         return res;
     }
@@ -110,7 +111,7 @@ class controller {
         String image = jsonObject.getString("image");
         image = image.substring(1, image.length()-1);
 
-        return userService.uploadArticlePhoto(userName, time, image, imgType);
+        return shareService.uploadArticlePhoto(userName, time, image, imgType);
     }
 
     @RequestMapping(value = "/getArticle", method = RequestMethod.GET)
@@ -118,7 +119,7 @@ class controller {
         System.out.println(userName);
         System.out.println(start);
         System.out.println(bias);
-        JSONArray result = JSONArray.fromObject(userService.getArticle(userName, start, bias));
+        JSONArray result = JSONArray.fromObject(shareService.getArticle(userName, start, bias));
         System.out.println(result);
         return result;
     }
@@ -131,7 +132,7 @@ class controller {
         //String userName = req.getSession().getAttribute("username");
         String userName = jsonObject.getString("username");
         int seqid = jsonObject.getInt("seqid");
-        ReturnData res = userService.deleteArticle(userName, seqid);
+        ReturnData res = shareService.deleteArticle(userName, seqid);
         return res;
     }
 
