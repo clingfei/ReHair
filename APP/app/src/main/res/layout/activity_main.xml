@@ -2,6 +2,7 @@
 <androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -31,5 +32,23 @@
         app:layout_constraintTop_toTopOf="parent"
         app:navGraph="@navigation/mobile_navigation"
     />
+
+    <Button
+        android:id="@+id/take_photo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Take photos"
+        android:textSize="25dp"
+        tools:layout_editor_absoluteX="111dp"
+        tools:layout_editor_absoluteY="185dp" />
+
+    <Button
+        android:id="@+id/choose_from_album"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Choose from albums"
+        android:textSize="25dp"
+        tools:layout_editor_absoluteX="53dp"
+        tools:layout_editor_absoluteY="307dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
