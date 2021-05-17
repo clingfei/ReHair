@@ -6,12 +6,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
+import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
+@Repository
 class ShareDaoJdbcTemplateImpl implements ShareDao {
     @Autowired
     public NamedParameterJdbcTemplate jdbcTemplate;
@@ -114,5 +116,19 @@ class ShareDaoJdbcTemplateImpl implements ShareDao {
         jdbcTemplate.update(sql, m);
 
         return new ReturnData(true, "");
+    }
+
+    public void deleteArticle(String userName) {
+        String sql = "DELETE FROM article WHERE username = :username";
+        Map<String, Object> m = new HashMap<String, Object>();
+        m.put("username", userName);
+        jdbcTemplate.update(sql, m);
+    }
+
+    public void deletePhoto(String userName) {
+        String sql = "DELETE FROM photo WHERE username = :username";
+        Map<String, Object> m = new HashMap<String, Object>();
+        m.put("username", userName);
+        jdbcTemplate.update(sql, m);
     }
 }

@@ -4,8 +4,6 @@ import com.example.rehair.dao.ShareDao;
 import com.example.rehair.utils.Utils;
 import com.example.rehair.dao.UserDao;
 import com.example.rehair.service.UserService;
-import io.netty.util.internal.StringUtil;
-import net.bytebuddy.asm.Advice;
 import org.springframework.stereotype.Service;
 
 import com.example.rehair.model.*;
@@ -15,7 +13,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import java.io.*;
-
+import org.apache.commons.io.FileUtils;
 
 // base64编码处理类
 import java.text.ParseException;
@@ -26,9 +24,12 @@ import java.util.Date;
 import java.util.Map;
 
 @Service
-public class ServiceImpl implements UserService {
+public class UserImpl implements UserService {
     @Resource
     private UserDao userDao;
+
+    @Resource
+    private ShareDao shareDao;
 
     private Boolean match(String password, String encryptedPassword) {
         BCryptPasswordEncoder encoder = new BCryptPasswordEncoder(10);
@@ -116,6 +117,28 @@ public class ServiceImpl implements UserService {
             return new Image(Utils.imgToBase64(defaultPath));
         }
     }
+
+    public void delAct(String userName) {
+        //删除数据库
+        userDao.deleteUser(userName);
+        userDao.deleteFriend(userName);
+        shareDao.deleteArticle(userName);
+        shareDao.deletePhoto(userName);
+
+        //删除文件夹
+        try {
+            String path = Utils.getPath();
+            path = path + "\\src\\main\\resources\\ReHairSource\\" + userName;
+            System.out.println(path);
+            File file = new File(path);
+            FileUtils.deleteDirectory(file);
+        } catch(FileNotFoundException e) {
+            System.out.println(e.getMessage());
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
 
     // 以下就是整个处理图片类的实现，还是可以的
     // 每一个算法都需要使用网络通信和某个服务器获取下一步的消息

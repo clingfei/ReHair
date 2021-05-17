@@ -11,12 +11,11 @@ import org.springframework.boot.web.servlet.server.ServletWebServerFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 
-
-
 @SpringBootApplication(exclude = {
         org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration.class
-})
-@ComponentScan (basePackages = {"com.example.rehair.controller", "com.example.rehair.dao", "com.example.rehair.model", "com.example.rehair.service", "com.example.rehair.service.impl", "com.example.rehair.config"})
+},scanBasePackages = {"com.example"})
+@ComponentScan (basePackages = {"com.example.rehair.controller", "com.example.rehair.dao", "com.example.rehair.dao.impl",
+        "com.example.rehair.model", "com.example.rehair.service", "com.example.rehair.service.impl", "com.example.rehair.config"})
 public class ReHairApplication {
 
     public static void main(String[] args) {

@@ -5,11 +5,13 @@ import com.example.rehair.model.Article;
 import com.example.rehair.model.Image;
 import com.example.rehair.model.ReturnData;
 import com.example.rehair.model.ShareReturn;
+import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 
 // 接口向下转型，有点让人难以理解emm
+@Service
 public interface UserService {
     //设置头像
     ReturnData setHead(String userName, String image);
@@ -28,6 +30,9 @@ public interface UserService {
 
     //修改照片
     String modifyPicture(String userName, String sourcePhotoName, String targetPhotoName, String modifyType, String otherOptions);
+
+    //删除账号
+    void delAct(String userName);
 }
 
 

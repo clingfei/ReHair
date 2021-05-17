@@ -61,6 +61,22 @@ class UserDaoJdbcTemplateImpl implements UserDao {
         return (String) result.get("password");
     }
 
+    public void deleteUser(String username) {
+        String sql = "DELETE FROM user WHERE username = :username";
+        Map<String, Object> m = new HashMap<String, Object>();
+        m.put("username", username);
+        jdbcTemplate.update(sql, m);
+    }
+
+    public void deleteFriend(String userName) {
+        String sql = "DELETE FROM friendlist WHERE username = :username";
+        Map<String, Object> m = new HashMap<String, Object>();
+        m.put("username", userName);
+        jdbcTemplate.update(sql, m);
+        sql = "DELETE FROM friendlist WHERE friendname = :username";
+        jdbcTemplate.update(sql, m);
+    }
+
     @Override
     public int addFriend(String userName, String futureFriendName) {
         // 如何向数据库添加一条数据呢？不需要别的数据结构的

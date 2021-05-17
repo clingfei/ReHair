@@ -1,12 +1,13 @@
 package com.example.rehair.service;
 
 import com.example.rehair.model.Article;
-import com.example.rehair.model.Image;
 import com.example.rehair.model.ReturnData;
 import com.example.rehair.model.ShareReturn;
+import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 
+@Service
 public interface ShareService {
 
     //删除动态

@@ -18,6 +18,8 @@ class controller {
 
     @Resource
     public UserService userService;
+
+    @Resource
     public ShareService shareService;
 
     @RequestMapping(value = "/register", method = RequestMethod.POST)
@@ -53,6 +55,12 @@ class controller {
        // String userName = req.getSession().getAttribute("username").toString();
         //String userName = "clf";
         return userService.getHead("clf");
+    }
+
+    @RequestMapping(value = "/delAct", method = RequestMethod.GET)
+    public void delAct(HttpServletRequest req, @RequestParam("username") String userName) {
+        //String userName = req.getSession().getAttribute("username").toString();
+        userService.delAct(userName);
     }
 
 

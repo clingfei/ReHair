@@ -12,6 +12,7 @@ import java.util.Date;
 
 public class Utils {
 
+    //输出为ReHair这一级目录
     public static String getPath() throws FileNotFoundException {
         File file = new File(ResourceUtils.getURL("classpath:").getPath());
         return file.getParentFile().getParent();

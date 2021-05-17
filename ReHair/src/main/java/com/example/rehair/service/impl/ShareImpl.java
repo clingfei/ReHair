@@ -4,8 +4,10 @@ import com.example.rehair.dao.ShareDao;
 import com.example.rehair.dao.UserDao;
 import com.example.rehair.model.Article;
 import com.example.rehair.model.ShareReturn;
+import com.example.rehair.service.ShareService;
 import com.example.rehair.utils.Utils;
 import com.example.rehair.model.ReturnData;
+import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.io.FileNotFoundException;
@@ -16,7 +18,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.Map;
 
-public class ShareImpl {
+@Service
+public class ShareImpl implements ShareService {
     @Resource
     private ShareDao shareDao;
 
