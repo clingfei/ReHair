@@ -145,30 +145,31 @@ public class UserImpl implements UserService {
     // 毕竟，实现的算法是使用python写的，还有很多工作需要继续做
     public String modifyPicture(String userName, String sourcePhotoName, String targetPhotoName,
                                 String modifyType, String otherOptions) {
-
+        FaceAlgorithm faceAlgorithm = new FaceAlgorithm(sourcePhotoName, targetPhotoName);
+        String res = null;
         switch (modifyType) {
             case FaceAlgorithm.exchangeFaceChoose: {
-                FaceAlgorithm.exchangeFace(sourcePhotoName, targetPhotoName);
+                res = faceAlgorithm.exchangeFace(sourcePhotoName, targetPhotoName);
                 break;
             }
             case FaceAlgorithm.recognizeFaceTypeChoose: {
-                FaceAlgorithm.recognizeFaceType(sourcePhotoName);
+                res = faceAlgorithm.recognizeFaceType(sourcePhotoName);
                 break;
             }
             case FaceAlgorithm.changeHairColorFaceChoose: {
-                FaceAlgorithm.changeHairColorFace(sourcePhotoName);
+                res = faceAlgorithm.changeHairColorFace(sourcePhotoName);
                 break;
             }
             case FaceAlgorithm.cutoutFaceChoose: {
-                FaceAlgorithm.cutoutFace(sourcePhotoName);
+                res = faceAlgorithm.cutoutFace(sourcePhotoName);
                 break;
             }
             case FaceAlgorithm.scoreFaceChoose: {
-                FaceAlgorithm.scoreFace(sourcePhotoName);
+                res = faceAlgorithm.scoreFace(sourcePhotoName);
                 break;
             }
         }
-        return "yes";
+        return res;
     }
 
 }
