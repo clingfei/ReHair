@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>ReHair</title>
+</head>
+<body>
+ReHair
+<div class="content" align="center">
+    <br>
+    <br>
+    <h1>Login</h1>
+    <br>
+    <br>
+    <p class="ex1" style="color:#C8C8C8">-If you haven't registered, here
+        <strong><a href="/register">Register</a></strong>.-
+    </p>
+    <br>
+    <p>
+        Username <input type="text" id="userName" name="userName">
+    </p>
+    <p>
+        Password&nbsp; <input type="password" id="passWd" name="passWd">
+    </p>
+    <p>
+    <div class="btn-group btn-group-sm">
+        <button type="button" onclick="login()" class="btn btn-primary"
+                style="background-color: #203643;border-color: #cccccc"> login
+        </button>
+    </div>
+    </p>
+    <br>
+    <br>
+</div>
+
+<script src="/static/js/jquery.js"></script>
+<script src="/static/js/bootstrap.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/node-forge@0.7.0/dist/forge.min.js"></script>
+
+<script>
+    function login() {
+        'use strict';
+
+        var userName = document.getElementById("userName").value;
+        var passWd = document.getElementById("passWd").value;
+
+        if (typeof userName == "undefined" || userName == null || userName == "") {
+            alert("用户名不能为空！");
+            window.location.href = '/login';
+            return;
+        }
+        if (typeof passWd == "undefined" || passWd == null || passWd == "") {
+            alert("密码不能为空！");
+            window.location.href = '/login';
+            return;
+        }
+
+        $.ajax({
+            method: "POST",
+            url: "/login",
+            async: false,
+            data: {"username": userName, "password": passWd},
+            success: function (data) {
+                console.log(data);
+                console.log(data.flag);
+                console.log(data.errorMsg);
+                if (data.flag) {
+                    // alert("success");
+                    window.location.href = '/';
+                    return;
+                } else {
+                    alert(data.errorMsg);
+                    window.location.href = '/login';
+                    return;
+                }
+            }
+        });
+
+    }
+</script>
+</body>
+</html>

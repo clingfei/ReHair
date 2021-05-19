@@ -8,12 +8,13 @@ import net.sf.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
-@RestController
+@Controller
 class controller {
 
     @Resource
@@ -22,7 +23,44 @@ class controller {
     @Resource
     public ShareService shareService;
 
+    //for web
+    @RequestMapping(value = "/login", method = RequestMethod.GET)
+    public String getLogin(){
+        return "login.html";
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "/login", method = RequestMethod.POST)
+    public ReturnData postLogin(HttpServletRequest req,
+                                @RequestParam("username") String userName,
+                                @RequestParam("password") String passWd) {
+        ReturnData data = userService.login(userName, passWd);
+        if (data.getFlag())
+            req.getSession().setAttribute("username", userName);
+        return data;
+    }
+
+    @RequestMapping(value = "/register", method = RequestMethod.GET)
+    public String getRegist() {
+        return "register";
+    }
+
+    @ResponseBody
     @RequestMapping(value = "/register", method = RequestMethod.POST)
+    public ReturnData register (@RequestParam("username") String userName,
+                                @RequestParam("password") String passWd,
+                                @RequestParam("email")String email) {
+        System.out.println(userName);
+        System.out.println(passWd);
+        System.out.println(email);
+
+        ReturnData data = userService.register(userName, passWd, email);
+        System.out.println(data);
+        return data;
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "/appRegister", method = RequestMethod.POST)
     public ReturnData dealRegister (@RequestBody String list) throws JSONException{
         System.out.println(list);
         JSONObject jsonObject = new JSONObject(list);
@@ -38,7 +76,8 @@ class controller {
         return data;
     }
 
-    @RequestMapping(value = "/login", method = RequestMethod.POST)
+    //for app
+    @RequestMapping(value = "/appLogin", method = RequestMethod.POST)
     public ReturnData dealLogin (HttpServletRequest req, @RequestBody String list) throws JSONException{
         //暂不使用Session
         System.out.println(list);
