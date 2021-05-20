@@ -48,7 +48,7 @@ class UserDaoJdbcTemplateImpl implements UserDao {
     public Map<String, Object> queryUserPageByName(String userName) {
         Map<String, Object> result = null;
         try {
-            String sql = "SELECT username, email FROM user WHERE username = :username";
+            String sql = "SELECT email FROM user WHERE username = :username";
             Map<String, Object> m = new HashMap<String, Object>();
             m.put("username", userName);
             result = jdbcTemplate.queryForMap(sql, m);
