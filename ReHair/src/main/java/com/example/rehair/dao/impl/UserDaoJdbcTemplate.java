@@ -8,8 +8,6 @@ import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
 
-import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -45,6 +43,19 @@ class UserDaoJdbcTemplateImpl implements UserDao {
                 return new ReturnData(false, "other errors");
             }
         }
+    }
+
+    public Map<String, Object> queryUserPageByName(String userName) {
+        Map<String, Object> result = null;
+        try {
+            String sql = "SELECT username, email FROM user WHERE username = :username";
+            Map<String, Object> m = new HashMap<String, Object>();
+            m.put("username", userName);
+            result = jdbcTemplate.queryForMap(sql, m);
+        } catch(EmptyResultDataAccessException e) {
+            System.out.println(e.getMessage());
+        }
+        return result;
     }
 
     @Override

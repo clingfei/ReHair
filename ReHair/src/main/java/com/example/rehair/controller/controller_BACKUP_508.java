@@ -110,6 +110,7 @@ class controller {
         return userService.getHead("clf");
     }
 
+<<<<<<< HEAD
     @RequestMapping(value = "/delAct", method = RequestMethod.GET)
     public void delAct(HttpServletRequest req, @RequestParam("username") String userName) {
         //String userName = req.getSession().getAttribute("username").toString();
@@ -117,7 +118,9 @@ class controller {
     }
 
 
+=======
     @ResponseBody
+>>>>>>> clf
     @RequestMapping(value = "/setHead", method = RequestMethod.POST)
     public ReturnData setHead(@RequestBody String list) throws JSONException {
         JSONObject jsonObject = new JSONObject(list);

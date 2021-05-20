@@ -21,8 +21,6 @@ class controller {
 
     @Resource
     public UserService userService;
-
-    @Resource
     public ShareService shareService;
 
     //for web
@@ -109,13 +107,6 @@ class controller {
         //String userName = "clf";
         return userService.getHead("clf");
     }
-
-    @RequestMapping(value = "/delAct", method = RequestMethod.GET)
-    public void delAct(HttpServletRequest req, @RequestParam("username") String userName) {
-        //String userName = req.getSession().getAttribute("username").toString();
-        userService.delAct(userName);
-    }
-
 
     @ResponseBody
     @RequestMapping(value = "/setHead", method = RequestMethod.POST)

@@ -1,12 +1,15 @@
 package com.example.rehair.service;
 
 
+<<<<<<< HEAD
 import com.example.rehair.model.Article;
 import com.example.rehair.model.Image;
 import com.example.rehair.model.ReturnData;
 import com.example.rehair.model.ShareReturn;
 import org.springframework.stereotype.Service;
+=======
 import com.example.rehair.model.*;
+>>>>>>> clf
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
