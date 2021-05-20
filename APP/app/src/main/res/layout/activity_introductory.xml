@@ -51,5 +51,17 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/app_name" />
 
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/floatBTN"
+        android:layout_width="619dp"
+        android:layout_height="694dp"
+        android:backgroundTint="#FFFFFF"
+        tools:layout_editor_absoluteX="-291dp"
+        tools:layout_editor_absoluteY="56dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

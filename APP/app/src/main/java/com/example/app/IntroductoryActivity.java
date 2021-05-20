@@ -2,17 +2,22 @@ package com.example.app;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
+
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 public class IntroductoryActivity extends AppCompatActivity {
     ImageView logo,appname,bg;
     Animation anim;
     Handler mHandler = new Handler();
+    FloatingActionButton fab;
 
 
     @Override
@@ -28,6 +33,17 @@ public class IntroductoryActivity extends AppCompatActivity {
 
         anim = AnimationUtils.loadAnimation(this,R.anim.login_page);
 
+        fab = findViewById(R.id.floatBTN);
+        /*fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(),LoginActivity.class);
+                /////////////////////////////////////////////////////////
+            }
+
+        }){
+
+        }
         /*setContentView(R.layout.activity_introductory);
         mHandler.postDelayed(new Runnable(){
             public void run(){

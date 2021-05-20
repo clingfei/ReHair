@@ -41,6 +41,7 @@
         />
 
     <Button
+        android:id="@+id/login"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="SIGN UP"
