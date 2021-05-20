@@ -8,11 +8,13 @@ import net.sf.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import org.springframework.data.repository.NoRepositoryBean;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import java.util.HashMap;
 
 @Controller
 class controller {
@@ -57,6 +59,16 @@ class controller {
         return data;
     }
 
+    @RequestMapping(value = "/{username}", method = RequestMethod.GET)
+    public String personalPage (@PathVariable("username") String username,
+                                HashMap<String, Object> map) {
+        map.put("username", username);
+        UserInfo userInfo = userService.personalPage(username);
+        map.put("email", userInfo.getEmail());
+        map.put("headPhoto", userInfo.getImage());
+        return "userPage";
+    }
+
     @ResponseBody
     @RequestMapping(value = "/appRegister", method = RequestMethod.POST)
     public ReturnData dealRegister (@RequestBody String list) throws JSONException{
@@ -75,6 +87,7 @@ class controller {
     }
 
     //for app
+    @ResponseBody
     @RequestMapping(value = "/appLogin", method = RequestMethod.POST)
     public ReturnData dealLogin (HttpServletRequest req, @RequestBody String list) throws JSONException{
         //暂不使用Session
@@ -87,6 +100,7 @@ class controller {
         return data;
     }
 
+    @ResponseBody
     @RequestMapping(value = "/getHead", method = RequestMethod.GET)
     public Image getHead(HttpServletRequest req) {
        // String userName = req.getSession().getAttribute("username").toString();
@@ -94,7 +108,7 @@ class controller {
         return userService.getHead("clf");
     }
 
-
+    @ResponseBody
     @RequestMapping(value = "/setHead", method = RequestMethod.POST)
     public ReturnData setHead(@RequestBody String list) throws JSONException {
         JSONObject jsonObject = new JSONObject(list);
@@ -125,6 +139,7 @@ class controller {
 
     // 本函数time的格式为 2015-10-27-10:00:00  精确到ms，可以用date类实现的
     // 创建文件夹不能包含:字符，所以规定死time的结构为: 2016-10-27-10-00-00
+    @ResponseBody
     @RequestMapping(value = "/createShare", method = RequestMethod.POST)
     public ShareReturn createShare(@RequestBody String list) throws JSONException {
         JSONObject jsonObject = new JSONObject(list);
@@ -140,6 +155,7 @@ class controller {
     // 配套的传送图片的服务，和上面的createshare相辅相成
     // 使用一个定死的时间戳+传送的文件？这个时间戳和用户名应当如何获取呢？暂时是未知的
     // 对方会直接调用这里的传送功能
+    @ResponseBody
     @RequestMapping(value = "/uploadArticlePhoto", method = RequestMethod.POST)
     public ReturnData uploadArticlePhoto(@RequestBody  String list) throws JSONException {
         JSONObject jsonObject = new JSONObject(list);
@@ -153,6 +169,7 @@ class controller {
         return shareService.uploadArticlePhoto(userName, time, image, imgType);
     }
 
+    @ResponseBody
     @RequestMapping(value = "/getArticle", method = RequestMethod.GET)
     public JSONArray getArticle(@RequestParam("username") String userName, @RequestParam("start") int start, @RequestParam("bias") int bias) {
         System.out.println(userName);
@@ -163,6 +180,7 @@ class controller {
         return result;
     }
 
+    @ResponseBody
     @RequestMapping(value = "/deleteArticle", method = RequestMethod.POST)
     public ReturnData deleteArticle(HttpServletRequest req, @RequestBody String list) throws JSONException {
         JSONObject jsonObject = new JSONObject(list);
@@ -184,6 +202,7 @@ class controller {
     // changeHairColorFace 换头发颜色 2
     // cutoutFace 抠图 3
     // scoreFace 打分4
+    @ResponseBody
     @RequestMapping(value = "/modifyPicture", method = RequestMethod.POST)
     public String modifyPicture(@RequestBody String list) throws JSONException {
         JSONObject jsonObject = new JSONObject(list);

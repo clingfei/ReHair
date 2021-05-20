@@ -70,6 +70,14 @@ public class ServiceImpl implements UserService {
         return new ReturnData(false, "UserName or PassWord is Error.");
     }
 
+    public UserInfo personalPage(String username) {
+        Map<String, Object> res = userDao.queryUserPageByName(username);
+        Image image = getHead(username);
+        UserInfo userInfo = new UserInfo((String) res.get("username"), (String) res.get("email"), image.getImage());
+        System.out.println(userInfo);
+        return userInfo;
+    }
+
     public ReturnData addFriend(String userName, String futureFriendName) {
         // 如何判断是否为朋友呢？可以设置在前台，一开始初始化时，需要请求好友列表信息
         // 同时需要给出每个好友的头像等信息

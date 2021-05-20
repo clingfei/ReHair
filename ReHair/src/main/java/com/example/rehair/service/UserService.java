@@ -1,10 +1,7 @@
 package com.example.rehair.service;
 
 
-import com.example.rehair.model.Article;
-import com.example.rehair.model.Image;
-import com.example.rehair.model.ReturnData;
-import com.example.rehair.model.ShareReturn;
+import com.example.rehair.model.*;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
@@ -25,6 +22,9 @@ public interface UserService {
 
     //添加好友
     ReturnData addFriend(String userName, String futureFriendName);
+
+    //返回个人主页信息
+    UserInfo personalPage(String userName);
 
     //修改照片
     String modifyPicture(String userName, String sourcePhotoName, String targetPhotoName, String modifyType, String otherOptions);
