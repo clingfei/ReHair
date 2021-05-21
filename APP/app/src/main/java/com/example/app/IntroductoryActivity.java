@@ -34,11 +34,11 @@ public class IntroductoryActivity extends AppCompatActivity {
         anim = AnimationUtils.loadAnimation(this,R.anim.login_page);
 
         fab = findViewById(R.id.floatBTN);
-        /*fab.setOnClickListener(new View.OnClickListener() {
+        fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getActivity(),LoginActivity.class);
-                /////////////////////////////////////////////////////////
+                
             }
 
         }){

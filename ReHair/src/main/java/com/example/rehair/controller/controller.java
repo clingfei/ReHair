@@ -61,7 +61,7 @@ class controller {
         return data;
     }
 
-    @RequestMapping(value = "/{username}", method = RequestMethod.GET)
+    @RequestMapping(value = "/user/{username}", method = RequestMethod.GET)
     public String personalPage (@PathVariable("username") String username,
                                 HashMap<String, Object> map) {
         map.put("username", username);

@@ -73,6 +73,7 @@ public class UserImpl implements UserService {
 
     public UserInfo personalPage(String username) {
         Map<String, Object> res = userDao.queryUserPageByName(username);
+        System.out.println(res);
         Image image = getHead(username);
         UserInfo userInfo = new UserInfo((String) res.get("username"), (String) res.get("email"), image.getImage());
         System.out.println(userInfo);
