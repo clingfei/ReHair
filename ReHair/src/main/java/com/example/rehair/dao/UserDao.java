@@ -2,6 +2,7 @@ package com.example.rehair.dao;
 import com.example.rehair.model.*;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
 import java.util.Map;
 
 // 持久层，专门用于配置数据库的
@@ -21,4 +22,5 @@ public interface UserDao {
 
     void deleteFriend(String userName);
 
+    List<Map<String, Object>> queryFriendByName(String userName);
 }

@@ -26,7 +26,7 @@ function login() {
             console.log(data.errorMsg);
             if (data.flag) {
                 // alert("success");
-                window.location.href = '/';
+                window.location.href = '/user/'+userName;
                 return;
             } else {
                 alert(data.errorMsg);

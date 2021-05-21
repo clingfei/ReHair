@@ -10,6 +10,7 @@ import com.example.rehair.model.*;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
+import java.util.List;
 
 // 接口向下转型，有点让人难以理解emm
 @Service
@@ -37,6 +38,9 @@ public interface UserService {
 
     //删除账号
     void delAct(String userName);
+
+    //返回好友列表
+    List<String> showFriend(String userName, int start, int bias);
 }
 
 

@@ -11,6 +11,7 @@ import com.google.android.material.tabs.TabLayout;
 public class LoginActivity extends AppCompatActivity {
     TabLayout tabLayout;
     ViewPager viewPager;
+    float v = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,6 +24,15 @@ public class LoginActivity extends AppCompatActivity {
         tabLayout.addTab(tabLayout.newTab().setText("Signup"));
 
         tabLayout.setTabGravity(tabLayout.GRAVITY_FILL);
+
+        final LoginAdapter adapter = new LoginAdapter(getSupportFragmentManager(),this,tabLayout.getTabCount());
+        viewPager.setAdapter(adapter);
+        viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
+
+        tabLayout.setTranslationY(300);
+        tabLayout.setAlpha(v);
+        tabLayout.animate().translationY(0).alpha(1).setDuration(1000).setStartDelay(400).start();
+
 
     }
 }

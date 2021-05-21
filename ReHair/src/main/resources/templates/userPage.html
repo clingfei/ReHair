@@ -60,6 +60,31 @@
 
         <div id="head" style="border:1px solid #eee;width:320px;height:100px;"></div>
     </div>
+    <div class="input-group rounded bg-white-pure box-shadow-wrap-normal">
+        <button type="button" onclick="upfile.click()" class="transparent btn"
+                style="">修改头像</button>
+        <input type="file" id="upfile" accept='' onchange="uploadFile(this)"
+               style="visibility: hidden; position: absolute;">
+    </div>
+    <br>
+    <br>
+    <br>
+    <br>
+
+    <div class="btn-group btn-group-sm">
+        <button type="button" onclick="showFriend()" class="btn btn-primary"
+                style=""> Following
+        </button>
+    </div>
+
+
+    <div id="friend">
+
+    </div>
+
+    <script src="/static/js/userPage.js"></script>
+    <script src="/static/js/ImageToBs64.js"></script>
+    <script src="/static/js/showFriend.js"></script>
 
     <script src="/static/js/userPage.js"></script>
 </div>
@@ -76,6 +101,7 @@
         </div>
     </nav>
 </div>
+    
 
 <script src="../static/js/jquery.js"></script>
 <script src="../static/Bootstrap/js/bootstrap.min.js"></script>

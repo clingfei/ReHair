@@ -6,6 +6,15 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+        <!--edited-->
+        <!--主题色透明化-->
+        <item name="android:windowIsTranslucent">true</item>
+    </style>
+
+    <style name="Animation_Activity"
+        parent="@android:style/Animation.Activity">
+        <item name="android:activityOpenExitAnimation">@anim/leftout</item>
+        <item name="android:activityCloseEnterAnimation">@anim/leftin</item>
     </style>
 
 </resources>

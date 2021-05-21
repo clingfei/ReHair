@@ -9,6 +9,7 @@ import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 // 定义接口以后，需要实现对应的方法，使用继承的方式实现接口
@@ -55,6 +56,16 @@ class UserDaoJdbcTemplateImpl implements UserDao {
         } catch(EmptyResultDataAccessException e) {
             System.out.println(e.getMessage());
         }
+        return result;
+    }
+
+    public List<Map<String, Object>> queryFriendByName(String userName) {
+        String sql = "SELECT friendname FROM friendlist WHERE username = :username";
+        List<Map<String, Object>> result;
+        Map<String, Object> m = new HashMap<String, Object>();
+        m.put("username", userName);
+        result = jdbcTemplate.queryForList(sql, m);
+        System.out.println(result);
         return result;
     }
 
