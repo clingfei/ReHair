@@ -15,9 +15,11 @@ import org.springframework.web.bind.annotation.*;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import java.io.UnsupportedEncodingException;
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import java.net.URLDecoder;
+import java.util.List;
 
 @Controller
 class controller {
@@ -82,17 +84,21 @@ class controller {
 
         image = image.substring(6);
         System.out.println(image);
-        //JSONObject jsonObject = new JSONObject(list);
-        /*
-         * 这里理论上应该可以通过Session来获取用户名
-         * 但是现在POST方法获取不到Session，先凑合一下
-         */
         String userName = (String) req.getSession().getAttribute("username");
-        //String userName = jsonObject.getString("username");
-        //String image = jsonObject.getString("image");
-        //System.out.println(image);
         ReturnData data = userService.setHead(userName, image);
         return data;
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "/showFriend", method = RequestMethod.GET)
+    public List<String> showFriend(HttpServletRequest req,
+                           @RequestParam int start,
+                           @RequestParam int bias) {
+        //System.out.println(list);
+        //int start = 0, bias = 10;
+        String userName = (String) req.getSession().getAttribute("username");
+        List<String> res = userService.showFriend(userName, start, bias);
+        return res;
     }
 
     @ResponseBody

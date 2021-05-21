@@ -5,8 +5,8 @@ function uploadFile(file) {
     console.log(file.files);
     const reader = new FileReader();
     reader.onload = function (ev) {
-        // base64码
-        imgFile =ev.target.result;//或e.target都是一样的
+
+        imgFile =ev.target.result;
         document.querySelector("img").src= ev.target.result;
         console.log(imgFile);
 

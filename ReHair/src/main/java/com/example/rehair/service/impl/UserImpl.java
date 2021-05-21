@@ -16,12 +16,12 @@ import java.io.*;
 import org.apache.commons.io.FileUtils;
 
 // base64编码处理类
+import java.lang.reflect.Array;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Base64;
-import java.util.Date;
-import java.util.Map;
+import java.util.*;
+
+import static java.lang.Math.min;
 
 @Service
 public class UserImpl implements UserService {
@@ -90,6 +90,16 @@ public class UserImpl implements UserService {
         // 添加朋友是比较简单的
         if(status == 1) return new ReturnData(true, "");
         else return new ReturnData(false, "Error.");
+    }
+
+    public List<String> showFriend(String userName, int start, int bias) {
+        List<Map<String, Object>> result = userDao.queryFriendByName(userName);
+        List<String> res = new ArrayList<>();
+        for (int i = start; i < min(result.size(), bias); i++) {
+            res.add((String) result.get(i).get("friendname"));
+        }
+        System.out.println(res);
+        return res;
     }
 
     public ReturnData setHead(String userName, String image) {
