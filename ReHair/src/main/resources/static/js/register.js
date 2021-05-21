@@ -38,6 +38,7 @@ function register() {
         url: "/register",
         async: false,
         data: {"username": userName, "password": passWd, "email": email},
+
         success: function (data) {
             console.log(data);
             console.log(data.flag);

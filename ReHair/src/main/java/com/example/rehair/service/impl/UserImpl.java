@@ -93,6 +93,10 @@ public class UserImpl implements UserService {
     }
 
     public ReturnData setHead(String userName, String image) {
+        if(image.startsWith("data:")) {
+            image = image.substring(23);
+            System.out.println(image);
+        }
         try{
             boolean flag = Utils.saveImg(userName, image);
             if (flag) return new ReturnData(true, "");
