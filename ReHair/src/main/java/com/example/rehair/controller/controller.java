@@ -14,7 +14,12 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import java.io.UnsupportedEncodingException;
+import java.util.ArrayList;
 import java.util.HashMap;
+
+import java.net.URLDecoder;
+import java.util.List;
 
 @Controller
 class controller {
@@ -72,6 +77,31 @@ class controller {
     }
 
     @ResponseBody
+    @RequestMapping(value = "/setHead", method = RequestMethod.POST)
+    public ReturnData setHead(HttpServletRequest req, @RequestBody String list) throws UnsupportedEncodingException {
+        System.out.println(list);
+        String image = URLDecoder.decode(list, "utf-8");
+
+        image = image.substring(6);
+        System.out.println(image);
+        String userName = (String) req.getSession().getAttribute("username");
+        ReturnData data = userService.setHead(userName, image);
+        return data;
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "/showFriend", method = RequestMethod.GET)
+    public List<String> showFriend(HttpServletRequest req,
+                           @RequestParam int start,
+                           @RequestParam int bias) {
+        //System.out.println(list);
+        //int start = 0, bias = 10;
+        String userName = (String) req.getSession().getAttribute("username");
+        List<String> res = userService.showFriend(userName, start, bias);
+        return res;
+    }
+
+    @ResponseBody
     @RequestMapping(value = "/appRegister", method = RequestMethod.POST)
     public ReturnData dealRegister (@RequestBody String list) throws JSONException{
         System.out.println(list);
@@ -110,6 +140,22 @@ class controller {
         return userService.getHead("clf");
     }
 
+    @ResponseBody
+    @RequestMapping(value = "/appSetHead", method = RequestMethod.POST)
+    public ReturnData appSetHead(HttpServletRequest req, @RequestBody String list) throws JSONException {
+        JSONObject jsonObject = new JSONObject(list);
+        /*
+         * 这里理论上应该可以通过Session来获取用户名
+         * 但是现在POST方法获取不到Session，先凑合一下
+         */
+        //String userName = (String) req.getSession().getAttribute("username");
+        String userName = jsonObject.getString("username");
+        String image = jsonObject.getString("image");
+        //System.out.println(image);
+        ReturnData data = userService.setHead(userName, image);
+        return data;
+    }
+
     @RequestMapping(value = "/delAct", method = RequestMethod.GET)
     public void delAct(HttpServletRequest req, @RequestParam("username") String userName) {
         //String userName = req.getSession().getAttribute("username").toString();
@@ -117,20 +163,7 @@ class controller {
     }
 
 
-    @ResponseBody
-    @RequestMapping(value = "/setHead", method = RequestMethod.POST)
-    public ReturnData setHead(@RequestBody String list) throws JSONException {
-        JSONObject jsonObject = new JSONObject(list);
-        /*
-         * 这里理论上应该可以通过Session来获取用户名
-         * 但是现在POST方法获取不到Session，先凑合一下
-         */
-        String userName = jsonObject.getString("username");
-        String image = jsonObject.getString("image");
-        System.out.println(image);
-        ReturnData data = userService.setHead(userName, image);
-        return data;
-    }
+
     // 添加某个好友，可以直接使用name进行处理的
     @RequestMapping(value = "/addFriend", method = RequestMethod.POST)
     public ReturnData addFriend(@RequestBody String list) throws JSONException{
