@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -35,6 +37,12 @@ class controller {
     @RequestMapping(value = "/login", method = RequestMethod.GET)
     public String getLogin(){
         return "login.html";
+    }
+
+    @RequestMapping(value = "/logout", method = RequestMethod.GET)
+    public boolean logout(HttpServletRequest req) {
+        req.getSession().invalidate();
+        return true;
     }
 
     @ResponseBody
@@ -69,8 +77,13 @@ class controller {
 
     // 涉及到了一点用户界面，暂时还不清楚要如何美化？
     @RequestMapping(value = "/user/{username}", method = RequestMethod.GET)
-    public String personalPage (@PathVariable("username") String username,
+    public String personalPage (HttpServletRequest req,
+                                @PathVariable("username") String username,
                                 HashMap<String, Object> map) {
+        System.out.println(req.getSession().getAttribute("username"));
+        if (req.getSession().getAttribute("username") == null) {
+            return "redirect:/login";
+        }
         map.put("username", username);
         UserInfo userInfo = userService.personalPage(username);
         map.put("email", userInfo.getEmail());
@@ -80,25 +93,36 @@ class controller {
 
     @ResponseBody
     @RequestMapping(value = "/setHead", method = RequestMethod.POST)
-    public ReturnData setHead(HttpServletRequest req, @RequestBody String list) throws UnsupportedEncodingException {
+    public ReturnData setHead(HttpServletResponse response,
+                              HttpServletRequest req,
+                              @RequestBody String list) throws IOException {
+        String userName = (String) req.getSession().getAttribute("username");
+        System.out.println(userName);
+        if (userName == null) {
+            response.sendRedirect("/login");
+        }
         System.out.println(list);
         String image = URLDecoder.decode(list, "utf-8");
 
         image = image.substring(6);
         System.out.println(image);
-        String userName = (String) req.getSession().getAttribute("username");
+
         ReturnData data = userService.setHead(userName, image);
         return data;
     }
 
     @ResponseBody
     @RequestMapping(value = "/showFriend", method = RequestMethod.GET)
-    public List<String> showFriend(HttpServletRequest req,
-                           @RequestParam int start,
-                           @RequestParam int bias) {
+    public List<String> showFriend(HttpServletResponse response,
+                                    HttpServletRequest req,
+                                    @RequestParam int start,
+                                    @RequestParam int bias) throws IOException {
         //System.out.println(list);
         //int start = 0, bias = 10;
         String userName = (String) req.getSession().getAttribute("username");
+        if (userName == null) {
+            response.sendRedirect("/login");
+        }
         List<String> res = userService.showFriend(userName, start, bias);
         return res;
     }
@@ -106,8 +130,12 @@ class controller {
     @ResponseBody
     @RequestMapping(value = "/unfollow", method = RequestMethod.GET)
     public ReturnData unfollow(HttpServletRequest req,
-                               @RequestParam String name) {
+                               HttpServletResponse response,
+                               @RequestParam String name) throws IOException {
         String userName = (String) req.getSession().getAttribute("username");
+        if (userName == null) {
+            response.sendRedirect("/login");
+        }
         ReturnData res = userService.unfollow(userName, name);
         return res;
     }
