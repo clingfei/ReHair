@@ -41,6 +41,9 @@ public interface UserService {
 
     //返回好友列表
     List<String> showFriend(String userName, int start, int bias);
+
+    //取关，友尽
+    ReturnData unfollow(String userName, String name);
 }
 
 

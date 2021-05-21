@@ -102,6 +102,14 @@ public class UserImpl implements UserService {
         return res;
     }
 
+    public ReturnData unfollow(String userName, String friendName) {
+        int res = userDao.unfollow(userName, friendName);
+        if (res == 0) {
+            return new ReturnData(false, "Errors occured.");
+        }
+        return new ReturnData(true, "");
+    }
+
     public ReturnData setHead(String userName, String image) {
         if(image.startsWith("data:")) {
             image = image.substring(23);

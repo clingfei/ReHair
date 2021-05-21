@@ -23,4 +23,6 @@ public interface UserDao {
     void deleteFriend(String userName);
 
     List<Map<String, Object>> queryFriendByName(String userName);
+
+    int unfollow(String userName, String friendName);
 }

@@ -4,6 +4,7 @@ import com.example.rehair.service.UserService;
 import com.example.rehair.service.ShareService;
 import com.example.rehair.model.*;
 
+import net.bytebuddy.asm.Advice;
 import net.sf.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -99,6 +100,15 @@ class controller {
         //int start = 0, bias = 10;
         String userName = (String) req.getSession().getAttribute("username");
         List<String> res = userService.showFriend(userName, start, bias);
+        return res;
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "/unfollow", method = RequestMethod.GET)
+    public ReturnData unfollow(HttpServletRequest req,
+                               @RequestParam String name) {
+        String userName = (String) req.getSession().getAttribute("username");
+        ReturnData res = userService.unfollow(userName, name);
         return res;
     }
 
