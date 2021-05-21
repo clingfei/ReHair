@@ -61,6 +61,7 @@ class controller {
         return data;
     }
 
+    // 涉及到了一点用户界面，暂时还不清楚要如何美化？
     @RequestMapping(value = "/user/{username}", method = RequestMethod.GET)
     public String personalPage (@PathVariable("username") String username,
                                 HashMap<String, Object> map) {
@@ -228,5 +229,12 @@ class controller {
 
         // 返回的应当是文件的名字？还是直接返回图片呢？暂时是未知的
         return res;
+    }
+
+
+
+    @RequestMapping(value = "/base", method = RequestMethod.GET)
+    public String getBase(){
+        return "base.html";
     }
 }
