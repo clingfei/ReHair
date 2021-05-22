@@ -13,21 +13,22 @@ $(document).ready(function() {
         data: {start: 0, bias: 10},
         success: function (data) {
             console.log(data);
-            let s = document.getElementById("share");
+            let s = document.getElementById("shares");
             let str = '<div class="blog-post" id="article">';
             for (let i=0; i<data.length; i++) {
-                str = '<li>' + '<div id="' + data[i].seqid + data[i].username + '">' + data[i].username +
-                    data[i].content + data[i].count + data[i].time +
-                    '</div>' +  data.image + '</li>';
-                for (let j = 0; j<data[i].photos.length; j++) {
+                console.log(data[i].username);
+                console.log(data[i].content);
+                str = str + '<li>' + '<div id="' + data[i].seqid + data[i].userName + '">' + '<p> 用户名：' +
+                    data[i].userName + '</p>'  +
+                    '<p> 内容:' + data[i].text + '</p>'
+                     + '<p> 时间:' + data[i].time + '</p>' ;
+                for (let j=0; j<data[i].photos.length; j++) {
                     let base64 = 'data:image/png;base64,' + data[i].photos[j];
-                    let img = document.createElement("img");
-                    img.src = base64;
-                    let head = document.getElementById(data[i].seqid+data[i].username);
-                    head.appendChild(img);
+                    str = str + '<img src="' + base64 + '">';
                 }
+                str = str + '</div>' + '</li>';
             }
-            str = str + '</div>'
+            str = str + '</div>';
             s.innerHTML = str;
         }
     })

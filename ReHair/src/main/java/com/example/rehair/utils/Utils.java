@@ -90,6 +90,7 @@ public class Utils {
             return new String(Base64.getEncoder().encode(fos.readAllBytes()));
         } catch (FileNotFoundException e) {
             e.printStackTrace();
+            return "";
         } catch (IOException e) {
             e.printStackTrace();
         }
