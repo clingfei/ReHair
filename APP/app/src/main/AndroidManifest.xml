@@ -15,10 +15,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme" >
-        <activity
-            android:name=".PersonalActivity"
-            android:label="@string/title_activity_personal" >
-        </activity>
+
         <activity android:name=".IntroductoryActivity" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

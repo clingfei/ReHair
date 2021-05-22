@@ -32,15 +32,12 @@
         app:layout_constraintTop_toTopOf="parent"
         app:navGraph="@navigation/mobile_navigation"
     />
-
     <Button
         android:id="@+id/take_photo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Take photos"
         android:textSize="25dp"
-        tools:layout_editor_absoluteX="111dp"
-        tools:layout_editor_absoluteY="185dp"
         app:layout_constraintWidth_percent="0.7"
         app:layout_constraintVertical_bias="0.3"
         app:layout_constraintHorizontal_bias="0.5"
@@ -55,8 +52,6 @@
         android:layout_height="wrap_content"
         android:text="Choose from albums"
         android:textSize="25dp"
-        tools:layout_editor_absoluteX="53dp"
-        tools:layout_editor_absoluteY="307dp"
         app:layout_constraintWidth_percent="0.7"
         app:layout_constraintVertical_bias="0.5"
         app:layout_constraintHorizontal_bias="0.5"
