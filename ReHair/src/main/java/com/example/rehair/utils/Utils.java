@@ -99,7 +99,6 @@ public class Utils {
 
     public static boolean base64StrToFile(String image, String fileName, String parentPath) throws IOException {
         String path = parentPath + "\\" + fileName;
-        System.out.println(image);
         if (StringUtil.isNullOrEmpty(image)) {
             return false;
         }

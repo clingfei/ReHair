@@ -6,6 +6,7 @@ $(document).ready(function() {
 //                     image,
 //                     (int)result.get(i).get("count"),
 //                     (int)result.get(i).get("seqid")
+
     $.ajax({
         method: "GET",
         url: "/getArticle",

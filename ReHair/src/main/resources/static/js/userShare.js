@@ -6,6 +6,14 @@ $(document).ready(function() {
 //                     image,
 //                     (int)result.get(i).get("count"),
 //                     (int)result.get(i).get("seqid")
+
+    var session = new getUser();
+    if(JSON.stringify(session) === '{}') {
+        window.location.href = '/login';
+    }
+
+
+
     let url = window.location.pathname;
     console.log(url);
     let user = url.substring(7);

@@ -34,6 +34,13 @@ class controller {
     public ShareService shareService;
 
     //for web
+
+    @ResponseBody
+    @RequestMapping(value = "/getUser", method = RequestMethod.GET)
+    public String getUser(HttpServletRequest req) {
+       return (String) req.getSession().getAttribute("username");
+    }
+
     @RequestMapping(value = "/login", method = RequestMethod.GET)
     public String getLogin(){
         return "login.html";
@@ -98,9 +105,7 @@ class controller {
                               @RequestBody String list) throws IOException {
         String userName = (String) req.getSession().getAttribute("username");
         System.out.println(userName);
-        if (userName == null) {
-            response.sendRedirect("/login");
-        }
+
         System.out.println(list);
         String image = URLDecoder.decode(list, "utf-8");
 
@@ -120,9 +125,6 @@ class controller {
         //System.out.println(list);
         //int start = 0, bias = 10;
         String userName = (String) req.getSession().getAttribute("username");
-        if (userName == null) {
-            response.sendRedirect("/login");
-        }
         List<String> res = userService.showFriend(userName, start, bias);
         return res;
     }
@@ -133,9 +135,6 @@ class controller {
                                HttpServletResponse response,
                                @RequestParam String name) throws IOException {
         String userName = (String) req.getSession().getAttribute("username");
-        if (userName == null) {
-            response.sendRedirect("/login");
-        }
         ReturnData res = userService.unfollow(userName, name);
         return res;
     }
@@ -152,19 +151,16 @@ class controller {
                                 @RequestParam("start") int start,
                                 @RequestParam("bias") int bias) throws IOException {
         String userName = (String) req.getSession().getAttribute("username");
-        if (userName == null) {
-            response.sendRedirect("/login.html");
-        }
+
         System.out.println(userName);
         System.out.println(start);
         System.out.println(bias);
         JSONArray result = JSONArray.fromObject(shareService.getArticle(userName, start, bias));
-        System.out.println(result);
         return result;
     }
 
     @RequestMapping(value = "/share/{username}", method = RequestMethod.GET)
-    public String userShare () {
+    public String userShare (@PathVariable("username") String username) {
         return "userShare";
     }
 

@@ -115,7 +115,6 @@ public class ShareImpl implements ShareService {
             return new ArrayList<Article>();
         }
         ArrayList<Article> res = new ArrayList<Article>();
-        System.out.println(result);
         for (int i = start; i < start+bias && i < result.size(); ++i) {
             String path = (String) result.get(i).get("photopath");;
             ArrayList<String> image = new ArrayList<String>();
