@@ -163,6 +163,23 @@ class controller {
         return result;
     }
 
+    @RequestMapping(value = "/share/{username}", method = RequestMethod.GET)
+    public String userShare () {
+        return "userShare";
+    }
+
+    //这个是给查看指定用户的article使用的，
+    @ResponseBody
+    @RequestMapping(value = "/userGetArticle", method = RequestMethod.GET)
+    public JSONArray getArticle(@RequestParam("username") String userName, @RequestParam("start") int start, @RequestParam("bias") int bias) {
+        System.out.println(userName);
+        System.out.println(start);
+        System.out.println(bias);
+        JSONArray result = JSONArray.fromObject(shareService.getArticle(userName, start, bias));
+        System.out.println(result);
+        return result;
+    }
+
     @ResponseBody
     @RequestMapping(value = "/appRegister", method = RequestMethod.POST)
     public ReturnData dealRegister (@RequestBody String list) throws JSONException{
@@ -269,17 +286,6 @@ class controller {
         String time = jsonObject.getString("time");
         String image = jsonObject.getString("image");
         return shareService.uploadArticlePhoto(userName, time, image, imgType);
-    }
-
-    @ResponseBody
-    @RequestMapping(value = "/appGetArticle", method = RequestMethod.GET)
-    public JSONArray getArticle(@RequestParam("username") String userName, @RequestParam("start") int start, @RequestParam("bias") int bias) {
-        System.out.println(userName);
-        System.out.println(start);
-        System.out.println(bias);
-        JSONArray result = JSONArray.fromObject(shareService.getArticle(userName, start, bias));
-        System.out.println(result);
-        return result;
     }
 
     @ResponseBody
