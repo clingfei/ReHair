@@ -303,9 +303,12 @@ class controller {
     }
 
 
-
+    /*
     @RequestMapping(value = "/base", method = RequestMethod.GET)
     public String getBase(){
-        return "base.html";
+        return "layout.html";
     }
+    */
+
+
 }

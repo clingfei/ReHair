@@ -1,9 +1,12 @@
 <!DOCTYPE html>
-<html lang="en">
+<!-- 无法实现模板语言？ -->
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
-    <link rel="stylesheet" href="../static/Bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../../static/Bootstrap/css/bootstrap.min.css">
 
     <style>
         body{
@@ -45,7 +48,10 @@
             </div>
         </nav>
         <!-- 自己需要引用的content -->
+        <!-- 子页面需要替换的内容 -->
+        <div layout:fragment="content">
 
+        </div>
 
 
     </div>
@@ -63,8 +69,8 @@
         </nav>
     </div>
 
-    <script src="../static/js/jquery.js"></script>
-    <script src="../static/Bootstrap/js/bootstrap.min.js"></script>
+    <script src="../../static/js/jquery.js"></script>
+    <script src="../../static/Bootstrap/js/bootstrap.min.js"></script>
     <script src="/static/js/logout.js"></script>
 </body>
 </html>

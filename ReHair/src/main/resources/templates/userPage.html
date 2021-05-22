@@ -1,114 +1,50 @@
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-    <link rel="stylesheet" href="../static/Bootstrap/css/bootstrap.min.css">
+<div layout:decorator="layout/layout" xmlns:layout="http://www.w3.org/1999/xhtml">
+    <div layout:fragment="content">
+        <div>
+            <p>
+                <button type="button" onclick="logout()">logout</button>
+            </p>
+            <script src="/static/js/jquery.js"></script>
+            <script src="/static/js/bootstrap.js"></script>
+            <script src="https://cdn.jsdelivr.net/npm/node-forge@0.7.0/dist/forge.min.js"></script>
+            <script src="/static/js/logout.js"></script>
 
-    <style>
-        body{
-            background-color: #222222;
-            padding-bottom: 70px;
-        }
-    </style>
-</head>
+            <div style="color:whitesmoke;">
+                <h1 th:text="${username}"></h1>
+                <p th:text="${email}"></p>
+                <!-- 这里的信息是java后端传递过来的一些变量？ -->
+                <p id = "headPhoto" th:text ="${headPhoto}"></p>
 
-<body>
-<!-- 内容主页面 -->
-<div class="page-container" id="main">
-    <!-- 导航栏 -->
-    <nav class="navbar navbar-inverse" role="navigation">
-        <div class="container-fluid">
-            <div class="navbar-header">
-                <a class="navbar-brand" href="#">ReHair</a>
+                <div id="head" style="border:1px solid #eee;width:320px;height:100px;"></div>
             </div>
-            <div>
-                <ul class="nav navbar-nav">
-                    <li><a href="#">探索</a></li>
-                    <li><a href="#">主页</a></li>
-                    <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                            用户
-                            <b class="caret"></b>
-                        </a>
-                        <ul class="dropdown-menu">
-                            <li><a href="#">登录</a></li>
-                            <li><a href="#">注册</a></li>
-                            <li><a href="#">Jasper Report</a></li>
-                            <li class="divider"></li>
-                            <li><a href="#">分离的链接</a></li>
-                            <li class="divider"></li>
-                            <li><a href="#">另一个分离的链接</a></li>
-                        </ul>
-                    </li>
-                </ul>
+            <div class="input-group rounded bg-white-pure box-shadow-wrap-normal">
+                <button type="button" onclick="upfile.click()" class="transparent btn"
+                        style="">修改头像</button>
+                <input type="file" id="upfile" accept='' onchange="uploadFile(this)"
+                       style="visibility: hidden; position: absolute;">
             </div>
+            <br>
+            <br>
+            <br>
+            <br>
+
+            <div class="btn-group btn-group-sm">
+                <button type="button" onclick="showFriend()" class="btn btn-primary"
+                        style=""> Following
+                </button>
+            </div>
+
+
+            <div id="friend">
+
+            </div>
+
+            <script src="/static/js/userPage.js"></script>
+            <script src="/static/js/ImageToBs64.js"></script>
+            <script src="/static/js/showFriend.js"></script>
+
+            <script src="/static/js/userPage.js"></script>
         </div>
-    </nav>
-    <!-- 自己需要引用的content -->
-    <p>
-        <button type="button" onclick="logout()">logout</button>
-    </p>
-
-
-    <script src="/static/js/jquery.js"></script>
-    <script src="/static/js/bootstrap.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/node-forge@0.7.0/dist/forge.min.js"></script>
-    <script src="/static/js/logout.js"></script>
-
-    <div style="color:whitesmoke;">
-        <h1 th:text="${username}"></h1>
-        <p th:text="${email}"></p>
-        <!-- 这里的信息是java后端传递过来的一些变量？ -->
-        <p id = "headPhoto" th:text ="${headPhoto}"></p>
-
-        <div id="head" style="border:1px solid #eee;width:320px;height:100px;"></div>
     </div>
-    <div class="input-group rounded bg-white-pure box-shadow-wrap-normal">
-        <button type="button" onclick="upfile.click()" class="transparent btn"
-                style="">修改头像</button>
-        <input type="file" id="upfile" accept='' onchange="uploadFile(this)"
-               style="visibility: hidden; position: absolute;">
-    </div>
-    <br>
-    <br>
-    <br>
-    <br>
-
-    <div class="btn-group btn-group-sm">
-        <button type="button" onclick="showFriend()" class="btn btn-primary"
-                style=""> Following
-        </button>
-    </div>
-
-
-    <div id="friend">
-
-    </div>
-
-    <script src="/static/js/userPage.js"></script>
-    <script src="/static/js/ImageToBs64.js"></script>
-    <script src="/static/js/showFriend.js"></script>
-
-    <script src="/static/js/userPage.js"></script>
 </div>
-
-<!-- 页脚 -->
-<div class="footer-container">
-    <nav class="navbar navbar-inverse navbar-fixed-bottom" role="navigation">
-        <div class="container">
-            <div class="container-fluid">
-                <div class="navbar-header">
-                    <a class="navbar-brand" href="#">Copy right from WZD</a>
-                </div>
-            </div>
-        </div>
-    </nav>
-</div>
-    
-
-<script src="../static/js/jquery.js"></script>
-<script src="../static/Bootstrap/js/bootstrap.min.js"></script>
-</body>
-</html>
