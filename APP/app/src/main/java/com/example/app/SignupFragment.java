@@ -1,5 +1,6 @@
 package com.example.app;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -22,6 +23,7 @@ public class SignupFragment extends Fragment {
         passwd = root.findViewById(R.id.password_signup);
         email = root.findViewById(R.id.email_signup);
         confirm = root.findViewById(R.id.confirmpwd_signup);
+        signup = root.findViewById(R.id.btn_signup);
 
         email.setTranslationY(800);
         username.setTranslationY(800);
@@ -38,6 +40,13 @@ public class SignupFragment extends Fragment {
         confirm.animate().translationY(0).alpha(1).setDuration(1000).setStartDelay(500).start();
         username.animate().translationY(0).alpha(1).setDuration(1000).setStartDelay(700).start();
 
+        signup.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(),MainActivity.class);
+                startActivity(intent);
+            }
+        });
         return root;
     }
 }

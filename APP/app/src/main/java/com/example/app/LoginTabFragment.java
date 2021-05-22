@@ -1,9 +1,11 @@
 package com.example.app;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.EditText;
 
@@ -21,7 +23,7 @@ public class LoginTabFragment extends Fragment {
 
         username = root.findViewById(R.id.username);
         passwd = root.findViewById(R.id.password);
-        login = root.findViewById(R.id.login);
+        login = root.findViewById(R.id.btn_login);
 
         login.setTranslationY(800);
         username.setTranslationY(800);
@@ -35,6 +37,13 @@ public class LoginTabFragment extends Fragment {
         passwd.animate().translationY(0).alpha(1).setDuration(1000).setStartDelay(500).start();
         username.animate().translationY(0).alpha(1).setDuration(1000).setStartDelay(500).start();
 
+        login.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(),MainActivity.class);
+                startActivity(intent);
+            }
+        });
         return root;
     }
 

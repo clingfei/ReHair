@@ -40,7 +40,14 @@
         android:text="Take photos"
         android:textSize="25dp"
         tools:layout_editor_absoluteX="111dp"
-        tools:layout_editor_absoluteY="185dp" />
+        tools:layout_editor_absoluteY="185dp"
+        app:layout_constraintWidth_percent="0.7"
+        app:layout_constraintVertical_bias="0.3"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"/>
 
     <Button
         android:id="@+id/choose_from_album"
@@ -49,6 +56,13 @@
         android:text="Choose from albums"
         android:textSize="25dp"
         tools:layout_editor_absoluteX="53dp"
-        tools:layout_editor_absoluteY="307dp" />
+        tools:layout_editor_absoluteY="307dp"
+        app:layout_constraintWidth_percent="0.7"
+        app:layout_constraintVertical_bias="0.5"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
