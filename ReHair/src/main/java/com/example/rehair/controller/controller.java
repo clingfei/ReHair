@@ -140,6 +140,29 @@ class controller {
         return res;
     }
 
+    @RequestMapping(value = "/share", method = RequestMethod.GET)
+    public String share() {
+        return "Share";
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "/getArticle", method = RequestMethod.GET)
+    public JSONArray getArticle(HttpServletRequest req,
+                                HttpServletResponse response,
+                                @RequestParam("start") int start,
+                                @RequestParam("bias") int bias) throws IOException {
+        String userName = (String) req.getSession().getAttribute("username");
+        if (userName == null) {
+            response.sendRedirect("/login.html");
+        }
+        System.out.println(userName);
+        System.out.println(start);
+        System.out.println(bias);
+        JSONArray result = JSONArray.fromObject(shareService.getArticle(userName, start, bias));
+        System.out.println(result);
+        return result;
+    }
+
     @ResponseBody
     @RequestMapping(value = "/appRegister", method = RequestMethod.POST)
     public ReturnData dealRegister (@RequestBody String list) throws JSONException{
@@ -245,13 +268,11 @@ class controller {
         String imgType = jsonObject.getString("imgType");
         String time = jsonObject.getString("time");
         String image = jsonObject.getString("image");
-        image = image.substring(1, image.length()-1);
-
         return shareService.uploadArticlePhoto(userName, time, image, imgType);
     }
 
     @ResponseBody
-    @RequestMapping(value = "/getArticle", method = RequestMethod.GET)
+    @RequestMapping(value = "/appGetArticle", method = RequestMethod.GET)
     public JSONArray getArticle(@RequestParam("username") String userName, @RequestParam("start") int start, @RequestParam("bias") int bias) {
         System.out.println(userName);
         System.out.println(start);
