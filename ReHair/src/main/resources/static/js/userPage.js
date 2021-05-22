@@ -1,8 +1,9 @@
 $(document).ready(function() {
     'use strict';
 
-    var session = new getUser();
-    if(JSON.stringify(session) === '{}') {
+    var session = getUser();
+    console.log(session);
+    if(session === "") {
         window.location.href = '/login';
     }
 
@@ -19,4 +20,6 @@ $(document).ready(function() {
     let head = document.getElementById('head');
     head.appendChild(img);
     document.getElementById("headPhoto").innerHTML = "";
+
+
 });
