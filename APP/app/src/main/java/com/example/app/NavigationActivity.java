@@ -22,10 +22,6 @@ public class NavigationActivity extends AppCompatActivity {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
                 switch (menuItem.getItemId()){
-                    case R.id.account:
-                        //startActivity(new Intent(getApplicationContext(),Account.class));
-                        //overridePendingTransition(0,0);
-                        return true;
                     case R.id.moments:
                         startActivity(new Intent(getApplicationContext(),Moments.class));
                         overridePendingTransition(0,0);
@@ -33,6 +29,10 @@ public class NavigationActivity extends AppCompatActivity {
                     case R.id.rehair:
                         startActivity(new Intent(getApplicationContext(),Rehair.class));
                         overridePendingTransition(0,0);
+                        return true;
+                    case R.id.account:
+                        //startActivity(new Intent(getApplicationContext(),Account.class));
+                        //overridePendingTransition(0,0);
                         return true;
                 }
                 return false;

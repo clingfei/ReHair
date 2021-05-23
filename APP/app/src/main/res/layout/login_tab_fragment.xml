@@ -55,5 +55,6 @@
         app:layout_constraintTop_toBottomOf="@+id/password"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
+        android:onClick="login"
         />
 </androidx.constraintlayout.widget.ConstraintLayout>
