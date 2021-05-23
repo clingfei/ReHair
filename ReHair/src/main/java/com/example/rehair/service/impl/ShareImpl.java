@@ -95,7 +95,14 @@ public class ShareImpl implements ShareService {
             shareDao.reloadArticlePhotoPath(userName, date, pathToPic);
             String parentPath = prePath + "\\src\\main\\resources\\ReHairSource\\" + userName + "\\sharePhoto\\" + "time-" + time;
 
-            res.setErrorMsg(Utils.base64StrToFile(img, docName, parentPath));
+            try {
+                res.setFlag(Utils.base64StrToFile(img, docName, parentPath));
+                if(!res.getFlag()) {
+                    res.setErrorMsg("Error occured.Please check your input.");
+                }
+            } catch (IOException e) {
+                System.out.println(e.getMessage());
+            }
 
             ++i;
         }
@@ -108,7 +115,6 @@ public class ShareImpl implements ShareService {
             return new ArrayList<Article>();
         }
         ArrayList<Article> res = new ArrayList<Article>();
-        System.out.println(result);
         for (int i = start; i < start+bias && i < result.size(); ++i) {
             String path = (String) result.get(i).get("photopath");;
             ArrayList<String> image = new ArrayList<String>();

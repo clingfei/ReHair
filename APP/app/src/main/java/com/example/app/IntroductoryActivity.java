@@ -15,7 +15,7 @@ import android.widget.ImageView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 public class IntroductoryActivity extends AppCompatActivity {
-    ImageView logo,appname,bg;
+    ImageView logo, appname, bg;
     Animation anim;
     Handler mHandler = new Handler();
     Button btn;
@@ -32,12 +32,11 @@ public class IntroductoryActivity extends AppCompatActivity {
         appname.animate().translationY(2200).setDuration(1000).setStartDelay(2000);
         logo.animate().translationY(2200).setDuration(1000).setStartDelay(2000);
 
-        anim = AnimationUtils.loadAnimation(this,R.anim.login_page);
+        anim = AnimationUtils.loadAnimation(this, R.anim.login_page);
 
         btn = (Button) findViewById(R.id.BTN);
         btn.setOnClickListener(listener);
-        };
-
+    }
     Button.OnClickListener listener = new Button.OnClickListener() {
         public void onClick(View v) {
             Intent intent = new Intent(IntroductoryActivity.this, LoginActivity.class);
@@ -45,4 +44,4 @@ public class IntroductoryActivity extends AppCompatActivity {
             IntroductoryActivity.this.finish();
         }
     };
- }
+}

@@ -90,41 +90,24 @@ public class Utils {
             return new String(Base64.getEncoder().encode(fos.readAllBytes()));
         } catch (FileNotFoundException e) {
             e.printStackTrace();
+            return "";
         } catch (IOException e) {
             e.printStackTrace();
         }
         return "error.";
     }
 
-    public static String base64StrToFile(String b64encodeImg, String fileName, String parentPath) {
-        File file = new File(parentPath, fileName);
-        FileOutputStream out = null;
-
-        try {
-            Base64.Decoder decoder = Base64.getDecoder();
-            byte[] bytes1 = decoder.decode(b64encodeImg);
-
-            ByteArrayInputStream in = new ByteArrayInputStream(bytes1);
-            byte[] buffer = new byte[1024];
-            // 异常就不处理了
-            out = new FileOutputStream(file);
-            int byteSum = 0;
-            int byteRead = 0;
-            while((byteRead = in.read(buffer)) != -1) {
-                byteSum += byteRead;
-                out.write(buffer, 0, byteRead);
-            }
-
-        }catch (Exception ex){
-            return ex.getMessage();
-        }finally {
-            try {
-                if(out != null)
-                    out.close(); // 就不进行完整的异常处理了
-            } catch( java.io.IOException e) {
-                System.out.println(e.getMessage());
-            }
+    public static boolean base64StrToFile(String image, String fileName, String parentPath) throws IOException {
+        String path = parentPath + "\\" + fileName;
+        if (StringUtil.isNullOrEmpty(image)) {
+            return false;
         }
-        return "";
+        File img = new File(path);
+        FileOutputStream fos = new FileOutputStream(img);
+        byte[] bytes = Base64.getDecoder().decode(image.replace("\r\n", ""));
+        fos.write(bytes);
+        fos.flush();
+        fos.close();
+        return true;
     }
 }

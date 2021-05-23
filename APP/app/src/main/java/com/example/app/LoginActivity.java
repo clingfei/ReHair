@@ -3,7 +3,10 @@ package com.example.app;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager.widget.ViewPager;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.tabs.TabLayout;
@@ -11,6 +14,7 @@ import com.google.android.material.tabs.TabLayout;
 public class LoginActivity extends AppCompatActivity {
     TabLayout tabLayout;
     ViewPager viewPager;
+    Button login,signup;
     float v = 0;
 
     @Override
@@ -35,4 +39,6 @@ public class LoginActivity extends AppCompatActivity {
 
 
     }
+
+
 }

@@ -34,6 +34,15 @@ class controller {
     public ShareService shareService;
 
     //for web
+
+    @ResponseBody
+    @RequestMapping(value = "/getUser", method = RequestMethod.GET)
+    public String getUser(HttpServletRequest req) {
+        String userName = (String) req.getSession().getAttribute("username");
+        System.out.println(userName);
+        return userName;
+    }
+
     @RequestMapping(value = "/login", method = RequestMethod.GET)
     public String getLogin(){
         return "login.html";
@@ -81,9 +90,6 @@ class controller {
                                 @PathVariable("username") String username,
                                 HashMap<String, Object> map) {
         System.out.println(req.getSession().getAttribute("username"));
-        if (req.getSession().getAttribute("username") == null) {
-            return "redirect:/login";
-        }
         map.put("username", username);
         UserInfo userInfo = userService.personalPage(username);
         map.put("email", userInfo.getEmail());
@@ -98,9 +104,7 @@ class controller {
                               @RequestBody String list) throws IOException {
         String userName = (String) req.getSession().getAttribute("username");
         System.out.println(userName);
-        if (userName == null) {
-            response.sendRedirect("/login");
-        }
+
         System.out.println(list);
         String image = URLDecoder.decode(list, "utf-8");
 
@@ -120,9 +124,6 @@ class controller {
         //System.out.println(list);
         //int start = 0, bias = 10;
         String userName = (String) req.getSession().getAttribute("username");
-        if (userName == null) {
-            response.sendRedirect("/login");
-        }
         List<String> res = userService.showFriend(userName, start, bias);
         return res;
     }
@@ -133,11 +134,54 @@ class controller {
                                HttpServletResponse response,
                                @RequestParam String name) throws IOException {
         String userName = (String) req.getSession().getAttribute("username");
-        if (userName == null) {
-            response.sendRedirect("/login");
-        }
         ReturnData res = userService.unfollow(userName, name);
         return res;
+    }
+
+    @RequestMapping(value = "/share", method = RequestMethod.GET)
+    public String share() {
+        return "Share";
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "/getArticle", method = RequestMethod.GET)
+    public JSONArray getArticle(HttpServletRequest req,
+                                HttpServletResponse response,
+                                @RequestParam("start") int start,
+                                @RequestParam("bias") int bias) throws IOException {
+        String userName = (String) req.getSession().getAttribute("username");
+
+        System.out.println(userName);
+        System.out.println(start);
+        System.out.println(bias);
+        JSONArray result = JSONArray.fromObject(shareService.getArticle(userName, start, bias));
+        return result;
+    }
+
+    @RequestMapping(value = "/share/{username}", method = RequestMethod.GET)
+    public String userShare (@PathVariable("username") String username) {
+        return "userShare";
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "/deleteArticle", method = RequestMethod.POST)
+    public ReturnData deleteArticle(HttpServletRequest req, @RequestParam("seqid") int seqid)  {
+
+        String userName = (String) req.getSession().getAttribute("username");
+        ReturnData res = shareService.deleteArticle(userName, seqid);
+        return res;
+    }
+
+    //这个是给查看指定用户的article使用的，
+    @ResponseBody
+    @RequestMapping(value = "/userGetArticle", method = RequestMethod.GET)
+    public JSONArray getArticle(@RequestParam("username") String userName, @RequestParam("start") int start, @RequestParam("bias") int bias) {
+        System.out.println(userName);
+        System.out.println(start);
+        System.out.println(bias);
+        JSONArray result = JSONArray.fromObject(shareService.getArticle(userName, start, bias));
+        System.out.println(result);
+        return result;
     }
 
     @ResponseBody
@@ -245,24 +289,11 @@ class controller {
         String imgType = jsonObject.getString("imgType");
         String time = jsonObject.getString("time");
         String image = jsonObject.getString("image");
-        image = image.substring(1, image.length()-1);
-
         return shareService.uploadArticlePhoto(userName, time, image, imgType);
     }
 
     @ResponseBody
-    @RequestMapping(value = "/getArticle", method = RequestMethod.GET)
-    public JSONArray getArticle(@RequestParam("username") String userName, @RequestParam("start") int start, @RequestParam("bias") int bias) {
-        System.out.println(userName);
-        System.out.println(start);
-        System.out.println(bias);
-        JSONArray result = JSONArray.fromObject(shareService.getArticle(userName, start, bias));
-        System.out.println(result);
-        return result;
-    }
-
-    @ResponseBody
-    @RequestMapping(value = "/deleteArticle", method = RequestMethod.POST)
+    @RequestMapping(value = "/appDeleteArticle", method = RequestMethod.POST)
     public ReturnData deleteArticle(HttpServletRequest req, @RequestBody String list) throws JSONException {
         JSONObject jsonObject = new JSONObject(list);
 

@@ -1,6 +1,12 @@
 function showFriend() {
     'use strict';
 
+    var session = getUser();
+    console.log(session);
+    if(session === "") {
+        window.location.href = '/login';
+    }
+
     $.ajax({
         method: "GET",
         url: "/showFriend",

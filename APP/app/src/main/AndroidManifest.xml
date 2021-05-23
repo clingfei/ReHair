@@ -14,12 +14,21 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
+<<<<<<< HEAD
         android:theme="@style/AppTheme" >
         <activity
             android:name=".activity_personal"
             android:label="@string/title_activity_personal" >
         </activity>
         <activity android:name=".IntroductoryActivity" >
+=======
+        android:theme="@style/AppTheme">
+        <activity android:name=".Rehair"></activity>
+        <activity android:name=".Moments" />
+        <activity android:name=".Account" />
+        <activity android:name=".NavigationActivity" />
+        <activity android:name=".IntroductoryActivity">
+>>>>>>> eaf2e02afef207c6ec7213e49d800f51b4e17fd6
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
