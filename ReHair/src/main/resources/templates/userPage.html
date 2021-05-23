@@ -2,22 +2,45 @@
 <div layout:decorator="layout/layout" xmlns:layout="http://www.w3.org/1999/xhtml">
     <div layout:fragment="content">
         <div>
-            <p>
-                <button type="button" onclick="logout()">logout</button>
-            </p>
+
             <script src="/static/js/jquery.js"></script>
             <script src="/static/js/bootstrap.js"></script>
             <script src="https://cdn.jsdelivr.net/npm/node-forge@0.7.0/dist/forge.min.js"></script>
             <script src="/static/js/logout.js"></script>
 
-            <p>
-                <a href="/share">Share</a>
-            </p>
-            <p>
-                <a id="myShare" href="">MyShare</a>
-            </p>
+            <script>
+                $(function() {
+                    /*
+                    <p>
+                        <button type="button" onclick="logout()">logout</button>
+                    </p>
+
+                    <li><a href="#">用户</a></li>
+
+                     */
+                    var tmp = "<li>";
+                    tmp = tmp + "<a onclick=\"logout()\"> logout </a>"
+                    tmp = tmp + "</li>";
+
+                    $('#my_own_thing').append(tmp);
+
+                    tmp = "<li>";
+                    tmp = tmp + "<a href=\"/share\">Share</a>"
+                    tmp = tmp + "</li>";
+                    $('#my_own_thing').append(tmp);
+
+                    tmp = "<li>";
+                    tmp = tmp + "<a id=\"myShare\" href=\"\">MyShare</a>"
+                    tmp = tmp + "</li>";
+                    $('#my_own_thing').append(tmp);
+
+                })
+            </script>
+
+
 
             <div style="color:whitesmoke;">
+
                 <h1 th:text="${username}"></h1>
                 <p th:text="${email}"></p>
                 <!-- 这里的信息是java后端传递过来的一些变量？ -->
@@ -52,6 +75,9 @@
             <script src="/static/js/showFriend.js"></script>
 
             <script src="/static/js/getUser.js"></script>
+
+
+
         </div>
     </div>
 </div>

@@ -1,47 +1,41 @@
 <div layout:decorator="layout/layout" xmlns:layout="http://www.w3.org/1999/xhtml">
     <div layout:fragment="content">
         <div class="page-container" id="main">
-            <!-- 导航栏 -->
-            <nav class="navbar navbar-inverse" role="navigation">
-                <div class="container-fluid">
-                    <div class="navbar-header">
-                        <a class="navbar-brand" href="#">ReHair</a>
-                    </div>
-                    <div>
-                        <ul class="nav navbar-nav">
-                            <li><a href="#">探索</a></li>
-                            <li><a href="#">主页</a></li>
-                            <li class="dropdown">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                    用户
-                                    <b class="caret"></b>
-                                </a>
-                                <ul class="dropdown-menu">
-                                    <li><a href="#">登录</a></li>
-                                    <li><a href="#">注册</a></li>
-                                    <li><a href="#">Jasper Report</a></li>
-                                    <li class="divider"></li>
-                                    <li><a href="#">分离的链接</a></li>
-                                    <li class="divider"></li>
-                                    <li><a href="#">另一个分离的链接</a></li>
-                                </ul>
-                            </li>
-                        </ul>
-                    </div>
+            <div>
+                <h1 style="color:white;" align="center">ReHair</h1>
+                <br>
+                <br>
+                <div class="content" align="center" style="opacity: 0.7;
+                background:url(static/forBeauty/home_pic.jpeg);
+                                                    background-color:rgba(255, 255, 255, 0.2);
+                                                    height:640px;width:640px;margin:auto;
+                                                    ">
+                    <br>
+                    <br>
+
+                    <br>
+                    <p style="color:#C8C8C8;">
+                        <button type="button" class="btn btn-primary"
+                                onclick="location.href='/login'"
+                                style="background-color:#222222;width:200px;height:75px;font-size:20px;">login</button>
+                    </p>
+                    <br>
+                    <p style="color:#C8C8C8;">
+                        <button type="button" class="btn btn-primary"
+                                onclick="location.href='/register'"
+                                style="background-color:#222222;width:200px;height:75px;font-size:20px;">register</button>
+                    </p>
+                    <br>
+                    <p style="color:#C8C8C8">
+                        <button type="button" class="btn btn-primary"
+                                onclick="logout()"
+                                style="background-color:#222222;width:200px;height:75px;font-size:20px;">logout</button>
+
+                    </p>
+
+                    <br>
+                    <br>
                 </div>
-            </nav>
-            <!-- 自己需要引用的content -->
-            <div style="color:white;">
-                ReHair
-                <p>
-                    <button onclick="location.href='/login'">login</button>
-                </p>
-                <p>
-                    <button onclick="location.href='/register'">register</button>
-                </p>
-                <p>
-                    <button type="button" onclick="logout()">logout</button>
-                </p>
             </div>
 
 

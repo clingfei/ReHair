@@ -340,6 +340,9 @@ class controller {
         return "layout.html";
     }
     */
-
+    @RequestMapping(value = "/index", method = RequestMethod.GET)
+    public String getBase(){
+        return "index.html";
+    }
 
 }
