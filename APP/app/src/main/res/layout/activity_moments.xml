@@ -15,4 +15,14 @@
         app:itemIconTint="@drawable/selector"
         app:menu="@menu/menu_navigation"
         android:layout_alignParentBottom="true"/>
+
+    <Button
+        android:id="@+id/btn_sendMoments"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginLeft="330dp"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/circle_button"
+        android:drawableTop="@drawable/ic_add_line"
+        android:elevation="40dp" />
 </RelativeLayout>
