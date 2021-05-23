@@ -1,8 +1,9 @@
 function showFriend() {
     'use strict';
 
-    var session = new getUser();
-    if(JSON.stringify(session) === '{}') {
+    var session = getUser();
+    console.log(session);
+    if(session === "") {
         window.location.href = '/login';
     }
 

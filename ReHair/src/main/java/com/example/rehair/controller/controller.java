@@ -38,7 +38,9 @@ class controller {
     @ResponseBody
     @RequestMapping(value = "/getUser", method = RequestMethod.GET)
     public String getUser(HttpServletRequest req) {
-       return (String) req.getSession().getAttribute("username");
+        String userName = (String) req.getSession().getAttribute("username");
+        System.out.println(userName);
+        return userName;
     }
 
     @RequestMapping(value = "/login", method = RequestMethod.GET)
@@ -88,9 +90,6 @@ class controller {
                                 @PathVariable("username") String username,
                                 HashMap<String, Object> map) {
         System.out.println(req.getSession().getAttribute("username"));
-        if (req.getSession().getAttribute("username") == null) {
-            return "redirect:/login";
-        }
         map.put("username", username);
         UserInfo userInfo = userService.personalPage(username);
         map.put("email", userInfo.getEmail());
@@ -162,6 +161,15 @@ class controller {
     @RequestMapping(value = "/share/{username}", method = RequestMethod.GET)
     public String userShare (@PathVariable("username") String username) {
         return "userShare";
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "/deleteArticle", method = RequestMethod.POST)
+    public ReturnData deleteArticle(HttpServletRequest req, @RequestParam("seqid") int seqid)  {
+
+        String userName = (String) req.getSession().getAttribute("username");
+        ReturnData res = shareService.deleteArticle(userName, seqid);
+        return res;
     }
 
     //这个是给查看指定用户的article使用的，
@@ -285,7 +293,7 @@ class controller {
     }
 
     @ResponseBody
-    @RequestMapping(value = "/deleteArticle", method = RequestMethod.POST)
+    @RequestMapping(value = "/appDeleteArticle", method = RequestMethod.POST)
     public ReturnData deleteArticle(HttpServletRequest req, @RequestBody String list) throws JSONException {
         JSONObject jsonObject = new JSONObject(list);
 
