@@ -65,19 +65,19 @@ public class Albums extends Activity {
     }
     private class pestDectionFuntion implements View.OnClickListener {
         public void onClick(View view){
-            Toast.makeText(getApplicationContext(),"粮虫检测",Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(),"  ",Toast.LENGTH_SHORT).show();
         }
     }
     private class pictureSaveFunction implements View.OnClickListener {
         public void onClick(View view){
-            //Toast.makeText(getApplicationContext(),"图片保存成功！",Toast.LENGTH_SHORT).show();
+            //Toast.makeText(getApplicationContext(),"Images saved successfully！",Toast.LENGTH_SHORT).show();
             //Intent intent2 = new Intent(getApplicationContext(),MainActivity.class);//创建窗口切换的Intent,MainActivity.class指切换到主界面
             //Bitmap savepicture=loadBitmapFromView(albumsPicture);
             //String name=String.valueOf(System.currentTimeMillis());
             BitmapDrawable bmpDrawable = (BitmapDrawable) albumsPicture.getDrawable();
             Bitmap bitmap = bmpDrawable.getBitmap();
             saveToSystemGallery(bitmap);//将图片保存到本地
-            Toast.makeText(getApplicationContext(),"图片保存成功！",Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(),"Images saved successfully！",Toast.LENGTH_SHORT).show();
             startActivity(intent2);//窗口切换
         }
     }
@@ -100,7 +100,7 @@ public class Albums extends Activity {
             e.printStackTrace();
         }
 
-        // 其次把文件插入到系统图库
+        // 把文件插入到系统图库
        try {
             MediaStore.Images.Media.insertImage(getContentResolver(),
                     file.getAbsolutePath(), fileName, null);
@@ -179,7 +179,7 @@ public class Albums extends Activity {
             Bitmap bitmap=BitmapFactory.decodeFile(imagePath);
             albumsPicture.setImageBitmap(bitmap);//将图片放置在控件上
         }else {
-            Toast.makeText(this,"得到图片失败",Toast.LENGTH_SHORT).show();
+            Toast.makeText(this,"Fail to get images.",Toast.LENGTH_SHORT).show();
         }
     }
 }

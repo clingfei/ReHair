@@ -9,7 +9,7 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="50dp"
         android:layout_marginTop="20dp"
-        android:text="图像检测"
+        android:text="Detection"
         android:textSize="20dp" />
 
     <Button
@@ -17,7 +17,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
-        android:text="保存图像"
+        android:text="Save"
         android:layout_toRightOf="@+id/pestDetection"
         android:layout_marginLeft="80dp"
         android:textSize="20dp" />

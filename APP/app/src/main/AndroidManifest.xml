@@ -5,9 +5,6 @@
 
     <dist:module dist:instant="true" />
 
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.CAMERA" />
-
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -29,8 +26,8 @@
         </activity>
         <activity android:name=".LoginActivity" />
         <activity android:name=".MainActivity" />
-        <activity android:name=".Albums" />
-        <activity android:name=".Camera" />
+        <activity android:name="Albums" ></activity>
+        <activity android:name="Camera" ></activity>
 
         <provider
             android:name="androidx.core.content.FileProvider"
@@ -42,5 +39,9 @@
                 android:resource="@xml/file_path" />
         </provider>
     </application>
+
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.CAMERA" />
+
 
 </manifest>

@@ -38,6 +38,7 @@ public class MainActivity extends AppCompatActivity {
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
         NavigationUI.setupWithNavController(navView, navController);
 
+
         Button chooseFromAlbum = findViewById(R.id.choose_from_album);
         chooseFromAlbum.setOnClickListener(new View.OnClickListener(){
             @Override
