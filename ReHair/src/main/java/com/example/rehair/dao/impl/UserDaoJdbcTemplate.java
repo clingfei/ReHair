@@ -119,6 +119,24 @@ class UserDaoJdbcTemplateImpl implements UserDao {
         }
     }
 
+    public boolean isFriend(String userName, String friendname) {
+        Map<String, Object> res = null;
+        String sql = "SELECT * FROM friendlist WHERE username = :username AND friendname = :friendname";
+        Map<String, Object> m = new HashMap<String, Object>();
+        m.put("username", userName);
+        m.put("friendname", friendname);
+        try {
+            res = jdbcTemplate.queryForMap(sql, m);
+            return res.size() != 0;
+        } catch (EmptyResultDataAccessException e) {
+            System.out.println(e.getMessage());
+            System.out.println("sss");
+            return false;
+        }
+
+
+    }
+
     public int unfollow(String userName, String friendName) {
         String sql = "DELETE FROM friendlist WHERE username = :username AND friendname = :friendname";
         Map<String, Object> m = new HashMap<String, Object>();
