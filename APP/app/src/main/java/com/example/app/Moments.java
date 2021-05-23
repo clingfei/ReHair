@@ -6,11 +6,14 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class Moments extends AppCompatActivity {
 
+    Button btn_send;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,5 +41,14 @@ public class Moments extends AppCompatActivity {
                 return false;
             }
         });
+
+        btn_send = findViewById(R.id.btn_sendMoments);
+        btn_send.setOnClickListener(listener);
     }
+    Button.OnClickListener listener = new Button.OnClickListener() {
+        public void onClick(View v) {
+            Intent intent = new Intent(Moments.this, SendMomentsActivity.class);
+            startActivity(intent);
+        }
+    };
 }

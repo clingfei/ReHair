@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".SendMomentsActivity">
+    <View
+        android:layout_width="wrap_content"
+        android:layout_height="55dp"
+        android:background="@color/dominateTone"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintHorizontal_bias="0"
+        app:layout_constraintVertical_bias="0"
+        />
+    <Button
+        android:id="@+id/btn_backToMoments"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginLeft="20dp"
+        android:drawableTop="@drawable/ic_arrow_back"
+        android:background="@drawable/circle_button"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        />
+    <Button
+        android:id="@+id/btn_send"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginRight="20dp"
+        android:drawableTop="@drawable/ic_send"
+        android:tint="#FFFFFF"
+        android:background="@drawable/circle_button"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        />
+
+    <EditText
+        android:id="@+id/sendMoment_text"
+        android:background="@drawable/edit_text_bg"
+        android:hint="to share something..."
+        android:layout_width="0dp"
+        android:paddingLeft="20dp"
+        android:paddingTop="10dp"
+        android:paddingBottom="150dp"
+        app:layout_constraintWidth_percent="0.9"
+        app:layout_constraintVertical_bias="0"
+        app:layout_constraintHorizontal_bias="0.5"
+        android:layout_marginTop="70dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
