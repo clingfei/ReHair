@@ -8,7 +8,7 @@ $(document).ready(function() {
 //                     (int)result.get(i).get("seqid")
 
     var session = getUser();
-    console.log(session);
+    console.log("session:", session);
     if(session === "") {
         window.location.href = '/login';
     }
@@ -16,9 +16,9 @@ $(document).ready(function() {
 
 
     let url = window.location.pathname;
-    console.log(url);
+    console.log("url:", url);
     let user = url.substring(7);
-    console.log(user);
+    console.log("user:", user);
     $.ajax({
         method: "GET",
         url: "/userGetArticle",
@@ -28,7 +28,7 @@ $(document).ready(function() {
             console.log(data);
             let s = document.getElementById("shares");
             let str = '<div class="blog-post" id="article">';
-            if (session != url) {
+            if (session !== user) {
                 for (let i=0; i<data.length; i++) {
                     str = str + '<li>' + '<div id="' + data[i].seqid + data[i].userName + '">' + '<p> 用户名：' +
                         '<a href="/share/' +
@@ -68,10 +68,23 @@ $(document).ready(function() {
 
 });
 
-function deleteArticle(data) {
+function deleteArticle(location) {
     'use strict';
 
-    console.log(data.name);
-    console.log(data.id);
+    console.log(location.name);
+    console.log(location.id);
 
+    $.ajax({
+        method: 'POST',
+        url: "/deleteArticle",
+        async:  false,
+        data: {seqid: location.id},
+        success: function(data) {
+            if(!data.flag)
+                alert(data.errorMsg);
+            else {
+                window.location.href = '/share/' + location.name;
+            }
+        }
+    })
 }
