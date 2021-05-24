@@ -262,9 +262,10 @@ class controller {
         return data;
     }
 
+    @ResponseBody
     @RequestMapping(value = "/delAct", method = RequestMethod.GET)
-    public void delAct(HttpServletRequest req, @RequestParam("username") String userName) {
-        //String userName = req.getSession().getAttribute("username").toString();
+    public void delAct(HttpServletRequest req) {
+        String userName = req.getSession().getAttribute("username").toString();
         userService.delAct(userName);
     }
 

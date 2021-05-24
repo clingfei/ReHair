@@ -24,3 +24,14 @@ $(document).ready(function() {
 
 
 });
+
+function delAct() {
+    $.ajax({
+        method: 'GET',
+        url: '/delAct',
+        async: false,
+        success: function () {
+            window.location.href = "/register";
+        }
+    })
+}
