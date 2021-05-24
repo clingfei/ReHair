@@ -41,6 +41,8 @@ public class Moments extends AppCompatActivity {
         item.add(new StaticRvModel(R.drawable.photo2,"test4"));
         item.add(new StaticRvModel(R.drawable.photo1,"test5"));
         item.add(new StaticRvModel(R.drawable.photo2,"test6"));
+        item.add(new StaticRvModel(R.drawable.photo1,"test7"));
+        item.add(new StaticRvModel(R.drawable.photo2,"test8"));
 
         recyclerView = findViewById(R.id.rv_moments);
         staticRvAdapter = new StaticRvAdapter(item);
