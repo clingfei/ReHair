@@ -91,7 +91,9 @@ class controller {
     public String personalPage (HttpServletRequest req,
                                 @PathVariable("username") String username,
                                 HashMap<String, Object> map) {
-        System.out.println(req.getSession().getAttribute("username"));
+        String user = (String) req.getSession().getAttribute("username");
+        if (!user.equals(username))
+            return "redirect:/login";
         map.put("username", username);
         UserInfo userInfo = userService.personalPage(username);
         map.put("email", userInfo.getEmail());
@@ -309,14 +311,14 @@ class controller {
     public ReturnData crtShare(HttpServletRequest req,
                                @RequestParam("content") String content,
                                @RequestParam("time") String time,
-                               @RequestParam("image") String image) {
+                               @RequestParam("image") String image,
+                               @RequestParam("imgType") String imgType) {
         String userName= (String) req.getSession().getAttribute("username");
         System.out.println(image);
-        shareService.createShare(userName, content, time);
-        image = image.substring(23);
+        shareService.createShare(userName, content, time);;
         System.out.println(image);
         image = "[" + image + "]";
-        return shareService.uploadArticlePhoto(userName, time, image, "jpg");
+        return shareService.uploadArticlePhoto(userName, time, image, imgType);
     }
     // 配套的传送图片的服务，和上面的createshare相辅相成
     // 使用一个定死的时间戳+传送的文件？这个时间戳和用户名应当如何获取呢？暂时是未知的

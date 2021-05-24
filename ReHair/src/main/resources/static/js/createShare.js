@@ -21,12 +21,17 @@ function uploadShare(file) {
         imgFile =ev.target.result;
         //document.querySelector("img").src= ev.target.result;
         console.log(imgFile);
-
+        //获取上传文件的类型
+        let imgType = imgFile.substring(imgFile.indexOf("/")+1, imgFile.indexOf(";"));
+        console.log(imgType);
+        //截取编码的正文部分
+        imgFile = imgFile.substring(imgFile.indexOf(",")+1);
         $.ajax({
             method: "POST",
             url: "/crtShare",
             async: false,
-            data: {"content": text, "time":time, "image": imgFile},
+            data: {"content": text, "time":time, "image": imgFile, "imgType":imgType},
+            //data: {"content": text, "time":time, "image": imgFile},
             success: function(data) {
                 console.log(data);
                 if (!data.flag)
