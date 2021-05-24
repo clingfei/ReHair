@@ -44,6 +44,8 @@ public interface UserService {
 
     //取关，友尽
     ReturnData unfollow(String userName, String name);
+
+    boolean isFriend(String userName, String friendname);
 }
 
 

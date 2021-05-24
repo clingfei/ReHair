@@ -1,14 +1,14 @@
 $(document).ready(function() {
     'use strict';
 //username"),
-//                     (String) result.get(i).get("time"),
-//                     (String) result.get(i).get("content"),
+//                     (String) datault.get(i).get("time"),
+//                     (String) datault.get(i).get("content"),
 //                     image,
-//                     (int)result.get(i).get("count"),
-//                     (int)result.get(i).get("seqid")
+//                     (int)datault.get(i).get("count"),
+//                     (int)datault.get(i).get("seqid")
 
     var session = getUser();
-    console.log(session);
+    console.log("session:", session);
     if(session === "") {
         window.location.href = '/login';
     }
@@ -16,9 +16,9 @@ $(document).ready(function() {
 
 
     let url = window.location.pathname;
-    console.log(url);
+    console.log("url:", url);
     let user = url.substring(7);
-    console.log(user);
+    console.log("user:", user);
     $.ajax({
         method: "GET",
         url: "/userGetArticle",
@@ -28,11 +28,29 @@ $(document).ready(function() {
             console.log(data);
             let s = document.getElementById("shares");
             let str = '<div class="blog-post" id="article">';
-            if (session != url) {
+            if (session !== user) {
                 for (let i=0; i<data.length; i++) {
                     str = str + '<li>' + '<div id="' + data[i].seqid + data[i].userName + '">' + '<p> 用户名：' +
                         '<a href="/share/' +
-                        data[i].userName + '">' + data[i].userName + '</a></p>'  +
+                        data[i].userName + '">' + data[i].userName + '</a>';
+                    $.ajax({
+                        method: "POST",
+                        url: "/isFriend",
+                        async: false,
+                        data: {username: data[i].userName},
+                        success: function (flag) {
+                            console.log(flag);
+                            if (flag === 1) {
+                                str = str + '<button type="button" name="' + data[i].userName + '" onclick="unfollow(this)">unfollow </button></p>';
+                            }
+                            else if(flag === 2) {
+                                str = str + '<button type="button" name="' + data[i].userName + '" onclick="follow(this)">follow </button></p>';
+                            }
+                            else str = str + '</p>';
+                        }
+                    });
+
+                    str = str +
                         '<p> 内容:' + data[i].text + '</p>'
                         + '<p> 时间:' + data[i].time + '</p>' ;
                     for (let j=0; j<data[i].photos.length; j++) {
@@ -68,10 +86,23 @@ $(document).ready(function() {
 
 });
 
-function deleteArticle(data) {
+function deleteArticle(location) {
     'use strict';
 
-    console.log(data.name);
-    console.log(data.id);
+    console.log(location.name);
+    console.log(location.id);
 
+    $.ajax({
+        method: 'POST',
+        url: "/deleteArticle",
+        async:  false,
+        data: {seqid: location.id},
+        success: function(data) {
+            if(!data.flag)
+                alert(data.errorMsg);
+            else {
+                window.location.href = '/share/' + location.name;
+            }
+        }
+    })
 }
