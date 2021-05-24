@@ -170,13 +170,14 @@ class UserDaoJdbcTemplateImpl implements UserDao {
 
     public void savePhoto(String userName, int seqid,
                           String faceType, String hairType, String path) {
-        String sql = "INSERT INTO photo (username, photopath, seqid, facetype, hairtype) VALUES (:username, :photopath, :seqid, :facetype, :hairtype)";
+        String sql = "INSERT INTO photo (username, photopath, seqid, facetype, hairtype, score) VALUES (:username, :photopath, :seqid, :facetype, :hairtype, :score)";
         HashMap<String, Object> m = new HashMap<String, Object>();
         m.put("username", userName);
         m.put("photopath", path);
         m.put("seqid", seqid);
         m.put("facetype", faceType);
         m.put("hairtype", hairType);
+        m.put("score", 0);
         try {
             jdbcTemplate.update(sql, m);
         } catch (DataAccessException e) {
@@ -185,7 +186,7 @@ class UserDaoJdbcTemplateImpl implements UserDao {
     }
 
     public List<Map<String, Object>> queryPostReHair(String userName) {
-        String sql = "SELECT photopath, faceType, hairType FROM photo WHERE username=:username";
+        String sql = "SELECT score, photopath, faceType, hairType FROM photo WHERE username=:username";
         Map<String, Object> m = new HashMap<String, Object>();
         m.put("username", userName);
         try {
@@ -201,6 +202,7 @@ class UserDaoJdbcTemplateImpl implements UserDao {
         Map<String, Object> m = new HashMap<String, Object>();
         m.put("username", userName);
         m.put("seqid", seqid);
+        m.put("score", score);
         try {
             jdbcTemplate.update(sql, m);
         } catch (EmptyResultDataAccessException e) {

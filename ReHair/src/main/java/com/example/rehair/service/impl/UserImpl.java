@@ -271,7 +271,8 @@ public class UserImpl implements UserService {
         List<PostReHair> result = new ArrayList<PostReHair>();
         for (int i=0; i<res.size(); ++i) {
             String path = (String) res.get(i).get("photopath");
-            result.add(new PostReHair(res.get(i).get("facetype").toString(),
+            result.add(new PostReHair((Integer) res.get(i).get("score"),
+                    res.get(i).get("facetype").toString(),
                     res.get(i).get("hairtype").toString(),
                     Utils.imgToBase64(path)));
         }

@@ -4,10 +4,16 @@ public class PostReHair {
     String faceType;
     String hairType;
     String image;
-    public PostReHair(String faceType, String hairType, String image) {
+    int score;
+    public PostReHair(int score, String faceType, String hairType, String image) {
+        this.score = score;
         this.faceType = faceType;
         this.hairType = hairType;
         this.image = image;
+    }
+
+    public int getScore() {
+        return this.score;
     }
 
     public String getFaceType() {
@@ -32,5 +38,9 @@ public class PostReHair {
 
     public void setHairType(String hairType) {
         this.hairType = hairType;
+    }
+
+    public void setScore(int score) {
+        this.score = score;
     }
 }
