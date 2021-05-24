@@ -64,7 +64,8 @@ public class UserImpl implements UserService {
 
     public ReturnData login(String userName, String passWd) {
         String passWord = userDao.queryUserByName(userName);
-
+        if (passWord.equals("Please Signup first."))
+            return new ReturnData(false, passWord);
         if (match(passWd, passWord)) {
             return new ReturnData(true, "");
         }

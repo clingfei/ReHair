@@ -80,7 +80,10 @@ class UserDaoJdbcTemplateImpl implements UserDao {
         }catch (EmptyResultDataAccessException e) {
             System.out.println(e.getMessage());
         }
-        return (String) result.get("password");
+        if (result == null) {
+            return "Please Signup first.";
+        }
+        else return (String) result.get("password");
     }
 
     public void deleteUser(String username) {
