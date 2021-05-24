@@ -31,4 +31,6 @@ public interface UserDao {
     int querySeqId(String userName);
 
     void savePhoto(String userName, int seqid, String faceType, String hairType, String path);
+
+    List<Map<String, Object>> queryPostReHair(String userName);
 }

@@ -423,4 +423,16 @@ class controller {
     public List<String> getHairType(@RequestParam("faceType") int faceType) {
         return userService.getHairType(faceType);
     }
+
+    @RequestMapping(value = "/pastReHair", method = RequestMethod.GET)
+    public String pastReHair() {
+        return "pastReHair";
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "/postReHair", method = RequestMethod.GET)
+    public List<PostReHair> postReHair(HttpServletRequest req) {
+        String userName = req.getSession().getAttribute("username").toString();
+        return userService.postReHair(userName);
+    }
 }

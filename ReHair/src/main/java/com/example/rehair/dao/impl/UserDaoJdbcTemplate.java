@@ -183,4 +183,16 @@ class UserDaoJdbcTemplateImpl implements UserDao {
             System.out.println(e.getMessage());
         }
     }
+
+    public List<Map<String, Object>> queryPostReHair(String userName) {
+        String sql = "SELECT photopath, faceType, hairType FROM photo WHERE username=:username";
+        Map<String, Object> m = new HashMap<String, Object>();
+        m.put("username", userName);
+        try {
+            return jdbcTemplate.queryForList(sql, m);
+        } catch(EmptyResultDataAccessException e) {
+            System.out.println(e.getMessage());
+        }
+        return null;
+    }
 }

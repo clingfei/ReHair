@@ -52,6 +52,8 @@ public interface UserService {
     List<String> getHairType(int faceType);
 
     ModData modPic(String userName, String faceType, String hairType, String image, String imgType);
+
+    List<PostReHair> postReHair(String userName);
 }
 
 

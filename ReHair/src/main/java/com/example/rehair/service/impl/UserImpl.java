@@ -263,4 +263,16 @@ public class UserImpl implements UserService {
         }
         return new ModData(0, image);
     }
+
+    public List<PostReHair> postReHair(String userName) {
+        List<Map<String, Object>> res = userDao.queryPostReHair(userName);
+        List<PostReHair> result = new ArrayList<PostReHair>();
+        for (int i=0; i<res.size(); ++i) {
+            String path = (String) res.get(i).get("photopath");
+            result.add(new PostReHair(res.get(i).get("facetype").toString(),
+                    res.get(i).get("hairtype").toString(),
+                    Utils.imgToBase64(path)));
+        }
+        return result;
+    }
 }

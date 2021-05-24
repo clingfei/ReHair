@@ -13,7 +13,7 @@ window.onload = function() {
             for (let i=0; i<data.length; i++) {
                 str = str + '<p> <input type="checkbox" id="cbox' + i + '" value="' + (i+1) +
                     '" onclick="getHairType(this)">' +
-                    '<label for="cbox' + i + '" id="label' + i +'">' + faceType[i] + '</label>' +
+                    '<label for="cbox' + i + '" id="label' + i +'" name="test">' + faceType[i] + '</label>' +
                     '<img id="tem' + i + '" src="data:image/png;base64,' + data[i] + '" alt="" height="200" width="200"></p>';
 
                 //let img = document.getElementById("tem" + toString(i+1));
@@ -28,9 +28,13 @@ window.onload = function() {
 
 function getHairType(data) {
     'use strict';
-    console.log(data.value);
-    let id = "label" + data.value;
-    var fType = document.getElementById(id);
+    console.log("-----" + data.value);
+    console.log(typeof data.value);
+    let id = "label" + (parseInt(data.value)-1).toString();
+    console.log(id);
+    let fType = document.getElementById(id);
+    console.log(fType.innerHTML);
+    console.log(fType.textContent);
     $.ajax({
         method: "GET",
         url: "/getHairType",
@@ -39,10 +43,10 @@ function getHairType(data) {
         success: function(data) {
             console.log(data);
             let s = document.getElementById("checkboxs");
-            var str = '<div class="blog-post" id="article">';
+            var str = '<div class="blog-post" id="article">'  + '<h2 id="head2">' + fType.textContent + '</h2>';
             for (let i=0; i<data.length; i++) {
                 str = str + '<p> <input type="checkbox" name="test" id="cbox' + i + '" value="' + (i+1) +
-                    '<label for="cbox " id="faceType' + i  + '">发型' + (i+1) + '</label>' +
+                    '"><label for="cbox " id="faceType' + i  + '">发型' + (i+1) + '</label>' +
                     '<img id="tem' + i + '" src="data:image/png;base64,' + data[i] + '" alt="" height="200" width="200"></p>';
 
                 //let img = document.getElementById("tem" + toString(i+1));
@@ -61,7 +65,8 @@ function getHairType(data) {
 
 function modifyPicture(file) {
     'use strict';
-    let faceType = document.getElementById('head2');
+    let faceType = document.getElementById('head2').innerHTML;
+    console.log("---"+faceType);
     var hairType;
     let obj = document.getElementsByName("test");
     var i = 0;
