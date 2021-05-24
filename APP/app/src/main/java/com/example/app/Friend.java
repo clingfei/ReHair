@@ -1,4 +1,4 @@
-package friendlist;
+package com.example.app;
 
 public class Friend {
     private String username;
