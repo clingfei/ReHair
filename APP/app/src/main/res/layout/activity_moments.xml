@@ -23,6 +23,28 @@
         android:layout_marginLeft="330dp"
         android:layout_marginTop="20dp"
         android:background="@drawable/circle_button"
+        android:backgroundTint="#c7464b"
         android:drawableTop="@drawable/ic_add_line"
         android:elevation="40dp" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_moments"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp" />
+
+        </LinearLayout>
+    </ScrollView>
+
+
+
 </RelativeLayout>

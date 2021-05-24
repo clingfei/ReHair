@@ -14,7 +14,14 @@
         android:theme="@style/AppTheme">
         <activity android:name=".SendMomentsActivity"></activity>
         <activity android:name=".Rehair" />
-        <activity android:name=".Moments" />
+        <activity android:name=".Moments" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
         <activity android:name=".Account" />
         <activity android:name=".NavigationActivity" />
         <activity android:name=".IntroductoryActivity">
