@@ -5,19 +5,25 @@
 
     <Button
         android:id="@+id/pestDetection"
+        android:background="@drawable/button_bg"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="50dp"
         android:layout_marginTop="20dp"
-        android:text="Detection"
+        android:text="  Detection  "
+        android:textAllCaps="false"
+        android:textColor="@color/white"
         android:textSize="20dp" />
 
     <Button
         android:id="@+id/pictureSave"
+        android:background="@drawable/button_bg"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
-        android:text="Save"
+        android:text="  Save  "
+        android:textAllCaps="false"
+        android:textColor="@color/white"
         android:layout_toRightOf="@+id/pestDetection"
         android:layout_marginLeft="80dp"
         android:textSize="20dp" />

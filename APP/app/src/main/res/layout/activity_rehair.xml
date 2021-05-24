@@ -18,10 +18,14 @@
 
     <Button
         android:id="@+id/take_photo"
+        android:textAllCaps="false"
+        android:background="@drawable/button_bg"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Take photos"
+        android:text="  Take photos  "
+        android:textColor="@color/white"
         android:textSize="25dp"
+        android:layout_marginTop="40dp"
         android:layout_centerVertical="true"
         android:layout_centerHorizontal="true"
         app:layout_constraintHorizontal_bias="0.5"
@@ -30,9 +34,12 @@
 
     <Button
         android:id="@+id/choose_from_album"
+        android:background="@drawable/button_bg"
+        android:textAllCaps="false"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Choose from albums"
+        android:text="  Choose from albums  "
+        android:textColor="@color/white"
         android:textSize="25dp"
         android:layout_centerHorizontal="true"
         android:layout_above="@+id/take_photo"
