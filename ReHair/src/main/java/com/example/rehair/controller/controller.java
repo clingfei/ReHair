@@ -202,7 +202,7 @@ class controller {
         System.out.println(userName);
         System.out.println(start);
         System.out.println(bias);
-        JSONArray result = JSONArray.fromObject(shareService.getArticle(userName, start, bias));
+        JSONArray result = JSONArray.fromObject(shareService.getUserArticle(userName, start, bias));
         System.out.println(result);
         return result;
     }

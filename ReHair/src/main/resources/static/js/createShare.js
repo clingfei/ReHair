@@ -31,6 +31,7 @@ function uploadShare(file) {
                 console.log(data);
                 if (!data.flag)
                     alert(data.errorMsg);
+                window.location.href = "/share";
             }
         })
     }

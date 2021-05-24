@@ -109,6 +109,35 @@ public class ShareImpl implements ShareService {
         return res;
     }
 
+    public ArrayList<Article> getUserArticle(String userName, int start, int bias) {
+        ArrayList<Map<String, Object>> result = shareDao.queryArticleByName(userName);
+        if (result == null) {
+            return new ArrayList<Article>();
+        }
+        ArrayList<Article> res = new ArrayList<Article>();
+        for (int i = start; i < start+bias && i < result.size(); ++i) {
+            String path = (String) result.get(i).get("photopath");;
+            ArrayList<String> image = new ArrayList<String>();
+            for (String imgpath : path.split(";")) {
+
+                //System.out.println(imgToBase64(imgpath));
+                image.add(Utils.imgToBase64(imgpath));
+            }
+            System.out.println(result.get(i).get("seqid"));
+            Article article = new Article(
+                    (String) result.get(i).get("username"),
+                    (String) result.get(i).get("time"),
+                    (String) result.get(i).get("content"),
+                    image,
+                    (int)result.get(i).get("count"),
+                    (int)result.get(i).get("seqid")
+            );
+            res.add(article);
+        }
+        System.out.println(res.get(0).getUserName());
+        return res;
+    }
+
     public ArrayList<Article> getArticle(String userName, int start, int bias) {
         ArrayList<Map<String, Object>> result = shareDao.queryArticle();
         if (result == null) {
