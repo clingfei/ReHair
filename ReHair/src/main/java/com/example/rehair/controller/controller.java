@@ -6,6 +6,7 @@ import com.example.rehair.model.*;
 
 import net.bytebuddy.asm.Advice;
 import net.sf.json.JSONArray;
+import org.apache.coyote.Request;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -98,6 +99,21 @@ class controller {
     }
 
     @ResponseBody
+    @RequestMapping(value = "/isFriend", method = RequestMethod.POST)
+    public int isFriend(HttpServletRequest req,
+                            @RequestParam("username") String friendname) {
+        System.out.println(friendname);
+        String userName = (String) req.getSession().getAttribute("username");
+        if(friendname.equals(userName))
+            return 0;
+        else if (userService.isFriend(userName, friendname))
+            return 1;
+        else return 2;
+        //return userService.isFriend(userName, friendname);
+        //return true;
+    }
+
+    @ResponseBody
     @RequestMapping(value = "/setHead", method = RequestMethod.POST)
     public ReturnData setHead(HttpServletResponse response,
                               HttpServletRequest req,
@@ -132,11 +148,19 @@ class controller {
     @RequestMapping(value = "/unfollow", method = RequestMethod.GET)
     public ReturnData unfollow(HttpServletRequest req,
                                HttpServletResponse response,
-                               @RequestParam String name) throws IOException {
+                               @RequestParam String name) {
         String userName = (String) req.getSession().getAttribute("username");
         ReturnData res = userService.unfollow(userName, name);
         return res;
     }
+
+    @ResponseBody
+    @RequestMapping(value = "/follow", method = RequestMethod.GET)
+    public ReturnData follow(HttpServletRequest req, @RequestParam String friendName) {
+        String userName = (String) req.getSession().getAttribute("username");
+        return userService.addFriend(userName, friendName);
+    }
+
 
     @RequestMapping(value = "/share", method = RequestMethod.GET)
     public String share() {
@@ -253,7 +277,7 @@ class controller {
         // 登录状态无法确定，服务器应该是可以处理高并发的
         JSONObject jsonObject = new JSONObject(list);
         String userName = jsonObject.getString("username");
-        String futureFriendName = jsonObject.getString("futureFriendName");
+        String futureFriendName = jsonObject.getString("friendName");
 
         // res就是添加是否成功的典型例子
         return userService.addFriend(userName, futureFriendName);
@@ -340,6 +364,9 @@ class controller {
         return "layout.html";
     }
     */
-
+    @RequestMapping(value = "/index", method = RequestMethod.GET)
+    public String getBase(){
+        return "index.html";
+    }
 
 }

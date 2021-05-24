@@ -2,28 +2,59 @@
 <div layout:decorator="layout/layout" xmlns:layout="http://www.w3.org/1999/xhtml">
     <div layout:fragment="content">
         <div>
-            <p>
-                <button type="button" onclick="logout()">logout</button>
-            </p>
+
             <script src="/static/js/jquery.js"></script>
             <script src="/static/js/bootstrap.js"></script>
             <script src="https://cdn.jsdelivr.net/npm/node-forge@0.7.0/dist/forge.min.js"></script>
             <script src="/static/js/logout.js"></script>
 
-            <p>
-                <a href="/share">Share</a>
-            </p>
-            <p>
-                <a id="myShare" href="">MyShare</a>
-            </p>
+            <script>
+                $(function() {
+                    /*
+                    <p>
+                        <button type="button" onclick="logout()">logout</button>
+                    </p>
 
-            <div style="color:whitesmoke;">
-                <h1 th:text="${username}"></h1>
-                <p th:text="${email}"></p>
-                <!-- 这里的信息是java后端传递过来的一些变量？ -->
-                <p id = "headPhoto" th:text ="${headPhoto}"></p>
+                    <li><a href="#">用户</a></li>
 
-                <div id="head" style="border:1px solid #eee;width:320px;height:100px;"></div>
+                     */
+                    var tmp = "<li>";
+                    tmp = tmp + "<a onclick=\"logout()\"> logout </a>"
+                    tmp = tmp + "</li>";
+
+                    $('#my_own_thing').append(tmp);
+
+                    tmp = "<li>";
+                    tmp = tmp + "<a href=\"/share\">Share</a>"
+                    tmp = tmp + "</li>";
+                    $('#my_own_thing').append(tmp);
+
+                    tmp = "<li>";
+                    tmp = tmp + "<a id=\"myShare\" href=\"\">MyShare</a>"
+                    tmp = tmp + "</li>";
+                    $('#my_own_thing').append(tmp);
+
+                })
+            </script>
+
+
+
+            <div style="color:whitesmoke;display: flex;">
+                <div style="height:50px;width:50px;">
+                    <!-- 直接这样写大小无法控制？ -->
+                    <p id = "headPhoto" th:text ="${headPhoto}"></p>
+                </div>
+
+                <!-- 这个是图片写入的位置！-->
+                <div id="head" style="border:1px solid #eee;width:50px;height:50px;margin:auto;"></div>
+                <div class="col-md-2" style="margin:auto;">
+                    <h1 th:text="${username}"></h1>
+                    <p th:text="${email}"></p>
+                </div>
+
+                <div class="col-md-8"></div>
+
+
             </div>
             <div class="input-group rounded bg-white-pure box-shadow-wrap-normal">
                 <button type="button" onclick="upfile.click()" class="transparent btn"
@@ -52,6 +83,10 @@
             <script src="/static/js/showFriend.js"></script>
 
             <script src="/static/js/getUser.js"></script>
+	        <script src="/static/js/follow.js"></script>
+			
+
+
         </div>
     </div>
 </div>

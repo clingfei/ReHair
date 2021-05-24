@@ -102,6 +102,10 @@ public class UserImpl implements UserService {
         return res;
     }
 
+    public boolean isFriend(String userName, String friendname) {
+        return userDao.isFriend(userName, friendname);
+    }
+
     public ReturnData unfollow(String userName, String friendName) {
         int res = userDao.unfollow(userName, friendName);
         if (res == 0) {

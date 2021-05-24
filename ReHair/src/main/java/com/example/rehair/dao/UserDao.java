@@ -25,4 +25,6 @@ public interface UserDao {
     List<Map<String, Object>> queryFriendByName(String userName);
 
     int unfollow(String userName, String friendName);
+
+    boolean isFriend(String userName, String friendname);
 }
