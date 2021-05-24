@@ -153,5 +153,34 @@ class UserDaoJdbcTemplateImpl implements UserDao {
         }
     }
 
+    public int querySeqId(String userName) {
+        String sql = "select COUNT(seqid) AS sum from photo where username = :username";
+        Map<String, Object> result = null;
+        try {
+            Map<String, Object> m = new HashMap<String, Object>();
+            m.put("username", userName);
+            result = jdbcTemplate.queryForMap(sql, m);
+            System.out.println(result);
+            return Integer.parseInt(String.valueOf(result.get("sum")));
+        } catch(EmptyResultDataAccessException e) {
+            System.out.println(e.getMessage());
+            return -1;
+        }
+    }
 
+    public void savePhoto(String userName, int seqid,
+                          String faceType, String hairType, String path) {
+        String sql = "INSERT INTO photo (username, photopath, seqid, facetype, hairtype) VALUES (:username, :photopath, :seqid, :facetype, :hairtype)";
+        HashMap<String, Object> m = new HashMap<String, Object>();
+        m.put("username", userName);
+        m.put("photopath", path);
+        m.put("seqid", seqid);
+        m.put("facetype", faceType);
+        m.put("hairtype", hairType);
+        try {
+            jdbcTemplate.update(sql, m);
+        } catch (DataAccessException e) {
+            System.out.println(e.getMessage());
+        }
+    }
 }

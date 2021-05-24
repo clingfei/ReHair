@@ -46,6 +46,12 @@ public interface UserService {
     ReturnData unfollow(String userName, String name);
 
     boolean isFriend(String userName, String friendname);
+
+    List<String> getTepPhoto();
+
+    List<String> getHairType(int faceType);
+
+    ModData modPic(String userName, String faceType, String hairType, String image, String imgType);
 }
 
 

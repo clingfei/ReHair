@@ -27,4 +27,8 @@ public interface UserDao {
     int unfollow(String userName, String friendName);
 
     boolean isFriend(String userName, String friendname);
+
+    int querySeqId(String userName);
+
+    void savePhoto(String userName, int seqid, String faceType, String hairType, String path);
 }

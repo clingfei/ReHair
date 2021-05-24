@@ -377,6 +377,34 @@ class controller {
         return res;
     }
 
+    //hairType 1-10 faceType 就那几种
+    @ResponseBody
+    @RequestMapping(value = "/modPic", method = RequestMethod.POST)
+    public ModData modPic(HttpServletRequest req,
+                             @RequestParam("faceType") String faceType,
+                             @RequestParam("hairType") String hairType,
+                             @RequestParam("image") String image,
+                             @RequestParam("imgType") String imgType) {
+        String userName = req.getSession().getAttribute("username").toString();
+        System.out.println(userName);
+        System.out.println(faceType);
+        System.out.println(hairType);
+        System.out.println(image);
+        System.out.println(imgType);
+        return userService.modPic(userName, faceType, hairType, image, imgType);
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "/getTemplatePhoto", method = RequestMethod.GET)
+    public List<String> getTemplatePhoto() {
+        System.out.println("getTemplatePhoto");
+        return userService.getTepPhoto();
+    }
+
+    @RequestMapping(value = "/rehair", method = RequestMethod.GET)
+    public String rehair() {
+        return "rehair";
+    }
 
     /*
     @RequestMapping(value = "/base", method = RequestMethod.GET)
@@ -390,4 +418,9 @@ class controller {
         return "index.html";
     }
 
+    @ResponseBody
+    @RequestMapping(value = "/getHairType", method = RequestMethod.GET)
+    public List<String> getHairType(@RequestParam("faceType") int faceType) {
+        return userService.getHairType(faceType);
+    }
 }
