@@ -1,4 +1,4 @@
-package com.example.friendlist;
+package friendlist;
 
 import android.content.Context;
 import android.view.LayoutInflater;
