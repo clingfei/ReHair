@@ -55,5 +55,18 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         />
+    <Button
+        android:id="@+id/btn_choosephoto"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_marginTop="280dp"
+        android:layout_marginLeft="20dp"
+        android:padding="50dp"
+        android:drawableTop="@drawable/ic_add_line"
+        android:tint="#FFFFFF"
+        android:background="@drawable/btn_choosephoto"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
