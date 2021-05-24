@@ -107,6 +107,17 @@ class ShareDaoJdbcTemplateImpl implements ShareDao {
         return null;
     }
 
+    public ArrayList<Map<String, Object>> queryArticle() {
+        try {
+            String sql = "SELECT * FROM Article";
+            Map<String, Object> m = new HashMap<String, Object>();
+            return (ArrayList<Map<String, Object>>) jdbcTemplate.queryForList(sql, m);
+        } catch(EmptyResultDataAccessException e) {
+            System.out.println(e.getMessage());
+        }
+        return null;
+    }
+
     public ReturnData deleteArticle(String userName, int seqid) {
 
         String sql = "DELETE FROM article WHERE username = :username AND seqid = :seqid";

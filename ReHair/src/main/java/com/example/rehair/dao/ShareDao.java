@@ -5,6 +5,7 @@ import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Map;
 
 @Repository
 public interface ShareDao {
@@ -25,4 +26,6 @@ public interface ShareDao {
     void deleteArticle(String userName);
 
     void deletePhoto(String userName);
+
+    ArrayList<Map<String, Object>> queryArticle();
 }

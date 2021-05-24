@@ -110,7 +110,7 @@ public class ShareImpl implements ShareService {
     }
 
     public ArrayList<Article> getArticle(String userName, int start, int bias) {
-        ArrayList<Map<String, Object>> result = shareDao.queryArticleByName(userName);
+        ArrayList<Map<String, Object>> result = shareDao.queryArticle();
         if (result == null) {
             return new ArrayList<Article>();
         }

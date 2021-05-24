@@ -41,7 +41,7 @@ class UserDaoJdbcTemplateImpl implements UserDao {
                 return new ReturnData(false, "duplicate email");
             }
             else {
-                return new ReturnData(false, "other errors");
+                return new ReturnData(false, "duplicate username");
             }
         }
     }

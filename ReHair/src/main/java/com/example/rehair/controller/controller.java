@@ -174,7 +174,6 @@ class controller {
                                 @RequestParam("start") int start,
                                 @RequestParam("bias") int bias) throws IOException {
         String userName = (String) req.getSession().getAttribute("username");
-
         System.out.println(userName);
         System.out.println(start);
         System.out.println(bias);
@@ -283,6 +282,7 @@ class controller {
         return userService.addFriend(userName, futureFriendName);
         // 某处的好友列表需要动态更新的吧
     }
+
     // 上传图片貌似要和这里的内容分开的，不知道具体应当如何处理呢？
     // 这里涉及到复杂的图片处理？
 
@@ -301,6 +301,21 @@ class controller {
 
         return res;
     }
+
+    @ResponseBody
+    @RequestMapping(value = "/crtShare", method = RequestMethod.POST)
+    public ReturnData crtShare(HttpServletRequest req,
+                               @RequestParam("content") String content,
+                               @RequestParam("time") String time,
+                               @RequestParam("image") String image) {
+        String userName= (String) req.getSession().getAttribute("username");
+        System.out.println(image);
+        shareService.createShare(userName, content, time);
+        image = image.substring(23);
+        System.out.println(image);
+        image = "[" + image + "]";
+        return shareService.uploadArticlePhoto(userName, time, image, "jpg");
+    }
     // 配套的传送图片的服务，和上面的createshare相辅相成
     // 使用一个定死的时间戳+传送的文件？这个时间戳和用户名应当如何获取呢？暂时是未知的
     // 对方会直接调用这里的传送功能
@@ -313,6 +328,7 @@ class controller {
         String imgType = jsonObject.getString("imgType");
         String time = jsonObject.getString("time");
         String image = jsonObject.getString("image");
+
         return shareService.uploadArticlePhoto(userName, time, image, imgType);
     }
 
