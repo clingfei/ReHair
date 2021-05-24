@@ -4,6 +4,7 @@ import com.example.rehair.dao.ShareDao;
 import com.example.rehair.utils.Utils;
 import com.example.rehair.dao.UserDao;
 import com.example.rehair.service.UserService;
+import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Service;
 
 import com.example.rehair.model.*;
@@ -64,7 +65,8 @@ public class UserImpl implements UserService {
 
     public ReturnData login(String userName, String passWd) {
         String passWord = userDao.queryUserByName(userName);
-
+        if (passWord.equals("Please Signup first."))
+            return new ReturnData(false, passWord);
         if (match(passWd, passWord)) {
             return new ReturnData(true, "");
         }
@@ -207,4 +209,73 @@ public class UserImpl implements UserService {
         return res;
     }
 
+    public List<String> getTepPhoto() {
+        String prePath = null;
+        try {
+            prePath = Utils.getPath();
+        } catch(FileNotFoundException e) {
+            System.out.println(e.getMessage());
+        }
+        String basePath = "\\src\\main\\resources\\ReHairSource\\templatePhoto\\";
+        List<String> res = new ArrayList<String>();
+        for (int i=1; i<6; ++i) {
+            res.add(Utils.imgToBase64(prePath + basePath + String.valueOf(i) + ".jpg"));
+        }
+        return res;
+    }
+
+    public List<String> getHairType(int faceType){
+        String prePath = null;
+        try {
+            prePath = Utils.getPath();
+        } catch(FileNotFoundException e) {
+            System.out.println(e.getMessage());
+        }
+        String basePath = "\\src\\main\\resources\\ReHairSource\\templatePhoto\\";
+        List<String> res = new ArrayList<String>();
+        for (int i=1; i<=10; ++i) {
+            res.add(Utils.imgToBase64(prePath + basePath + String.valueOf(faceType) + '\\' + String.valueOf(i) + ".jpg"));
+        }
+        return res;
+    }
+
+   public ModData modPic(String userName,
+                      String faceType, String hairType,
+                      String image, String imgType) {
+        int seqid = userDao.querySeqId(userName);
+        System.out.println(seqid);
+        if (seqid == -1) {
+            System.out.println("Error");
+        }
+        else {
+            try {
+                String path = Utils.getPath();
+                path = path + "\\src\\main\\resources\\ReHairSource\\" + userName + "\\Photo\\";
+                Utils.base64StrToFile(image, seqid+"."+imgType, path);
+                path = path + seqid + "." + imgType;
+                userDao.savePhoto(userName, seqid, faceType, hairType, path);
+
+            } catch(FileNotFoundException e) {
+                System.out.println(e.getMessage());
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        int score = 0;
+        userDao.insertScore(score, userName, seqid);
+        return new ModData(0, image);
+    }
+
+    public List<PostReHair> postReHair(String userName) {
+        List<Map<String, Object>> res = userDao.queryPostReHair(userName);
+        List<PostReHair> result = new ArrayList<PostReHair>();
+        for (int i=0; i<res.size(); ++i) {
+            String path = (String) res.get(i).get("photopath");
+            result.add(new PostReHair((Integer) res.get(i).get("score"),
+                    res.get(i).get("facetype").toString(),
+                    res.get(i).get("hairtype").toString(),
+                    Utils.imgToBase64(path)));
+        }
+        return result;
+    }
 }

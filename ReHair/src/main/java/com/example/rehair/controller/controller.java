@@ -91,7 +91,9 @@ class controller {
     public String personalPage (HttpServletRequest req,
                                 @PathVariable("username") String username,
                                 HashMap<String, Object> map) {
-        System.out.println(req.getSession().getAttribute("username"));
+        String user = (String) req.getSession().getAttribute("username");
+        if (!user.equals(username))
+            return "redirect:/login";
         map.put("username", username);
         UserInfo userInfo = userService.personalPage(username);
         map.put("email", userInfo.getEmail());
@@ -309,16 +311,14 @@ class controller {
     public ReturnData crtShare(HttpServletRequest req,
                                @RequestParam("content") String content,
                                @RequestParam("time") String time,
-                               @RequestParam("image") String image) {
-        System.out.println(time);
-        System.out.println("-----");
+                               @RequestParam("image") String image,
+                               @RequestParam("imgType") String imgType) {
         String userName= (String) req.getSession().getAttribute("username");
-        //System.out.println(image);
+        System.out.println(image);
         shareService.createShare(userName, content, time);
-        image = image.substring(23);
         System.out.println(image);
         image = "[" + image + "]";
-        return shareService.uploadArticlePhoto(userName, time, image, "jpg");
+        return shareService.uploadArticlePhoto(userName, time, image, imgType);
     }
     // 配套的传送图片的服务，和上面的createshare相辅相成
     // 使用一个定死的时间戳+传送的文件？这个时间戳和用户名应当如何获取呢？暂时是未知的
@@ -377,6 +377,34 @@ class controller {
         return res;
     }
 
+    //hairType 1-10 faceType 就那几种
+    @ResponseBody
+    @RequestMapping(value = "/modPic", method = RequestMethod.POST)
+    public ModData modPic(HttpServletRequest req,
+                             @RequestParam("faceType") String faceType,
+                             @RequestParam("hairType") String hairType,
+                             @RequestParam("image") String image,
+                             @RequestParam("imgType") String imgType) {
+        String userName = req.getSession().getAttribute("username").toString();
+        System.out.println(userName);
+        System.out.println(faceType);
+        System.out.println(hairType);
+        System.out.println(image);
+        System.out.println(imgType);
+        return userService.modPic(userName, faceType, hairType, image, imgType);
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "/getTemplatePhoto", method = RequestMethod.GET)
+    public List<String> getTemplatePhoto() {
+        System.out.println("getTemplatePhoto");
+        return userService.getTepPhoto();
+    }
+
+    @RequestMapping(value = "/rehair", method = RequestMethod.GET)
+    public String rehair() {
+        return "rehair";
+    }
 
     /*
     @RequestMapping(value = "/base", method = RequestMethod.GET)
@@ -390,4 +418,21 @@ class controller {
         return "index.html";
     }
 
+    @ResponseBody
+    @RequestMapping(value = "/getHairType", method = RequestMethod.GET)
+    public List<String> getHairType(@RequestParam("faceType") int faceType) {
+        return userService.getHairType(faceType);
+    }
+
+    @RequestMapping(value = "/pastReHair", method = RequestMethod.GET)
+    public String pastReHair() {
+        return "pastReHair";
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "/postReHair", method = RequestMethod.GET)
+    public List<PostReHair> postReHair(HttpServletRequest req) {
+        String userName = req.getSession().getAttribute("username").toString();
+        return userService.postReHair(userName);
+    }
 }

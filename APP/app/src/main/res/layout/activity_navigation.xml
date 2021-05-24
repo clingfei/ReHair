@@ -15,5 +15,20 @@
         app:itemIconTint="@drawable/selector"
         app:menu="@menu/menu_navigation"
         android:layout_alignParentBottom="true"/>
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <ImageView
+            android:layout_width="340dp"
+            android:layout_height="wrap_content"
+            android:src="@drawable/bg_edited_ver2"
+            android:layout_marginBottom="470dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginLeft="20dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </RelativeLayout>
