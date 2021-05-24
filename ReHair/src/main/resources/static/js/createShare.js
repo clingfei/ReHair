@@ -31,7 +31,7 @@ function uploadShare(file) {
                 console.log(data);
                 if (!data.flag)
                     alert(data.errorMsg);
-                window.location.href = "/share";
+                //window.location.href = "/share";
             }
         })
     }
@@ -48,5 +48,6 @@ function current() {
     str += d.getHours() + '-';
     str += d.getMinutes() + '-';
     str += d.getSeconds();
+    console.log(str);
     return str;
 }

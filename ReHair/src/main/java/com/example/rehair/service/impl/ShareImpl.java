@@ -145,7 +145,7 @@ public class ShareImpl implements ShareService {
         }
         ArrayList<Article> res = new ArrayList<Article>();
         for (int i = start; i < start+bias && i < result.size(); ++i) {
-            String path = (String) result.get(i).get("photopath");;
+            String path = (String) result.get(i).get("photopath");
             ArrayList<String> image = new ArrayList<String>();
             for (String imgpath : path.split(";")) {
 
@@ -163,7 +163,7 @@ public class ShareImpl implements ShareService {
             );
             res.add(article);
         }
-        System.out.println(res.get(0).getUserName());
+        //System.out.println(res.get(0).getUserName());
         return res;
     }
 }

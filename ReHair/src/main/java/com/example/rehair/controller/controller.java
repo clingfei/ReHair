@@ -310,8 +310,10 @@ class controller {
                                @RequestParam("content") String content,
                                @RequestParam("time") String time,
                                @RequestParam("image") String image) {
+        System.out.println(time);
+        System.out.println("-----");
         String userName= (String) req.getSession().getAttribute("username");
-        System.out.println(image);
+        //System.out.println(image);
         shareService.createShare(userName, content, time);
         image = image.substring(23);
         System.out.println(image);

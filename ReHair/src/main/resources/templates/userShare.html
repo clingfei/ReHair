@@ -1,26 +1,29 @@
-<!DOCTYPE html>
-<html lang="en">
-	<head>
-		<meta charset="UTF-8">
-		<title>Share</title>
-		<link rel="shortcut icon" th:href="@{/static/favicon.ico}" type="image/x-icon"/>
-		<link rel="icon" th:href="@{/static/favicon.ico}" type="image/x-icon"/>
-		<link rel="bookmark" th:href="@{/static/favicon.ico}" type="image/x-icon"/>
-	</head>
-	
-	<body>
-		<!-- 考虑返回最新的几条动态？-->
-		<h1>Share</h1>
-
-		<div id="shares"></div>
 
 
-		<script src="/static/js/jquery.js"></script>
-		<script src="/static/js/bootstrap.js"></script>
-		<script src="https://cdn.jsdelivr.net/npm/node-forge@0.7.0/dist/forge.min.js"></script>
-		<script src="/static/js/userShare.js"></script>
-		<script src="/static/js/getUser.js"></script>
+<div layout:decorator="layout/layout" xmlns:layout="http://www.w3.org/1999/xhtml">
+	<div layout:fragment="content">
+		<head>
+			<meta charset="UTF-8">
+			<title style="margin:auto;">Share</title>
+			<link rel="shortcut icon" th:href="@{/static/favicon.ico}" type="image/x-icon"/>
+			<link rel="icon" th:href="@{/static/favicon.ico}" type="image/x-icon"/>
+			<link rel="bookmark" th:href="@{/static/favicon.ico}" type="image/x-icon"/>
+		</head>
 
-	</body>
 
-</html>
+		<div class="page-container">
+			<!-- 考虑返回最新的几条动态？-->
+			<h1 class="share_title" style="text-align: center;color:white;font-size:40px;">Share</h1>
+
+			<div id="shares" style="text-align: center;color:whitesmoke;"></div>
+
+
+			<script src="/static/js/jquery.js"></script>
+			<script src="/static/js/bootstrap.js"></script>
+			<script src="https://cdn.jsdelivr.net/npm/node-forge@0.7.0/dist/forge.min.js"></script>
+			<script src="/static/js/userShare.js"></script>
+			<script src="/static/js/getUser.js"></script>
+
+		</div>
+	</div>
+</div>

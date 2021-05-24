@@ -8,7 +8,7 @@ function logout() {
         success: function(data) {
             console.log(data);
             if (data)
-                window.location.href = "/login";
+                window.location.href = "/index";
         }
     })
 }
