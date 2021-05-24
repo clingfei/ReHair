@@ -16,8 +16,10 @@ $(document).ready(function() {
     base64 = 'data:image/png;base64,' + base64;
     let img = document.createElement("img");
     img.src = base64;
-    img.style.height= "50px";
-    img.style.width = "50px";
+    img.style.height= "100%";
+    img.style.width = "100%";
+    img.style.borderRadius = "20px";
+
     let head = document.getElementById('head');
     head.appendChild(img);
     document.getElementById("headPhoto").innerHTML = "";
