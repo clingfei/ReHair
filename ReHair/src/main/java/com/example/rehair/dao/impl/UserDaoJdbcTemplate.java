@@ -195,4 +195,16 @@ class UserDaoJdbcTemplateImpl implements UserDao {
         }
         return null;
     }
+
+    public void insertScore(int score, String userName, int seqid) {
+        String sql = "UPDATE photo SET score = :score WHERE username = :username AND seqid = :seqid";
+        Map<String, Object> m = new HashMap<String, Object>();
+        m.put("username", userName);
+        m.put("seqid", seqid);
+        try {
+            jdbcTemplate.update(sql, m);
+        } catch (EmptyResultDataAccessException e) {
+            System.out.println(e.getMessage());
+        }
+    }
 }

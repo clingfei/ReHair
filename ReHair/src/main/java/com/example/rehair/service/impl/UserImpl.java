@@ -261,6 +261,8 @@ public class UserImpl implements UserService {
                 e.printStackTrace();
             }
         }
+        int score = 0;
+        userDao.insertScore(score, userName, seqid);
         return new ModData(0, image);
     }
 
