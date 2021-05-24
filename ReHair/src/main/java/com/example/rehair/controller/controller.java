@@ -12,6 +12,7 @@ import org.json.JSONObject;
 
 import org.springframework.data.repository.NoRepositoryBean;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -382,7 +383,8 @@ class controller {
     }
     */
     @RequestMapping(value = "/index", method = RequestMethod.GET)
-    public String getBase(){
+    public String getBase(Model model){
+        model.addAttribute("name","SpringBootFavicon");
         return "index.html";
     }
 
