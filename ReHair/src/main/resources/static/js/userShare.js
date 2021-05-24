@@ -1,11 +1,11 @@
 $(document).ready(function() {
     'use strict';
 //username"),
-//                     (String) result.get(i).get("time"),
-//                     (String) result.get(i).get("content"),
+//                     (String) datault.get(i).get("time"),
+//                     (String) datault.get(i).get("content"),
 //                     image,
-//                     (int)result.get(i).get("count"),
-//                     (int)result.get(i).get("seqid")
+//                     (int)datault.get(i).get("count"),
+//                     (int)datault.get(i).get("seqid")
 
     var session = getUser();
     console.log("session:", session);
@@ -32,7 +32,25 @@ $(document).ready(function() {
                 for (let i=0; i<data.length; i++) {
                     str = str + '<li>' + '<div id="' + data[i].seqid + data[i].userName + '">' + '<p> 用户名：' +
                         '<a href="/share/' +
-                        data[i].userName + '">' + data[i].userName + '</a></p>'  +
+                        data[i].userName + '">' + data[i].userName + '</a>';
+                    $.ajax({
+                        method: "POST",
+                        url: "/isFriend",
+                        async: false,
+                        data: {username: data[i].userName},
+                        success: function (flag) {
+                            console.log(flag);
+                            if (flag === 1) {
+                                str = str + '<button type="button" name="' + data[i].userName + '" onclick="unfollow(this)">unfollow </button></p>';
+                            }
+                            else if(flag === 2) {
+                                str = str + '<button type="button" name="' + data[i].userName + '" onclick="follow(this)">follow </button></p>';
+                            }
+                            else str = str + '</p>';
+                        }
+                    });
+
+                    str = str +
                         '<p> 内容:' + data[i].text + '</p>'
                         + '<p> 时间:' + data[i].time + '</p>' ;
                     for (let j=0; j<data[i].photos.length; j++) {
