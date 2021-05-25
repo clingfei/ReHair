@@ -4,4 +4,6 @@
     <string name="title_dashboard">Release</string>
     <string name="title_notifications">Personal</string>
     <string name="title_activity_personal">MainActivity</string>
+    <string name="button_info1"><u>Followings : 33</u></string>
+    <string name="button_info2"><u>Followers : 57</u></string>
 </resources>

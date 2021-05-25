@@ -29,6 +29,9 @@
         </activity>
         <activity android:name=".LoginActivity" />
         <activity android:name=".MainActivity" />
+
+        <activity android:name="AccountinActivity" ></activity>
+
         <activity android:name="Albums" ></activity>
         <activity android:name="Camera" ></activity>
         <activity android:name=".AddFriend"></activity>
@@ -49,6 +52,5 @@
 
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.CAMERA" />
-
 
 </manifest>

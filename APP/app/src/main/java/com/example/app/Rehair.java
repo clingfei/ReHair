@@ -92,5 +92,4 @@ public class Rehair extends AppCompatActivity {
         //startActivityForResult(intent, TAKE_PHOTO);
     }
 
-
 }
