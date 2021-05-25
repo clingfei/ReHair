@@ -20,6 +20,7 @@ public interface ShareService {
     //获取动态
     ArrayList<Article> getArticle(String userName, int start, int bias);
 
+    ArrayList<Article> getUserArticle(String userName, int start, int bias);
     // 创建动态，同时发送到目标角落？
     // String res = userService.createShare(userName, content, likeCount, time);
     ShareReturn createShare(String userName, String textContent, String time);

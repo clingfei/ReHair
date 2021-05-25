@@ -8,76 +8,85 @@
             <script src="https://cdn.jsdelivr.net/npm/node-forge@0.7.0/dist/forge.min.js"></script>
             <script src="/static/js/logout.js"></script>
 
-            <script>
-                $(function() {
-                    /*
-                    <p>
-                        <button type="button" onclick="logout()">logout</button>
-                    </p>
-
-                    <li><a href="#">用户</a></li>
-
-                     */
-                    var tmp = "<li>";
-                    tmp = tmp + "<a onclick=\"logout()\"> logout </a>"
-                    tmp = tmp + "</li>";
-
-                    $('#my_own_thing').append(tmp);
-
-                    tmp = "<li>";
-                    tmp = tmp + "<a href=\"/share\">Share</a>"
-                    tmp = tmp + "</li>";
-                    $('#my_own_thing').append(tmp);
-
-                    tmp = "<li>";
-                    tmp = tmp + "<a id=\"myShare\" href=\"\">MyShare</a>"
-                    tmp = tmp + "</li>";
-                    $('#my_own_thing').append(tmp);
-
-                })
-            </script>
 
 
 
-            <div style="color:whitesmoke;display: flex;">
-                <div style="height:50px;width:50px;">
+            <div style="color:whitesmoke;display: flex;border-bottom:2px solid white;">
+                <div style="height:20px;width:50px;">
                     <!-- 直接这样写大小无法控制？ -->
                     <p id = "headPhoto" th:text ="${headPhoto}"></p>
                 </div>
 
                 <!-- 这个是图片写入的位置！-->
-                <div id="head" style="border:1px solid #eee;width:50px;height:50px;margin:auto;"></div>
-                <div class="col-md-2" style="margin:auto;">
-                    <h1 th:text="${username}"></h1>
+                <div id="head" style="border:1px solid #eee;width:50px;height:40px;margin:auto;border-radius: 20px;"></div>
+                <div class="col-md-1" style="margin:auto;font-size:20px;">
+                    <h1 id="user_name_loc" th:text="${username}"></h1>
+                </div>
+                <div class="col-md-1.5" style="margin:auto;">
+                    <button type="button" name="delAct" onclick="delAct()" class="btn btn-primary" style="">删号跑路？</button>
+                </div>
+                <div class="col-md-2" style="margin:auto;font-size:20px;">
                     <p th:text="${email}"></p>
                 </div>
-
                 <div class="col-md-8"></div>
 
 
             </div>
-            <div class="input-group rounded bg-white-pure box-shadow-wrap-normal">
-                <button type="button" onclick="upfile.click()" class="transparent btn"
-                        style="">修改头像</button>
-                <input type="file" id="upfile" accept='' onchange="uploadFile(this)"
-                       style="visibility: hidden; position: absolute;">
-            </div>
-            <br>
-            <br>
-            <br>
+
             <br>
 
-            <div class="btn-group btn-group-sm">
-                <button type="button" onclick="showFriend()" class="btn btn-primary"
-                        style=""> Following
-                </button>
+            <div style="display: flex;">
+                <div class="input-group rounded bg-white-pure box-shadow-wrap-normal">
+                    <button type="button" onclick="upfile.click()" class="transparent btn"
+                            style="">修改头像</button>
+                    <input type="file" id="upfile" accept='' onchange="uploadFile(this)"
+                           style="visibility: hidden; position: absolute;">
+                </div>
+                <div style="width:20px;"></div>
+                <div class="btn-group btn-group-sm">
+                    <button type="button" onclick="showFriend()" class="btn btn-primary"
+                            style=""> Following
+                    </button>
+                </div>
             </div>
+
 
 
             <div id="friend">
 
             </div>
 
+
+            <script>
+                $(function() {
+                    $('#my_own_thing').empty();
+                    var tmp = "<li>";
+                    tmp = tmp + "<a onclick=\"logout()\"> 退出登录 </a>"
+                    tmp = tmp + "</li>";
+
+                    $('#my_own_thing').append(tmp);
+
+                    tmp = "<li>";
+                    tmp = tmp + "<a href=\"/share\">动态圈</a>"
+                    tmp = tmp + "</li>";
+                    $('#my_own_thing').append(tmp);
+
+                    tmp = "<li>";
+                    tmp = tmp + "<a id=\"myShare\" th:href=\"\">我的动态</a>"
+                    tmp = tmp + "</li>";
+                    $('#my_own_thing').append(tmp);
+
+                    var name = $('#user_name_loc').text();
+                    console.log(name);
+                    tmp = "<li>";
+                    // "${/user/username}}"
+                    tmp = tmp + "<a id=\"personal_page\" href=\"/user/" + name + '"';
+                    tmp = tmp +  ">个人主页</a>"
+                    tmp = tmp + "</li>";
+                    $('#my_own_thing').append(tmp);
+
+                })
+            </script>
             <script src="/static/js/userPage.js"></script>
             <script src="/static/js/ImageToBs64.js"></script>
             <script src="/static/js/showFriend.js"></script>

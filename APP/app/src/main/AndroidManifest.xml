@@ -14,7 +14,10 @@
         android:theme="@style/AppTheme">
         <activity android:name=".SendMomentsActivity"></activity>
         <activity android:name=".Rehair" />
-        <activity android:name=".Moments" />
+        <activity android:name=".Moments" >
+
+        </activity>
+
         <activity android:name=".Account" />
         <activity android:name=".NavigationActivity" />
         <activity android:name=".IntroductoryActivity">
@@ -33,6 +36,9 @@
         <activity android:name="Camera" ></activity>
         <activity android:name=".AddFriend"></activity>
         <activity android:name=".MainActivity1"></activity>
+        <activity android:name=".MainActivity2">
+
+        </activity>
         <provider
             android:name="androidx.core.content.FileProvider"
             android:authorities="com.example.lenovo.cameraalbumtest.fileprovider"

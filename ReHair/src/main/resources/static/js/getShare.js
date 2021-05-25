@@ -15,13 +15,20 @@ $(document).ready(function() {
         success: function (res) {
             console.log(res);
             let s = document.getElementById("shares");
-            let str = '<div class="blog-post" id="article">';
+
+            let str = '<div class="blog-post" id="article" style=\"text-align:center;\">';
+
             for (let i=0; i<res.length; i++) {
-                console.log(res[i].username);
-                console.log(res[i].content);
-                str = str + '<li>' + '<div id="' + res[i].seqid + res[i].userName + '">' + '<p> 用户名：' +
-                    '<a href="/share/' +
+
+                str = str + '<li class="row" style=\"border:solid darkgrey 0.5px;height=300px;\">';
+
+                // 单纯的用户名部分
+                str = str + "<div class = \"col-md-1\" style=\"height:100px;width:auto; margin:auto;\">";
+                str = str + '<div id="' + res[i].seqid + res[i].userName + '">' +
+                '<p> 用户名：' +
+                '<a href="/share/' +
                     res[i].userName + '">' + res[i].userName + '</a>';
+
                 $.ajax({
                     method: "POST",
                     url: "/isFriend",
@@ -38,15 +45,24 @@ $(document).ready(function() {
                         else str = str + '</p>';
                     }
                 });
+                str = str + '</div>';
+                str = str + "</div>";
 
-                    str = str +
+                str = str + "<div class = \"col-md-1\" style=\"height:100px;width:auto; margin:auto;\">";
+                str = str +
                     '<p> 内容:' + res[i].text + '</p>'
                     + '<p> 时间:' + res[i].time + '</p>' ;
+                str = str + "</div>";
+
+
                 for (let j=0; j<res[i].photos.length; j++) {
                     let base64 = 'data:image/png;base64,' + res[i].photos[j];
-                    str = str + '<img src="' + base64 + '">';
+                    str = str + "<div class = \"col-md-1\" style=\"height:100px;width:auto; margin:auto;\">";
+                    str = str + '<img src="' + base64 + '" style=\"height:100%;width:auto;\">';
+                    str = str + "</div>";
+
                 }
-                str = str + '</div>' + '</li>';
+                str = str + '</li>';
             }
             str = str + '</div>';
             s.innerHTML = str;

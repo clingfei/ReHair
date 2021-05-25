@@ -12,6 +12,7 @@ import org.json.JSONObject;
 
 import org.springframework.data.repository.NoRepositoryBean;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -90,7 +91,9 @@ class controller {
     public String personalPage (HttpServletRequest req,
                                 @PathVariable("username") String username,
                                 HashMap<String, Object> map) {
-        System.out.println(req.getSession().getAttribute("username"));
+        String user = (String) req.getSession().getAttribute("username");
+        if (!user.equals(username))
+            return "redirect:/login";
         map.put("username", username);
         UserInfo userInfo = userService.personalPage(username);
         map.put("email", userInfo.getEmail());
@@ -174,7 +177,6 @@ class controller {
                                 @RequestParam("start") int start,
                                 @RequestParam("bias") int bias) throws IOException {
         String userName = (String) req.getSession().getAttribute("username");
-
         System.out.println(userName);
         System.out.println(start);
         System.out.println(bias);
@@ -203,7 +205,7 @@ class controller {
         System.out.println(userName);
         System.out.println(start);
         System.out.println(bias);
-        JSONArray result = JSONArray.fromObject(shareService.getArticle(userName, start, bias));
+        JSONArray result = JSONArray.fromObject(shareService.getUserArticle(userName, start, bias));
         System.out.println(result);
         return result;
     }
@@ -241,10 +243,12 @@ class controller {
 
     @ResponseBody
     @RequestMapping(value = "/getHead", method = RequestMethod.GET)
-    public Image getHead(HttpServletRequest req) {
+    public Image getHead(HttpServletRequest req, @RequestBody String list) throws JSONException {
        // String userName = req.getSession().getAttribute("username").toString();
         //String userName = "clf";
-        return userService.getHead("clf");
+        JSONObject jsonObject = new JSONObject(list);
+        String userName = jsonObject.getString("userName");
+        return userService.getHead(userName);
     }
 
     @ResponseBody
@@ -263,9 +267,10 @@ class controller {
         return data;
     }
 
+    @ResponseBody
     @RequestMapping(value = "/delAct", method = RequestMethod.GET)
-    public void delAct(HttpServletRequest req, @RequestParam("username") String userName) {
-        //String userName = req.getSession().getAttribute("username").toString();
+    public void delAct(HttpServletRequest req) {
+        String userName = req.getSession().getAttribute("username").toString();
         userService.delAct(userName);
     }
 
@@ -283,6 +288,7 @@ class controller {
         return userService.addFriend(userName, futureFriendName);
         // 某处的好友列表需要动态更新的吧
     }
+
     // 上传图片貌似要和这里的内容分开的，不知道具体应当如何处理呢？
     // 这里涉及到复杂的图片处理？
 
@@ -301,6 +307,21 @@ class controller {
 
         return res;
     }
+
+    @ResponseBody
+    @RequestMapping(value = "/crtShare", method = RequestMethod.POST)
+    public ReturnData crtShare(HttpServletRequest req,
+                               @RequestParam("content") String content,
+                               @RequestParam("time") String time,
+                               @RequestParam("image") String image,
+                               @RequestParam("imgType") String imgType) {
+        String userName= (String) req.getSession().getAttribute("username");
+        System.out.println(image);
+        shareService.createShare(userName, content, time);
+        System.out.println(image);
+        image = "[" + image + "]";
+        return shareService.uploadArticlePhoto(userName, time, image, imgType);
+    }
     // 配套的传送图片的服务，和上面的createshare相辅相成
     // 使用一个定死的时间戳+传送的文件？这个时间戳和用户名应当如何获取呢？暂时是未知的
     // 对方会直接调用这里的传送功能
@@ -313,6 +334,7 @@ class controller {
         String imgType = jsonObject.getString("imgType");
         String time = jsonObject.getString("time");
         String image = jsonObject.getString("image");
+
         return shareService.uploadArticlePhoto(userName, time, image, imgType);
     }
 
@@ -357,6 +379,34 @@ class controller {
         return res;
     }
 
+    //hairType 1-10 faceType 就那几种
+    @ResponseBody
+    @RequestMapping(value = "/modPic", method = RequestMethod.POST)
+    public ModData modPic(HttpServletRequest req,
+                             @RequestParam("faceType") String faceType,
+                             @RequestParam("hairType") String hairType,
+                             @RequestParam("image") String image,
+                             @RequestParam("imgType") String imgType) {
+        String userName = req.getSession().getAttribute("username").toString();
+        System.out.println(userName);
+        System.out.println(faceType);
+        System.out.println(hairType);
+        System.out.println(image);
+        System.out.println(imgType);
+        return userService.modPic(userName, faceType, hairType, image, imgType);
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "/getTemplatePhoto", method = RequestMethod.GET)
+    public List<String> getTemplatePhoto() {
+        System.out.println("getTemplatePhoto");
+        return userService.getTepPhoto();
+    }
+
+    @RequestMapping(value = "/rehair", method = RequestMethod.GET)
+    public String rehair() {
+        return "rehair";
+    }
 
     /*
     @RequestMapping(value = "/base", method = RequestMethod.GET)
@@ -365,8 +415,26 @@ class controller {
     }
     */
     @RequestMapping(value = "/index", method = RequestMethod.GET)
-    public String getBase(){
+    public String getBase(Model model){
+        model.addAttribute("name","SpringBootFavicon");
         return "index.html";
     }
 
+    @ResponseBody
+    @RequestMapping(value = "/getHairType", method = RequestMethod.GET)
+    public List<String> getHairType(@RequestParam("faceType") int faceType) {
+        return userService.getHairType(faceType);
+    }
+
+    @RequestMapping(value = "/pastReHair", method = RequestMethod.GET)
+    public String pastReHair() {
+        return "pastReHair";
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "/postReHair", method = RequestMethod.GET)
+    public List<PostReHair> postReHair(HttpServletRequest req) {
+        String userName = req.getSession().getAttribute("username").toString();
+        return userService.postReHair(userName);
+    }
 }

@@ -41,7 +41,7 @@ class UserDaoJdbcTemplateImpl implements UserDao {
                 return new ReturnData(false, "duplicate email");
             }
             else {
-                return new ReturnData(false, "other errors");
+                return new ReturnData(false, "duplicate username");
             }
         }
     }
@@ -80,7 +80,10 @@ class UserDaoJdbcTemplateImpl implements UserDao {
         }catch (EmptyResultDataAccessException e) {
             System.out.println(e.getMessage());
         }
-        return (String) result.get("password");
+        if (result == null) {
+            return "Please Signup first.";
+        }
+        else return (String) result.get("password");
     }
 
     public void deleteUser(String username) {
@@ -150,5 +153,60 @@ class UserDaoJdbcTemplateImpl implements UserDao {
         }
     }
 
+    public int querySeqId(String userName) {
+        String sql = "select COUNT(seqid) AS sum from photo where username = :username";
+        Map<String, Object> result = null;
+        try {
+            Map<String, Object> m = new HashMap<String, Object>();
+            m.put("username", userName);
+            result = jdbcTemplate.queryForMap(sql, m);
+            System.out.println(result);
+            return Integer.parseInt(String.valueOf(result.get("sum")));
+        } catch(EmptyResultDataAccessException e) {
+            System.out.println(e.getMessage());
+            return -1;
+        }
+    }
 
+    public void savePhoto(String userName, int seqid,
+                          String faceType, String hairType, String path) {
+        String sql = "INSERT INTO photo (username, photopath, seqid, facetype, hairtype, score) VALUES (:username, :photopath, :seqid, :facetype, :hairtype, :score)";
+        HashMap<String, Object> m = new HashMap<String, Object>();
+        m.put("username", userName);
+        m.put("photopath", path);
+        m.put("seqid", seqid);
+        m.put("facetype", faceType);
+        m.put("hairtype", hairType);
+        m.put("score", 0);
+        try {
+            jdbcTemplate.update(sql, m);
+        } catch (DataAccessException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    public List<Map<String, Object>> queryPostReHair(String userName) {
+        String sql = "SELECT score, photopath, faceType, hairType FROM photo WHERE username=:username";
+        Map<String, Object> m = new HashMap<String, Object>();
+        m.put("username", userName);
+        try {
+            return jdbcTemplate.queryForList(sql, m);
+        } catch(EmptyResultDataAccessException e) {
+            System.out.println(e.getMessage());
+        }
+        return null;
+    }
+
+    public void insertScore(int score, String userName, int seqid) {
+        String sql = "UPDATE photo SET score = :score WHERE username = :username AND seqid = :seqid";
+        Map<String, Object> m = new HashMap<String, Object>();
+        m.put("username", userName);
+        m.put("seqid", seqid);
+        m.put("score", score);
+        try {
+            jdbcTemplate.update(sql, m);
+        } catch (EmptyResultDataAccessException e) {
+            System.out.println(e.getMessage());
+        }
+    }
 }
