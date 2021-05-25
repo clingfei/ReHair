@@ -1,16 +1,15 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-	<meta charset="UTF-8">
-	<title>ReHair</title>
-</head>
-<body>
-	<script src="/static/js/jquery.js"></script>
-	<script src="/static/js/bootstrap.js"></script>
-	<script src="https://cdn.jsdelivr.net/npm/node-forge@0.7.0/dist/forge.min.js"></script>
-	<script src="/static/js/pastReHair.js"></script>
-	<h1>Photos & Scores</h1>
-	<div id="photos"></div>
+<div layout:decorator="layout/layout" xmlns:layout="http://www.w3.org/1999/xhtml">
+	<div layout:fragment="content">
+		<script src="/static/js/jquery.js"></script>
+		<script src="/static/js/bootstrap.js"></script>
+		<script src="https://cdn.jsdelivr.net/npm/node-forge@0.7.0/dist/forge.min.js"></script>
+		<script src="/static/js/pastReHair.js"></script>
 
-</body>
-</html>
+
+		<div style="text-align: center;color:white;">
+			<h1>Photos & Scores</h1>
+			<div id="photos"></div>
+		</div>
+
+	</div>
+</div>

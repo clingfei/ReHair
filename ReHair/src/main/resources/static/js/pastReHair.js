@@ -21,3 +21,46 @@ $(document).ready(function() {
         }
     })
 })
+
+
+function getUser() {
+    var res = "";
+    $.ajax({
+        method: "GET",
+        url: "/getUser",
+        async: false,
+        success: function (data) {
+            res = data;
+        }
+    });
+    return res;
+}
+
+$(function() {
+    // my_own_thing
+    // 这里的重写有问题，需要返回到个人主页
+    $('#my_own_thing').empty();
+    var tmp = "<li>";
+    tmp = tmp + "<a onclick=\"logout()\"> 退出登录 </a>"
+    tmp = tmp + "</li>";
+
+    $('#my_own_thing').append(tmp);
+
+    tmp = "<li>";
+    tmp = tmp + "<a href=\"/share\">动态圈</a>"
+    tmp = tmp + "</li>";
+    $('#my_own_thing').append(tmp);
+
+    tmp = "<li>";
+    tmp = tmp + "<a id=\"myShare\" href=\"\">我的动态</a>"
+    tmp = tmp + "</li>";
+    $('#my_own_thing').append(tmp);
+
+    var session = getUser();
+    tmp = tmp + '<li>';
+    tmp = tmp + "<a id=\"personal_page\" href=\"/user/" + session + '"';
+    tmp = tmp +  ">个人主页</a>"
+    tmp = tmp + "</li>";
+    $('#my_own_thing').append(tmp);
+
+})

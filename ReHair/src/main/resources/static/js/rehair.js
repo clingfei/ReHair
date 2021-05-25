@@ -13,7 +13,7 @@ window.onload = function() {
             for (let i=0; i<data.length; i++) {
                 str = str + '<p> <input type="checkbox" id="cbox' + i + '" value="' + (i+1) +
                     '" onclick="getHairType(this)">' +
-                    '<label for="cbox' + i + '" id="label' + i +'" name="test">' + faceType[i] + '</label>' +
+                    '<label for="cbox' + i + '" id="label' + i +'" name="test" style=\"color:darkgrey\">' + faceType[i] + '</label>' + "<label></label>" +
                     '<img id="tem' + i + '" src="data:image/png;base64,' + data[i] + '" alt="" height="200" width="200"></p>';
 
                 //let img = document.getElementById("tem" + toString(i+1));
@@ -43,10 +43,10 @@ function getHairType(data) {
         success: function(data) {
             console.log(data);
             let s = document.getElementById("checkboxs");
-            var str = '<div class="blog-post" id="article">'  + '<h2 id="head2">' + fType.textContent + '</h2>';
+            var str = '<div class="blog-post" id="article">'  + '<h2 id="head2" style=\"color:white;\">' + fType.textContent + '</h2>';
             for (let i=0; i<data.length; i++) {
                 str = str + '<p> <input type="checkbox" name="test" id="cbox' + i + '" value="' + (i+1) +
-                    '"><label for="cbox " id="faceType' + i  + '">发型' + (i+1) + '</label>' +
+                    '"><label for="cbox " id="faceType' + i  + '" style=\"color:white;\">发型' + (i+1) + '</label>' +
                     '<img id="tem' + i + '" src="data:image/png;base64,' + data[i] + '" alt="" height="200" width="200"></p>';
 
                 //let img = document.getElementById("tem" + toString(i+1));
@@ -109,3 +109,45 @@ function modifyPicture(file) {
     //发起异步读取文件请求，读取结果为data:url的字符串形式，
     reader.readAsDataURL(file.files[0]);
 }
+
+function getUser() {
+    var res = "";
+    $.ajax({
+        method: "GET",
+        url: "/getUser",
+        async: false,
+        success: function (data) {
+            res = data;
+        }
+    });
+    return res;
+}
+
+$(function() {
+    // my_own_thing
+    // 这里的重写有问题，需要返回到个人主页
+    $('#my_own_thing').empty();
+    var tmp = "<li>";
+    tmp = tmp + "<a onclick=\"logout()\"> 退出登录 </a>"
+    tmp = tmp + "</li>";
+
+    $('#my_own_thing').append(tmp);
+
+    tmp = "<li>";
+    tmp = tmp + "<a href=\"/share\">动态圈</a>"
+    tmp = tmp + "</li>";
+    $('#my_own_thing').append(tmp);
+
+    tmp = "<li>";
+    tmp = tmp + "<a id=\"myShare\" href=\"\">我的动态</a>"
+    tmp = tmp + "</li>";
+    $('#my_own_thing').append(tmp);
+
+    var session = getUser();
+    tmp = tmp + '<li>';
+    tmp = tmp + "<a id=\"personal_page\" href=\"/user/" + session + '"';
+    tmp = tmp +  ">个人主页</a>"
+    tmp = tmp + "</li>";
+    $('#my_own_thing').append(tmp);
+
+})
