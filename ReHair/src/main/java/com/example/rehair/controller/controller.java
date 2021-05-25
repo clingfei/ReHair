@@ -243,10 +243,10 @@ class controller {
 
     @ResponseBody
     @RequestMapping(value = "/getHead", method = RequestMethod.GET)
-    public Image getHead(HttpServletRequest req, @RequestBody String list) {
+    public Image getHead(HttpServletRequest req, @RequestBody String list) throws JSONException {
        // String userName = req.getSession().getAttribute("username").toString();
         //String userName = "clf";
-        JSONObject = jsonObject = new JSONObject(list);
+        JSONObject jsonObject = new JSONObject(list);
         String userName = jsonObject.getString("userName");
         return userService.getHead(userName);
     }
