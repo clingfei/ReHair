@@ -7,6 +7,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.view.View.OnClickListener;
 import android.widget.ListView;
@@ -15,6 +16,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity1 extends AppCompatActivity {
+
+    Button btn_backtoaccount;
+
     private List<Friend> friendList = new ArrayList<>();
 
     @Override
@@ -47,6 +51,8 @@ public class MainActivity1 extends AppCompatActivity {
 
         });
 
+        btn_backtoaccount = findViewById(R.id.btn_backToMoments);
+        btn_backtoaccount.setOnClickListener(listener);
     }
 
     private void initFriends() {
@@ -68,6 +74,14 @@ public class MainActivity1 extends AppCompatActivity {
 
        }
     }
+
+    Button.OnClickListener listener = new Button.OnClickListener() {
+        public void onClick(View v) {
+            Intent intent = new Intent(SendMomentsActivity.this, Moments.class);
+            startActivity(intent);
+            SendMomentsActivity.this.finish();
+        }
+    };
 
 
 

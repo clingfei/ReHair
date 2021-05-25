@@ -6,8 +6,6 @@
     android:orientation="vertical">
     <include layout="@layout/title"/>
 
-
-
     <ListView
         android:id="@+id/list_view"
         android:layout_width="match_parent"

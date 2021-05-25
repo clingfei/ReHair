@@ -13,10 +13,21 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 public class Account extends AppCompatActivity {
 
     Button btn_head;
+    Button btn_accountinfo1;
+    Button btn_accountinfo2;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_account);
+
+        btn_head = findViewById(R.id.head);
+        btn_head.setOnClickListener(listener);
+
+        btn_accountinfo1 = findViewById(R.id.accountinfo1);
+        btn_accountinfo1.setOnClickListener(listener2);
+
+        btn_accountinfo2 = findViewById(R.id.accountinfo2);
+        btn_accountinfo2.setOnClickListener(listener3);
 
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
         bottomNavigationView.setSelectedItemId(R.id.account);
@@ -40,15 +51,32 @@ public class Account extends AppCompatActivity {
                 return false;
             }
         });
-
-        btn_head = findViewById(R.id.head);
-        btn_head.setOnClickListener(listener);
     }
 
     Button.OnClickListener listener = new Button.OnClickListener() {
         public void onClick(View v) {
             Intent intent = new Intent(Account.this, AccountinActivity.class);
             startActivity(intent);
+            Account.this.finish();
         }
     };
+
+    Button.OnClickListener listener2 = new Button.OnClickListener() {
+        public void onClick(View v) {
+            Intent intent = new Intent(Account.this, MainActivity1.class);
+            startActivity(intent);
+            Account.this.finish();
+        }
+    };
+
+    Button.OnClickListener listener3 = new Button.OnClickListener() {
+        public void onClick(View v) {
+            Intent intent = new Intent(Account.this, MainActivity1.class);
+            startActivity(intent);
+            Account.this.finish();
+        }
+    };
+
+
+
 }

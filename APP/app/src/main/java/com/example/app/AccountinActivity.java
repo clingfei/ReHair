@@ -85,7 +85,6 @@ public class AccountinActivity extends AppCompatActivity {
         ZhiHuFragmentAdapter adapter = new ZhiHuFragmentAdapter(
                 getSupportFragmentManager(), fragmentList, titles);
 
-
         mViewpager.setAdapter(adapter);
 
         mScrollView.setOnScrollChangeListener(new View.OnScrollChangeListener() {
@@ -115,6 +114,5 @@ public class AccountinActivity extends AppCompatActivity {
         mRelativeLayout.setFocusable(true);
         mRelativeLayout.setFocusableInTouchMode(true);
         mRelativeLayout.requestFocus();
-
     }
 }
