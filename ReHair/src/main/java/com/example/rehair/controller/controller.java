@@ -371,8 +371,8 @@ class controller {
         String modifyType = jsonObject.getString("modifyType");
         String otherOptions = jsonObject.getString("otherOptions");
 
-        String res = userService.modifyPicture(userName, sourcePhotoName, targetPhotoName, modifyType, otherOptions);
-
+        // String res = userService.modifyPicture(userName, sourcePhotoName, targetPhotoName, modifyType, otherOptions);
+        String res = null;
         // 返回的应当是文件的名字？还是直接返回图片呢？暂时是未知的
         return res;
     }
@@ -383,14 +383,16 @@ class controller {
     public ModData modPic(HttpServletRequest req,
                              @RequestParam("faceType") String faceType,
                              @RequestParam("hairType") String hairType,
-                             @RequestParam("image") String image,
+                             @RequestParam("image") String image, // 已经编码的图片
                              @RequestParam("imgType") String imgType) {
         String userName = req.getSession().getAttribute("username").toString();
+        /*
         System.out.println(userName);
         System.out.println(faceType);
         System.out.println(hairType);
         System.out.println(image);
         System.out.println(imgType);
+        */
         return userService.modPic(userName, faceType, hairType, image, imgType);
     }
 
@@ -418,12 +420,14 @@ class controller {
         return "index.html";
     }
 
+    // 脸型？
     @ResponseBody
     @RequestMapping(value = "/getHairType", method = RequestMethod.GET)
     public List<String> getHairType(@RequestParam("faceType") int faceType) {
         return userService.getHairType(faceType);
     }
 
+    // 历史图片
     @RequestMapping(value = "/pastReHair", method = RequestMethod.GET)
     public String pastReHair() {
         return "pastReHair";

@@ -4,6 +4,8 @@ import com.example.rehair.dao.ShareDao;
 import com.example.rehair.utils.Utils;
 import com.example.rehair.dao.UserDao;
 import com.example.rehair.service.UserService;
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Service;
 
@@ -180,8 +182,11 @@ public class UserImpl implements UserService {
     // 以下就是整个处理图片类的实现，还是可以的
     // 每一个算法都需要使用网络通信和某个服务器获取下一步的消息
     // 毕竟，实现的算法是使用python写的，还有很多工作需要继续做
+    /*
     public String modifyPicture(String userName, String sourcePhotoName, String targetPhotoName,
                                 String modifyType, String otherOptions) {
+
+        // 这里涉及数据传输，先实验这个吧
         FaceAlgorithm faceAlgorithm = new FaceAlgorithm(sourcePhotoName, targetPhotoName);
         String res = null;
         switch (modifyType) {
@@ -208,6 +213,7 @@ public class UserImpl implements UserService {
         }
         return res;
     }
+    */
 
     public List<String> getTepPhoto() {
         String prePath = null;
@@ -242,6 +248,11 @@ public class UserImpl implements UserService {
    public ModData modPic(String userName,
                       String faceType, String hairType,
                       String image, String imgType) {
+
+
+
+        int score = 0;
+
         int seqid = userDao.querySeqId(userName);
         System.out.println(seqid);
         if (seqid == -1) {
@@ -255,15 +266,27 @@ public class UserImpl implements UserService {
                 path = path + seqid + "." + imgType;
                 userDao.savePhoto(userName, seqid, faceType, hairType, path);
 
+                FaceAlgorithm faceAlgorithm = new FaceAlgorithm(path, path, imgType);
+                String res = faceAlgorithm.exchangeFace(path, path, imgType);
+
+                JSONObject jsonthing = new JSONObject(res);
+
+                // System.out.println(c.getString("name"));
+                float score_plus = Float.parseFloat(jsonthing.getString("score"));
+                score = (int)score_plus;
+                // jsonObject.getString("Phone")
+                image = jsonthing.getString("outPic");
+
             } catch(FileNotFoundException e) {
                 System.out.println(e.getMessage());
-            } catch (IOException e) {
+            } catch (IOException | JSONException e) {
                 e.printStackTrace();
             }
         }
-        int score = 0;
+        // score是打出来的分，需要向数据库写入？
+
         userDao.insertScore(score, userName, seqid);
-        return new ModData(0, image);
+        return new ModData(score, image);
     }
 
     public List<PostReHair> postReHair(String userName) {

@@ -34,7 +34,7 @@ public interface UserService {
     UserInfo personalPage(String userName);
 
     //修改照片
-    String modifyPicture(String userName, String sourcePhotoName, String targetPhotoName, String modifyType, String otherOptions);
+    // String modifyPicture(String userName, String sourcePhotoName, String targetPhotoName, String modifyType, String otherOptions);
 
     //删除账号
     void delAct(String userName);

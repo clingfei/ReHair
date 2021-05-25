@@ -33,7 +33,7 @@ $(document).ready(function() {
             if (session !== user) {  // 不是user的内容 不知道是什么
                 for (let i=0; i<data.length; i++) {
 
-                    str = str + '<li class=/"rows/">';
+                    str = str + '<li class="row">';
 
                     // 单纯的用户名部分
                     str = str + "<div class = \"col-md-3\" style=\"height:100px;width:auto; margin:auto;\">";
@@ -83,7 +83,7 @@ $(document).ready(function() {
 
                         str = str + "<div class = \"col-md-3\" style=\"height:100px;width:auto; margin:auto;\">";
 
-                        str = str + '<img src="' + base64 + '">';
+                        str = str + '<img style=\"height:100px;width:auto;\" src="' + base64 + '">';
 
                         str = str + "</div>";
                     }

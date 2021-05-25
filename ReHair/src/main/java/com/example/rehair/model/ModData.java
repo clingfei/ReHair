@@ -2,7 +2,7 @@ package com.example.rehair.model;
 
 public class ModData {
     int score;
-    String image;
+    String image; // 只需要两个文件，如何填入呢？
 
     public ModData(int score, String image) {
         this.score = score;
