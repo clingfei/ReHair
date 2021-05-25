@@ -56,3 +56,4 @@ function current() {
     console.log(str);
     return str;
 }
+
