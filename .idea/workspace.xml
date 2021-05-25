@@ -41,6 +41,19 @@
   <component name="RebelAgentSelection">
     <selection>jr</selection>
   </component>
+  <component name="RunManager">
+    <configuration default="true" type="ArquillianJUnit" factoryName="" nameIsGenerated="true">
+      <option name="arquillianRunConfiguration">
+        <value>
+          <option name="containerStateName" value="" />
+        </value>
+      </option>
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+  </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
@@ -56,6 +69,7 @@
       <workItem from="1621912157335" duration="57000" />
       <workItem from="1621912226972" duration="55000" />
       <workItem from="1621912295135" duration="18000" />
+      <workItem from="1621930821169" duration="36000" />
     </task>
     <servers />
   </component>

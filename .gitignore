@@ -1,1 +1,4 @@
 /.idea/
+/AlgorithmServer/FaceSwap/model.dat
+/AlgorithmServer/FaceSwap/model-013.model
+/AlgorithmServer/ScoringFace/source/*
