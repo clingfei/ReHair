@@ -42,10 +42,10 @@ public class Account extends AppCompatActivity {
         });
 
         btn_head = findViewById(R.id.head);
-        btn_head.setOnClickListener(listener_1);
+        btn_head.setOnClickListener(listener);
     }
 
-    Button.OnClickListener listener_1 = new Button.OnClickListener() {
+    Button.OnClickListener listener = new Button.OnClickListener() {
         public void onClick(View v) {
             Intent intent = new Intent(Account.this, AccountinActivity.class);
             startActivity(intent);

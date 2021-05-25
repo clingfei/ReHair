@@ -18,7 +18,6 @@
         app:menu="@menu/menu_navigation"
         android:layout_alignParentBottom="true"/>
 
-<<<<<<< .merge_file_a28668
     <View
         android:layout_width="wrap_content"
         android:layout_height="55dp"
@@ -40,7 +39,7 @@
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:layout_marginLeft="150dp"
-        android:layout_marginTop="200dp"
+        android:layout_marginTop="230dp"
         android:background="@drawable/head"
         android:drawableTop="@drawable/ic_add_line"
         android:elevation="40dp" />
@@ -51,7 +50,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_marginLeft="165dp"
-        android:layout_marginTop="340dp"
+        android:layout_marginTop="360dp"
         android:layout_weight="1"
         android:gravity="center"
         android:text="Ninoric"
@@ -65,7 +64,7 @@
         android:layout_gravity="center"
         android:background="@android:color/transparent"
         android:layout_marginLeft="150dp"
-        android:layout_marginTop="400dp"
+        android:layout_marginTop="410dp"
         android:layout_weight="1"
         android:gravity="center"
         android:text="@string/button_info1"
@@ -110,7 +109,6 @@
 
     </RelativeLayout>
 
-=======
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -126,6 +124,5 @@
         app:layout_constraintEnd_toEndOf="parent"
         />
     </androidx.constraintlayout.widget.ConstraintLayout>
-    
->>>>>>> .merge_file_a14624
+
 </RelativeLayout>

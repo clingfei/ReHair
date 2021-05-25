@@ -23,7 +23,7 @@
                 android:id="@+id/backdrop"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@drawable/ic_toolbar_img"
+                android:background="@drawable/ic_background"
                 android:scaleType="centerCrop"
                 app:layout_collapseMode="parallax"
                 app:layout_collapseParallaxMultiplier="0.7" />
@@ -34,7 +34,8 @@
                 android:layout_height="72dp"
                 android:paddingTop="16dp"
                 app:layout_collapseMode="pin"
-                app:title="toolbar" />
+                app:title="Ninoric"
+                app:titleTextColor="@color/grey"/>
 
         </com.google.android.material.appbar.CollapsingToolbarLayout>
 
@@ -79,8 +80,8 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="16dp"
                         android:layout_marginTop="16dp"
-                        android:text="开封 | 计算机软件"
-                        android:textColor="@color/black" />
+                        android:text="Shanghai | Student"
+                        android:textColor="@color/grey" />
 
                     <View
                         android:id="@+id/divider1"
@@ -99,8 +100,8 @@
                         android:layout_below="@+id/divider1"
                         android:layout_marginLeft="16dp"
                         android:layout_marginTop="16dp"
-                        android:text="2赞同 | 0感谢 | 0收藏"
-                        android:textColor="@color/black" />
+                        android:text="Moments 14  |  Like 89 "
+                        android:textColor="@color/grey" />
 
                     <View
                         android:id="@+id/divider2"
@@ -119,8 +120,8 @@
                         android:layout_below="@+id/divider2"
                         android:layout_marginLeft="16dp"
                         android:layout_marginTop="16dp"
-                        android:text="0关注我的人 | 7我关注的人"
-                        android:textColor="@color/black" />
+                        android:text="Followings 33  | Followers 57"
+                        android:textColor="@color/grey" />
 
                     <View
                         android:id="@+id/divider3"

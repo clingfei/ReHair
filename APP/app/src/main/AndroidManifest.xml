@@ -30,7 +30,7 @@
         <activity android:name=".LoginActivity" />
         <activity android:name=".MainActivity" />
 
-        <activity android:name="AccountinActivity" ></activity>
+        <activity android:name="AccountinActivity" >  </activity>
 
         <activity android:name="Albums" ></activity>
         <activity android:name="Camera" ></activity>

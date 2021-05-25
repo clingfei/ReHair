@@ -39,7 +39,7 @@ public class AccountinActivity extends AppCompatActivity {
     @BindView(R.id.viewPager_layout)
     RelativeLayout mRelativeLayout;
 
-    private String[] titles = {"动态", "回答", "文章", "想法"};
+    private String[] titles = {"Moments", "Notice"};
     private List<Fragment> fragmentList;
     private int width, height;
 
@@ -63,7 +63,7 @@ public class AccountinActivity extends AppCompatActivity {
 
         mToolbar.setTitle("");
         mToolbar.setNavigationIcon(R.drawable.ic_back);
-        mToolbar.setTitle("邓富贵儿");
+        mToolbar.setTitle("Ninoric");
         setSupportActionBar(mToolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         mTabLayoutCopy.setVisibility(View.GONE);
@@ -105,7 +105,6 @@ public class AccountinActivity extends AppCompatActivity {
                 }
             }
         });
-
     }
 
     @Override
