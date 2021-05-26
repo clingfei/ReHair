@@ -77,9 +77,9 @@ public class MainActivity1 extends AppCompatActivity {
 
     Button.OnClickListener listener = new Button.OnClickListener() {
         public void onClick(View v) {
-            Intent intent = new Intent(SendMomentsActivity.this, Moments.class);
+            Intent intent = new Intent(MainActivity1.this, Moments.class);
             startActivity(intent);
-            SendMomentsActivity.this.finish();
+            MainActivity1.this.finish();
         }
     };
 
