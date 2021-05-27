@@ -1,6 +1,10 @@
 package com.example.app;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ListView;
 
 import androidx.appcompat.app.ActionBar;
@@ -12,6 +16,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity2 extends AppCompatActivity {
+
+
     private ListView lv_show;
     private List<ShowImage> imageList = new ArrayList<>();
     private ShowImageAdapter showImageAdapter;
@@ -21,7 +27,7 @@ public class MainActivity2 extends AppCompatActivity {
             "No.1","No.2","No.3","No.4","No.5","No.6","No.7","No.8"
     };
     private int[] showimageid = {
-            R.drawable.boy1, R.drawable.boy2, R.drawable.boy3, R.drawable.boy4, R.drawable.girl1, R.drawable.girl2, R.drawable.girl3, R.drawable.girl4
+            R.drawable.no1, R.drawable.no2, R.drawable.no3, R.drawable.no4, R.drawable.no5, R.drawable.no6, R.drawable.no7, R.drawable.no8
     };
 
     @Override
@@ -50,5 +56,6 @@ public class MainActivity2 extends AppCompatActivity {
         }
 
     }
+
 
 }

@@ -9,7 +9,7 @@
         android:layout_height="350dp"
         android:layout_gravity="center_horizontal"
         android:id="@+id/img"
-        android:src="@drawable/boy1"
+        android:src="@drawable/output1"
         android:scaleType="fitXY"
         />
 
