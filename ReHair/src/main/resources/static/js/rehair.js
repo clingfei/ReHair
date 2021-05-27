@@ -44,7 +44,7 @@ function getHairType(data) {
             console.log(data);
             let s = document.getElementById("checkboxs");
             var str = '<div class="blog-post" id="article">'  + '<h2 id="head2" style=\"color:white;\">' + fType.textContent + '</h2>';
-            for (let i=0; i<data.length; i++) {
+            for (let i=0; i<5; i++) { // 写死规定为5张小图片算了，还需要单独加一个接口，暂时还没有写好了。
                 str = str + '<p> <input type="checkbox" name="test" id="cbox' + i + '" value="' + (i+1) +
                     '"><label for="cbox " id="faceType' + i  + '" style=\"color:white;\">发型' + (i+1) + '</label>' +
                     '<img id="tem' + i + '" src="data:image/png;base64,' + data[i] + '" alt="" height="200" width="200"></p>';
@@ -97,11 +97,11 @@ function modifyPicture(file) {
             success: function(data) {
                 console.log(data);
                 let s = document.getElementById("res");
-                let str = '<p>SCORE: ' + data.score + '</p>' +
+                let str = '<p style ="color:white;">SCORE: ' + data.score + '</p>' +
                     '<img src="data:image/png;base64,' + data.image + '" alt="" height="200" width="200">';
                 if (data.score > 5)
-                    str = str + '<p>Wow! You are so Beautiful!</p>';
-                else str = str + '<p>Wow! You are so ugly!</p>';
+                    str = str + '<p style ="color:white;">Wow! You are so Beautiful!</p>';
+                else str = str + '<p style ="color:white;">Wow! You are so ugly!</p>';
                 s.innerHTML = str;
             }
         })

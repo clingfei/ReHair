@@ -9,7 +9,7 @@ import torchvision.transforms as transforms
 from PIL import Image
 import os
 os.environ['KMP_DUPLICATE_LIB_OK']='True'
-import net_model
+import ScoringFace.code.net_model as net_model
 # 在这里，我需要加载出网络后台，并且进行图片处理
 
 class pic_process:

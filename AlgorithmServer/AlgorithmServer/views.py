@@ -24,6 +24,14 @@ def hello(request):
     soucePic = json_object.get('sourcePic', 0)
     targetPic = json_object.get('targetPic', 0)
     picType = json_object.get('picType', 0)
+
+    faceType = json_object.get('faceType', 0)
+    hairType = json_object.get('hairType', 0)
+
+
+    print(faceType) # 这个种类使用什么标识呢？
+    print(hairType)
+
     target_dict = {}
 
     imgSrc = base64.urlsafe_b64decode(soucePic)
@@ -40,14 +48,17 @@ def hello(request):
 
     # 暂定type为0
     # 这样搞肯定无法处理并发了
-    output = exchangeFace(filename1, filename2, 0)
+    output = exchangeFace(filename2, filename1, 0, faceType, hairType)
+
     # 计算的是文件名字，这点谨记
-    res = calFaceScore(filename1) #规定总是jpg？不清楚的
+    # res = calFaceScore(filename1) #规定总是jpg？不清楚的
     f = open(output, 'rb')  # 二进制方式打开图文件
     ls_f = base64.b64encode(f.read())  # 读取文件内容，转换为base64编码
     ls_f = ls_f.decode('utf-8')
 
     f.close()
+
+    res = calFaceScore(output)
 
     target_dict['score'] = res
     target_dict['outPic'] = ls_f
@@ -57,6 +68,7 @@ def hello(request):
     # 其实生成时间戳tmp文件，之后解码为内存，同时删除，将内存块处理可以有效预防并发冲突
 
     # 这里的dict需要抽象一下
+    # 这两边连接了很多服务器？是合理的
     return response
 
 # 专门用于打分的函数，直接完成抽象

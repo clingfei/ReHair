@@ -229,17 +229,17 @@ def return_haircut(img_path):
     # 返回了一些图片的换脸后的照片？对的
     return documentName_list
 
-def exchangeFace(srcPicPath, tarPicPath, type):
+def exchangeFace(srcPicPath, tarPicPath, type, faceType, hairType):
     # def reface_single_process(im1_path, im2_path):
     # 根据type 选择不同的文件夹
 
     # 需要写入的数据都是完全固定的
-    loc = round(random.random()*5)
     label_dict = {0: 'Heart', 1: 'Oblong', 2: 'Oval', 3: 'Round', 4: 'Square'}
-    file_name = './FaceSwap/' + label_dict[0] + '/'  # 脸型文件夹
-    file_path = file_name + '/' + 'heart (998).jpg'
+    file_name = './FaceSwap/' + faceType + '/'  # 脸型文件夹
+    file_path = file_name + '/' + hairType + '.jpg'
 
-    res = reface_single_process(srcPicPath, file_path)
+    # 这里的路径写反了？难受哇
+    res = reface_single_process(file_path, srcPicPath)
     cv2.imwrite('output.jpg', res)
 
     return 'output.jpg'

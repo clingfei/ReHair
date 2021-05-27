@@ -45,26 +45,15 @@
                 <div style="width:20px;"></div>
                 <div class="btn-group btn-group-sm">
                     <button type="button" onclick="showFriend()" class="btn btn-primary"
-                            style=""> Following
+                            style=""> Following Person 关注的人
                     </button>
                 </div>
             </div>
 
             <br>
             <br>
-            <br>
 
-            <div class="row">
-                <div class="col-md-4"></div>
-                <div class="btn-group btn-group-sm col-md-6">
-                    <!-- 转义字符其实是反斜杠，这一点总是固定的 -->
-                    <a type="button" onclick="href='/rehair'" class="btn btn-primary" href="/rehair"
-                            > 换个发型？顺便颜值打个分
-                    </a>
-                </div>
-                <div class="col-md-2"></div>
 
-            </div>
 
 
 
@@ -72,6 +61,20 @@
 
             </div>
 
+            <br>
+            <br>
+
+            <div class="row">
+
+                <div class="btn-group btn-group-sm col-md-6">
+                    <!-- 转义字符其实是反斜杠，这一点总是固定的 -->
+                    <a type="button" onclick="href='/rehair'" class="btn btn-primary" href="/rehair"
+                    > 换个发型？顺便颜值打个分
+                    </a>
+                </div>
+                <div class="col-md-2"></div>
+
+            </div>
 
             <script>
                 $(function() {
@@ -87,13 +90,14 @@
                     tmp = tmp + "</li>";
                     $('#my_own_thing').append(tmp);
 
+                    var name = $('#user_name_loc').text();
                     tmp = "<li>";
                     tmp = tmp + "<a id=\"myShare\" th:href=\"\">我的动态</a>"
                     tmp = tmp + "</li>";
                     $('#my_own_thing').append(tmp);
 
-                    var name = $('#user_name_loc').text();
-                    console.log(name);
+
+
                     tmp = "<li>";
                     // "${/user/username}}"
                     tmp = tmp + "<a id=\"personal_page\" href=\"/user/" + name + '"';

@@ -20,7 +20,7 @@ function showFriend() {
                 for (let i = 0; i < data.length; i++) {
                     str = str +
                         '<li>' +
-                        '<div id="' + data[i] + '">' + data[i] + '<button type="button" name="' + data[i]
+                        '<div  id="' + data[i] + '">' +  '<div style="color:white;">' + data[i]  + '</div>' + '<button type="button" name="' + data[i]
                         + '" onclick="unfollow(this)">unfollow</button>' +
                         '</div>' +
                         '</li>';
