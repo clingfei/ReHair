@@ -19,11 +19,7 @@
         <activity android:name=".Account" />
         <activity android:name=".NavigationActivity" />
         <activity android:name=".IntroductoryActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
 
         <activity android:name=".LoginActivity" />
@@ -36,7 +32,13 @@
         <activity android:name="Camera" ></activity>
         <activity android:name=".AddFriend"></activity>
         <activity android:name=".MainActivity1"></activity>
-        <activity android:name=".MainActivity2"> </activity>
+        <activity android:name=".MainActivity2">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
         <provider
             android:name="androidx.core.content.FileProvider"
             android:authorities="com.example.lenovo.cameraalbumtest.fileprovider"
