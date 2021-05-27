@@ -1,0 +1,180 @@
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/mScro"
+    >
+    <LinearLayout
+        android:id="@+id/mLinear"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        >
+
+        <include layout="@layout/posttitle"/>
+
+        <HorizontalScrollView
+            android:layout_width="match_parent"
+            android:layout_height="300dp"
+            android:layout_marginTop="0dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="400dp"
+                    android:layout_height="280dp"
+                    android:layout_margin="20dp"
+                    android:src="@drawable/image_2" />
+
+                <ImageView
+                    android:layout_width="400dp"
+                    android:layout_height="280dp"
+                    android:layout_margin="20dp"
+                    android:src="@drawable/image_1" />
+
+                <ImageView
+                    android:layout_width="400dp"
+                    android:layout_height="280dp"
+                    android:layout_margin="20dp"
+                    android:src="@drawable/image_3" />
+
+                <ImageView
+                    android:layout_width="400dp"
+                    android:layout_height="280dp"
+                    android:layout_margin="20dp"
+                    android:src="@drawable/image_4" />
+
+            </LinearLayout>
+        </HorizontalScrollView>
+
+        <TextView
+            android:id="@+id/postcontent"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="16dp"
+            android:text="季节たちが 夕阳(ゆうひ)を连れてきて
+            影が私を 见つけて伸(の)びる"
+            android:textColor="@color/grey" />
+
+        <TextView
+            android:id="@+id/posttime"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="16dp"
+            android:text="05:21 2021-5-25"
+            android:textColor="@color/grey" />
+
+        <include layout="@layout/notice"/>
+
+        <View
+            android:id="@+id/gap"
+            android:layout_width="fill_parent"
+            android:layout_height="1px"
+            android:layout_below="@+id/posttime"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:layout_marginTop="16dp"
+            android:background="@color/black" />
+
+
+        <include layout="@layout/comment"/>
+
+        <View
+            android:id="@+id/gap2"
+            android:layout_width="fill_parent"
+            android:layout_height="1px"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:layout_marginTop="16dp"
+            android:background="@color/black" />
+        <include layout="@layout/comment2"/>
+
+        <View
+            android:id="@+id/gap3"
+            android:layout_width="fill_parent"
+            android:layout_height="1px"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:layout_marginTop="16dp"
+            android:background="@color/black" />
+        <include layout="@layout/comment3"/>
+
+        <View
+            android:id="@+id/gap4"
+            android:layout_width="fill_parent"
+            android:layout_height="1px"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:layout_marginTop="16dp"
+            android:background="@color/black" />
+        <include layout="@layout/comment4"/>
+
+        <View
+            android:id="@+id/gap5"
+            android:layout_width="fill_parent"
+            android:layout_height="1px"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:layout_marginTop="16dp"
+            android:background="@color/black" />
+        <include layout="@layout/comment5"/>
+
+        <View
+            android:id="@+id/divider1"
+            android:layout_width="fill_parent"
+            android:layout_height="1px"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:layout_marginTop="16dp"
+            android:background="@color/black" />
+
+
+        <TextView
+            android:id="@+id/mTv"
+            android:onClick="onClick"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:text="    "
+            android:gravity="center"
+            android:textSize="20sp"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:text="    "
+            android:gravity="center"
+            android:textSize="40sp"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:text="    "
+            android:gravity="center"
+            android:textSize="40sp"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:text="    "
+            android:gravity="center"
+            android:textSize="40sp"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:text="   "
+            android:gravity="center"
+            android:textSize="40sp"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:text="    "
+            android:gravity="center"
+            android:textSize="40sp"/>
+    </LinearLayout>
+</ScrollView>

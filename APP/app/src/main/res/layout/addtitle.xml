@@ -7,7 +7,7 @@
     android:id="@+id/tittle_back2"
     android:layout_width="50dp"
     android:layout_height="50dp"
-    android:src="@drawable/back"
+    android:src="@drawable/ic_arrow_back"
     android:layout_gravity="center"
     android:layout_margin="5dp"
     android:background="#00000000"/>
@@ -19,7 +19,7 @@
         android:layout_weight="1"
         android:gravity="center"
         android:text="Add Friend"
-        android:textColor="#fff"
+        android:textColor="@color/white"
         android:textSize="24sp"/>
 
 

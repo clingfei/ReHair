@@ -33,7 +33,7 @@ public class MainActivity1 extends AppCompatActivity {
         if (actionbar != null) {
             actionbar.hide();
         }
-        ImageButton tittleBack = (ImageButton) findViewById(R.id.tittle_back);
+        Button tittleBack = findViewById(R.id.tittle_back);
         ImageButton tittleAdd = (ImageButton) findViewById(R.id.tittle_add);
         tittleBack.setOnClickListener(new OnClickListener(){
             @Override
@@ -51,7 +51,7 @@ public class MainActivity1 extends AppCompatActivity {
 
         });
 
-        btn_backtoaccount = findViewById(R.id.btn_backToMoments);
+        btn_backtoaccount = findViewById(R.id.tittle_back);
         btn_backtoaccount.setOnClickListener(listener);
     }
 
@@ -71,21 +71,16 @@ public class MainActivity1 extends AppCompatActivity {
 
             Friend steve = new Friend("Steve", R.drawable.pizza);
             friendList.add(steve);
-
        }
     }
 
-    Button.OnClickListener listener = new Button.OnClickListener() {
+    ImageButton.OnClickListener listener = new Button.OnClickListener() {
         public void onClick(View v) {
-            Intent intent = new Intent(SendMomentsActivity.this, Moments.class);
+            Intent intent = new Intent(MainActivity1.this, Account.class);
             startActivity(intent);
-            SendMomentsActivity.this.finish();
+            MainActivity1.this.finish();
         }
     };
-
-
-
-
 
 }
 
