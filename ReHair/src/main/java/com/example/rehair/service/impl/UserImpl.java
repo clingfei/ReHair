@@ -267,7 +267,7 @@ public class UserImpl implements UserService {
                 userDao.savePhoto(userName, seqid, faceType, hairType, path);
 
                 FaceAlgorithm faceAlgorithm = new FaceAlgorithm(path, path, imgType);
-                String res = faceAlgorithm.exchangeFace(path, path, imgType);
+                String res = faceAlgorithm.exchangeFace(path, path, imgType, faceType, hairType);
 
                 JSONObject jsonthing = new JSONObject(res);
 

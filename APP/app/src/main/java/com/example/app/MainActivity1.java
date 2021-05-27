@@ -76,7 +76,11 @@ public class MainActivity1 extends AppCompatActivity {
 
     ImageButton.OnClickListener listener = new Button.OnClickListener() {
         public void onClick(View v) {
+<<<<<<< .merge_file_a06020
             Intent intent = new Intent(MainActivity1.this, Account.class);
+=======
+            Intent intent = new Intent(MainActivity1.this, Moments.class);
+>>>>>>> .merge_file_a21004
             startActivity(intent);
             MainActivity1.this.finish();
         }

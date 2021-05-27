@@ -53,10 +53,10 @@ $(document).ready(function() {
                         success: function (flag) {
                             console.log(flag);
                             if (flag === 1) {
-                                str = str + '<button type="button" name="' + data[i].userName + '" onclick="unfollow(this)">unfollow </button>' + '</p>';
+                                str = str + '<button type="button" style="background-color:aliceblue;color: black;" name="' + data[i].userName + '" onclick="unfollow(this)">unfollow </button>' + '</p>';
                             }
                             else if(flag === 2) {
-                                str = str + '<button type="button" name="' + data[i].userName + '" onclick="follow(this)">follow </button>' + '</p>';
+                                str = str + '<button type="button" style="background-color:aliceblue;color: black;" name="' + data[i].userName + '" onclick="follow(this)">follow </button>' + '</p>';
                             }
                             else str = str + '</p>';
                         }

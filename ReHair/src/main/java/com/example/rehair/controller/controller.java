@@ -92,6 +92,7 @@ class controller {
                                 @PathVariable("username") String username,
                                 HashMap<String, Object> map) {
         String user = (String) req.getSession().getAttribute("username");
+        System.out.println("what happened?" + user);
         if (!user.equals(username))
             return "redirect:/login";
         map.put("username", username);
